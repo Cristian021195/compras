@@ -1,0 +1,372 @@
+:root{
+  font-family: sans-serif;
+}
+
+/**
+ * WHAT IS THIS FILE?
+ *
+ * Globally applied styles. No matter which components are in the page or matching route,
+ * the styles in here will be applied to the Document, without any sort of CSS scoping.
+ *
+ */
+ body, div, ul{
+  margin: 0;
+  padding: 0;
+}
+body{
+  overscroll-behavior-y: contain;
+  overflow-x: hidden;
+}
+button{
+  border: none;
+}
+section{
+  margin: 1em;
+}
+h1{
+  font-size: 2.5em;
+  color: #4e4e4e;
+}
+label{
+  color: #4e4e4e;
+}
+h1::first-letter{
+  color:#ff713d;
+}
+html{
+  height: 100vh;
+  scroll-behavior: smooth;
+}
+.btn{
+  border-radius: 0.4em;
+  font-weight: bold;
+}
+.d-flex{display: flex;}
+.d-block{display: block;}
+.d-none{display: none;}
+.flex-wrap{
+  flex-wrap: wrap;
+}
+.justify-content-center{
+  justify-content: center;
+}
+.justify-content-end{
+  justify-content: end;
+}
+.justify-content-evenly{
+  justify-content: space-evenly;
+}
+.justify-content-between{
+  justify-content: space-between;
+}
+.justify-content-start{
+  justify-content: end;
+}
+.align-items-center{
+  align-items: center;
+}
+.align-items-end{
+  align-items: end;
+}
+.stripped tr:nth-child(even){
+  background-color: #e7e7e7;
+}
+.stripped th {
+  background-color: #e7e7e7;
+}
+table{
+  border-collapse: collapse;
+}
+table tr td, table tr th{
+  padding: 0.5em;
+}
+.p-1{padding: 0.6em;}
+.p-2{padding: 1em;}
+.p-3{padding: 1.5em;}
+.h-scroll-style::-webkit-scrollbar, .v-scroll-style::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+.h-scroll-style::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+}
+.h-scroll-style::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+  border-radius: 31px;
+}
+.v-scroll-style::-webkit-scrollbar-thumb {
+  background: #137be2;
+  border-radius: 50px;
+}
+.v-scroll-style::-webkit-scrollbar-track {
+  background: #8ec7ff;
+  border-radius: 31px;
+}
+.btn{
+  border-radius: 0.2em;
+  font-weight: bold;
+}
+.btn:active{
+  transform: scale(1.05);
+  box-shadow: inset 0 0 0 0.2em rgba(255,255,255,0.3);
+}
+.intro{
+  position: relative;
+  -webkit-animation: introMove 10s infinite;
+  animation: introMove 10s infinite;
+  z-index: -3;
+}
+input[type="text"],input[type="number"], select{
+  border:none;
+  border-bottom: 2px solid #ffa281;
+  font-size: 1em;
+  border-radius: 0.3em 0.3em 0 0;
+  padding: 0.2em;
+}
+input[type="text"]:focus,input[type="number"]:focus, select:focus{
+  outline:none;
+  border-bottom: 0.2em solid #ffa281;
+}
+@keyframes introMove{
+  0%{
+      -webkit-clip-path: polygon(3% 19%, 92% 5%, 96% 93%, 8% 89%);
+      clip-path: polygon(3% 19%, 92% 5%, 96% 93%, 8% 89%);
+  }
+  25%{
+      -webkit-clip-path: polygon(5% 8%, 91% 15%, 95% 89%, 8% 89%);
+      clip-path: polygon(5% 8%, 91% 15%, 95% 89%, 8% 89%);
+  }
+  50%{
+      -webkit-clip-path: polygon(16% 26%, 91% 15%, 95% 89%, 6% 75%);
+      clip-path: polygon(16% 26%, 91% 15%, 95% 89%, 6% 75%);
+  }
+  75%{
+      -webkit-clip-path: polygon(19% 7%, 91% 15%, 93% 72%, 8% 93%);
+      clip-path: polygon(19% 7%, 91% 15%, 93% 72%, 8% 93%);
+  }
+  100%{
+      -webkit-clip-path: polygon(3% 19%, 92% 5%, 96% 93%, 8% 89%);
+      clip-path: polygon(3% 19%, 92% 5%, 96% 93%, 8% 89%);
+  }
+}
+.card-header{
+  max-width: 10em;
+  max-width: 10em;
+  display: flex;
+  justify-content: center;
+  margin:1em auto;
+}
+/* For desktop: */
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+header{
+  background-color: #ff7f50;
+  width: 100%;
+  height: 4em;
+  position: sticky;
+  top: 0;
+}
+header ul li a{
+  text-decoration: none;
+  color: whitesmoke;
+}
+header ul li{
+  list-style: none;
+  font-size: 1.2em;
+  margin-left:1em;
+}
+header ul{
+  width: 34em;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="col-"] {
+    width: 100%;
+  }
+
+  .h-scroll{
+    height: 80vh;
+    display: flex;
+    justify-content: start;
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  .intro{
+    position: relative;
+    -webkit-animation: none;
+    animation: none;
+    padding: 2em;
+    display: flex; justify-content: center;
+  }
+  header{
+    height: 5em;
+  }
+  header ul{
+    overflow-x: scroll;
+    justify-content: start;
+    padding-left: 2em;
+    height: 100%;
+  }
+  ul{
+    width: 200%
+  }
+  ul li{
+    text-align: center;
+    margin: 0 2em 0 0em;
+  }
+}
+table tr:focus{
+  background-color: #ffd1c1!important;
+}
+/*ANIMACIONES*/
+
+
+/* ANIMACIONES - CSS*/
+.skeleton-blink{
+  animation-name: skeletonBlink;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+@keyframes skeletonBlink{
+0%{
+  background-color:rgba(255, 255, 255, 0.5);
+}
+50%{
+  background-color:rgba(0, 0, 0, 0.1);
+}
+100%{
+  background-color:rgba(255, 255, 255, 0.5);
+}
+}
+
+.minimize-v{
+  display: none;
+}
+
+@keyframes minimizeV{
+  0%{
+    height: auto;
+    opacity: 1;
+  }
+  100%{
+    display: none;
+    height: 0px;
+    opacity: 0;
+  }
+}
+
+.right-to-left{
+  transform: translate(-100%,0);
+  transition: 0.3s ease-in-out;
+}
+.left-to-right{
+  transform: translate(0,0);
+  transition: 0.3s ease-in-out;
+}
+.rotate-right{
+  transform: rotate(180deg);
+  transition: 0.3s ease-in-out;
+}
+.rotate-left{
+  transform: rotate(0deg);
+  transition: 0.3s ease-in-out;
+}
+
+.blur{
+  filter: blur(1px);
+  transition: all 0.3s;
+}
+
+.blur-in-animation{
+  animation: blurIn 0.3s ease;
+}
+@keyframes blurIn{
+  0% {
+    filter: blur(0);
+  }
+  100% {
+    filter: blur(1px);
+  }
+}
+
+.blur-out-animation{
+  animation: blurOut ease 1s;
+}
+@keyframes blurOut{
+  0% {
+    filter: blur(1px);
+  }
+  100% {
+    filter: blur(0);;
+  }
+}
+
+.pop-up {
+  animation-name: animate-pop;
+  animation-timing-function: cubic-bezier(0.26, 0.53, 0.74, 1.48);
+  animation-duration: 0.3s;
+}
+@keyframes animate-pop {
+  0% {
+    transform: scale(0.9, 0.9);
+  }
+
+  100% {
+    transform: scale(1, 1);
+  }
+}
+.shake{
+  animation-name: shake;
+  animation-duration: 0.8s;
+  animation-iteration-count: infinite;
+}
+@keyframes shake {
+  0%{
+    transform: translate(0.2em, 0)
+  }
+  50%{
+    transform: translate(-0.2em, 0)
+  }
+  100%{
+    transform: translate(0.2em, 0)
+  }
+}
+
+.pulse{
+  width: 4em;
+  height: 4em;
+  border-radius: 50%;    
+  text-align: center;
+  box-shadow: 25 25 25 var(--bg-white);
+  animation: pulseEffect 2s infinite;
+}
+@keyframes pulseEffect {
+  0% {
+    -moz-box-shadow: 0 0 0 0 var(--grey-0);
+    box-shadow: 0 0 0 0 var(--grey-0);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+      box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
