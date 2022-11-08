@@ -5,8 +5,8 @@ export const Inicio = () => {
     <section style={{textAlign:'center'}} className='pop-up'>
         <h1>Inicio</h1>
         <div style={{textAlign:'start', margin:'2em auto'}} className='col-6'>
-          <p><b>ListaCompras</b> es una app sencilla, el proposito es para mis practicas en Desarrollo Web.</p>
-          <p>El proposito de la app es surge al momento de tener que hacer compras en el supermercado, e ir cargando lo que necesitemos para tener mayor control de que compramos y cuanto vale cada cosa.</p>
+          <p><b>ListaCompras</b> es una app sencilla, el propósito es para mis prácticas en Desarrollo Web.</p>
+          <p>El propósito de la app es surge al momento de tener que hacer compras en el supermercado, e ir cargando lo que necesitemos para tener mayor control de que compramos y cuánto vale cada cosa.</p>
           <br />
           <h3>RECURSOS USADOS</h3>
           <p>La aplicación usa los siguientes recursos:</p>

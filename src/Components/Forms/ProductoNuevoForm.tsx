@@ -97,7 +97,7 @@ export const ProductoNuevoForm = () => {
                 <option value="limpieza">limpieza</option>
                 <option value="comestibles">comestibles</option>
                 <option value="bazar">bazar</option>
-                <option value="electrodomesticos">electrodomesticos</option>
+                <option value="electrodomesticos">electrodomésticos</option>
             </select>
         </label>
         </div>

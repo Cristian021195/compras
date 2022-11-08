@@ -44,7 +44,7 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
                     <th>PRECIO</th>
                     <th>CANTIDAD</th>
                     <th>DESCUENTO</th>
-                    <th>CATEGORIA</th>
+                    <th>CATEGORÍA</th>
                     <th>TOTAL</th>
                     <th>ACCIONES</th>
                 </tr>

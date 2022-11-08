@@ -5,7 +5,7 @@ export const Contacto = () => {
     <section style={{textAlign:'center'}} className='pop-up'>
         <h1>Contacto</h1>
         <div style={{textAlign:'start', margin:'2em auto'}} className='col-6'>
-          <p>Si te interesa ver mis otros proyectos, ideas, o solo saber algo de mi, te dejo mi mail y algunas redes sociales:</p>
+          <p>Si te interesa ver mis otros proyectos, ideas, o solo saber algo de mi, te dejo mí mail y algunas redes sociales:</p>
           <br />
           <h3>LINKS</h3>
           <div style={{display:'flex', flexWrap:'wrap'}}>
