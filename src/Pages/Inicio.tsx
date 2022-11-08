@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const Inicio = () => {
+  const [bip, setBip] = useState<any>(undefined);
+  useEffect(()=>{
+        window.addEventListener('beforeinstallprompt', (event) => {
+            setBip(event)
+        });
+  },[])
   return (
     <section style={{textAlign:'center'}} className='pop-up'>
         <h1>Inicio</h1>
@@ -20,6 +26,17 @@ export const Inicio = () => {
             <li>Dexie JS</li>
             <li>dexie-react-hooks</li>
           </ul>
+          <div>
+          {bip !== undefined ? <button
+                  onClick={async ()=>{
+                      if(bip) bip.prompt();
+                      const biip = await bip?.userChoice;
+                      if (biip?.outcome){
+                          if (biip?.outcome === 'accepted') {setBip(null)}
+                      }
+                  }}
+                className='btn p-1' style={{backgroundColor:'coral', color:'whitesmoke'}}>Instalar</button> : <></> }
+          </div>
         </div>
     </section>
   )

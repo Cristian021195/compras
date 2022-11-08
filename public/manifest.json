@@ -28,5 +28,13 @@
             "sizes": "512x512",
             "type": "image/png"
         }
+    ],
+    "screenshots":[
+        {
+            "src": "/screenshot_1.webp",
+            "sizes": "640x1136",
+            "type": "image/webp",
+            "label": "Para llevar el control al momento de comprar"
+        }
     ]
 }
