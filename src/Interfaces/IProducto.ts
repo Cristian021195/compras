@@ -6,5 +6,6 @@ export interface IProducto {
     descuento?: number;
     categoria?: string;
     total:number,
+    chekar:boolean
   }
   

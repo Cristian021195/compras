@@ -33,6 +33,15 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
             console.log(error)
         }    
     }
+    const chekar = async (id:string, status:boolean) => {
+        try {
+            let resp = await db.productos.get(id) as TProducto;
+            const edited = await db.productos.update(resp.id+"",{...resp, chekar:status});
+        } catch (error) {
+            alert('Ocurrio un error, reportar: '+ JSON.stringify({error}))
+            console.log(error)
+        }    
+    }
     
   return (
     <div style={{overflowX:'scroll'}} className={clases}>
@@ -66,6 +75,7 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
                             <button className='btn' style={{padding:'0.5em', backgroundColor:'#ffe68d'}} onClick={()=>{editar(p.id)}}>
                                 <b style={{color:'#4e4e4e'}}>✎</b>
                             </button>
+                            <input type="checkbox" style={{height:'1.5em', width:'1.5em',verticalAlign:'middle'}} onChange={(e)=>{chekar(p.id, e.target.checked)}} defaultChecked={p.chekar}/>
                         </td>
                     </tr>
                 })}

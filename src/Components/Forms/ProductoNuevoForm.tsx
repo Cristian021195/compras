@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { useFormAnimation } from '../../Hooks';
 import {FormEvent} from 'react'
 import { db } from '../../DB/db';
-import {v4 as uuid} from "uuid"
+import {v4 as uuid} from "uuid";
 import { EditContext } from '../../Context/EditContext';
 import { TProductoContext, TProducto } from '../../Interfaces/IContext';
 import { useLocation } from 'react-router-dom'
@@ -50,7 +50,8 @@ export const ProductoNuevoForm = () => {
                     cantidad: parseInt(data?.cantidad+""),
                     descuento: parseFloat(data?.descuento+""),
                     categoria: data?.categoria+"",
-                    total: parseFloat(data?.total+"")
+                    total: parseFloat(data?.total+""),
+                    chekar:true
                 });
                 if(id){alert('¡Editado!');}
 
@@ -62,7 +63,8 @@ export const ProductoNuevoForm = () => {
                     cantidad: parseInt(data?.cantidad+""),
                     descuento: parseFloat(data?.descuento+""),
                     categoria: data?.categoria+"",
-                    total: parseFloat(data?.total+"")
+                    total: parseFloat(data?.total+""),
+                    chekar:true
                 });
                 if(id){alert('¡Cargado!');}
             }
@@ -76,7 +78,7 @@ export const ProductoNuevoForm = () => {
         }
     }
   return (
-    <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', marginBottom:'2em'}} className='col-4'>
+    <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca'}} className='col-4'>
         <div className={minimize ? 'd-none' : 'd-block'} style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3'}}>
         <label htmlFor="nombre" style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Producto: 
             <input type="text" name='nombre' placeholder='Galletas x250' minLength={5} maxLength={30} required defaultValue={data?.nombre}/>

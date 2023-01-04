@@ -13,5 +13,6 @@ export type TProducto = {
     descuento?: number;
     categoria?: string;
     total:number,
+    chekar:boolean
 }
   
