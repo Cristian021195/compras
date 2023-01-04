@@ -13,6 +13,8 @@ import { useLocation } from 'react-router-dom'
     cantidad: number;
     descuento?: number;
     categoria?: string;
+    total:number,
+    chekar:boolean
 
 */
 const borrarCompras = async () => {
@@ -32,6 +34,8 @@ const borrarCompras = async () => {
 export const ProductoNuevoForm = () => {
     const {data, setData} = useContext(EditContext) as TProductoContext | any;
     const {minimize, setMinimize} = useFormAnimation();
+
+    const limpiar = () => { setData({id:'', nombre:'', precio:0, cantidad:0, descuento:0, categoria:'cualquiera', total:0, chekar:false}) }
 
     const cargaProducto = async (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -54,7 +58,7 @@ export const ProductoNuevoForm = () => {
                     chekar:true
                 });
                 if(id){alert('¡Editado!');}
-
+                limpiar();
             }else{
                 const id = await db.productos.add({
                     id: uuid(),
@@ -67,8 +71,9 @@ export const ProductoNuevoForm = () => {
                     chekar:true
                 });
                 if(id){alert('¡Cargado!');}
+                limpiar();
             }
-            setData({id:'', cantidad:1, precio:0, total:0, categoria:'cualquiera', nombre:'', descuento:0})
+            //setData({id:'', cantidad:1, precio:0, total:0, categoria:'cualquiera', nombre:'', descuento:0})
             //setData("")
         } catch (error) {
             console.log(error)
@@ -104,7 +109,7 @@ export const ProductoNuevoForm = () => {
         </label>
         </div>
         <button type="submit" className='btn' style={{backgroundColor:'coral', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}}>Cargar</button>
-        <button type="reset" className='btn' style={{backgroundColor:'dodgerblue', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}}>Limpiar</button>
+        <button type="reset" className='btn' style={{backgroundColor:'dodgerblue', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}} onClick={limpiar}>Limpiar</button>
         <button type="button" className='btn' style={{backgroundColor:'dodgerblue', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}} onClick={borrarCompras}>Borrar Compras</button>
         <button type='button' className={minimize ? 'btn rotate-right' : 'btn rotate-left'}  style={{backgroundColor:'coral', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}}
         onClick={()=>setMinimize(!minimize)}>&nbsp;▲&nbsp;</button>
