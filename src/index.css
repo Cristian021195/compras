@@ -74,6 +74,11 @@ html{
 .stripped th {
   background-color: #e7e7e7;
 }
+.selected-row{
+  box-shadow: 2px 0px 0px 0px #FFA281 inset;
+  -webkit-box-shadow: 2px 0px 0px 0px #FFA281 inset;
+  -moz-box-shadow: 2px 0px 0px 0px #FFA281 inset;
+}
 table{
   border-collapse: collapse;
 }

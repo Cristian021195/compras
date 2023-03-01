@@ -53,20 +53,22 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
                     <th>PRECIO</th>
                     <th>CANTIDAD</th>
                     <th>DESCUENTO</th>
-                    <th>CATEGORÍA</th>
                     <th>TOTAL</th>
                     <th>ACCIONES</th>
                 </tr>
             </thead>
             <tbody>
                 {productos?.map((p,p_i)=>{
-                    return <tr key={p_i} tabIndex={0}>
-                        <td>{p_i}</td>
+                    return <tr key={p_i} tabIndex={0} style={{backgroundColor: p.chekar ? '#fcf1ed' : 'transparent'}}>
+                        <td>
+                            <div className={`${p.chekar && 'selected-row'}`} style={{paddingLeft:'10px'}}>
+                                {p_i}
+                            </div>                            
+                        </td>
                         <td>{p.nombre}</td>
                         <td>{p.precio}</td>
                         <td>{p.cantidad}</td>
                         <td>{p.descuento}</td>
-                        <td>{p.categoria}</td>
                         <td>{p.total}</td>
                         <td>
                             <button className='btn' style={{padding:'0.5em', backgroundColor:'#ffa892'}} onClick={()=>{eliminar(p.id)}}>

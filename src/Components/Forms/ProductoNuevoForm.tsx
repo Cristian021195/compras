@@ -35,7 +35,7 @@ export const ProductoNuevoForm = () => {
     const {data, setData} = useContext(EditContext) as TProductoContext | any;
     const {minimize, setMinimize} = useFormAnimation();
 
-    const limpiar = () => { setData({id:'', nombre:'', precio:0, cantidad:0, descuento:0, categoria:'cualquiera', total:0, chekar:false}) }
+    const limpiar = () => { setData({id:'', nombre:'', precio:0, cantidad:1, descuento:0, categoria:'cualquiera', total:0, chekar:false}) }
 
     const cargaProducto = async (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -86,19 +86,19 @@ export const ProductoNuevoForm = () => {
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca'}} className='col-4'>
         <div className={minimize ? 'd-none' : 'd-block'} style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3'}}>
         <label htmlFor="nombre" style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Producto: 
-            <input type="text" name='nombre' placeholder='Galletas x250' minLength={5} maxLength={30} required defaultValue={data?.nombre}/>
+            <input type="text" name='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>
         </label>
         <label htmlFor="precio"  style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Precio: (con punto)
             <input type="number" name="precio" min={0} step='0.01' required defaultValue={data?.precio}/>
         </label>
         <label htmlFor="number" style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Cantidad: (n)
-            <input type="number" name="cantidad" min={1} required defaultValue={data?.cantidad}/>
+            <input type="number" name="cantidad" min={1} required defaultValue={1}/>
         </label>
         <label htmlFor="descuento" style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Descuento (%): 
-            <input type="number" name="descuento" min={0} required defaultValue={data?.descuento}/>
+            <input type="number" name="descuento" min={0} required defaultValue={0}/>
         </label>
         <input type="hidden" name="id" defaultValue={data?.id}/>
-        <label htmlFor="categoria" style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Categoria: 
+        <label htmlFor="categoria" style={{padding:'1em', display:'none', justifyContent:'space-between', alignItems:'end'}}>Categoria: 
             <select name="categoria" required value={data?.categoria}>
                 <option value="cualquiera">cualquiera</option>
                 <option value="limpieza">limpieza</option>
