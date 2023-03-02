@@ -83,7 +83,7 @@ export const ProductoNuevoForm = () => {
         }
     }
   return (
-    <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca'}} className='col-4'>
+    <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
         <div className={minimize ? 'd-none' : 'd-block'} style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3'}}>
         <label htmlFor="nombre" style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Producto: 
             <input type="text" name='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>

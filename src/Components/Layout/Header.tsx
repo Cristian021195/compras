@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export const Header = () => {
     return (
-        <header className='d-flex justify-content-end align-items-center'>
+        <header className='d-flex justify-content-end align-items-center' style={{zIndex:1}}>
           <ul style={{display:'flex', justifyContent:'start'}} className='h-scroll-style'>
             <li>
                 <NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to={'/inicio'}>Inicio</NavLink>
