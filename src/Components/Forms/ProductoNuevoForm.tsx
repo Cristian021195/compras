@@ -83,23 +83,24 @@ export const ProductoNuevoForm = () => {
         }
     }
   return (
+    <>
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
         <div className={minimize ? 'd-none' : 'd-block'} style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3'}}>
         <label htmlFor="nombre" style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Producto: 
             <input type="text" name='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>
         </label>
         <label htmlFor="precio"  style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Precio: (con punto)
-            <input type="number" name="precio" min={0} step='0.01' required defaultValue={data?.precio}/>
+            <input type="number" name="precio" min={0} step='0.01' required value={data?.precio} onChange={(e)=>{setData({...data, precio: e.target.value})}}/>
         </label>
         <label htmlFor="number" style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Cantidad: (n)
-            <input type="number" name="cantidad" min={1} required defaultValue={1}/>
+            <input type="number" name="cantidad" min={1} required value={data?.cantidad} onChange={(e)=>{setData({...data, cantidad: e.target.value})}}/>
         </label>
         <label htmlFor="descuento" style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Descuento (%): 
-            <input type="number" name="descuento" min={0} required defaultValue={0}/>
+            <input type="number" name="descuento" min={0} required value={data?.descuento} onChange={(e)=>{setData({...data, descuento: e.target.value})}}/>
         </label>
         <input type="hidden" name="id" defaultValue={data?.id}/>
         <label htmlFor="categoria" style={{padding:'1em', display:'none', justifyContent:'space-between', alignItems:'end'}}>Categoria: 
-            <select name="categoria" required value={data?.categoria}>
+            <select name="categoria" required defaultValue={data?.categoria}>
                 <option value="cualquiera">cualquiera</option>
                 <option value="limpieza">limpieza</option>
                 <option value="comestibles">comestibles</option>
@@ -114,5 +115,6 @@ export const ProductoNuevoForm = () => {
         <button type='button' className={minimize ? 'btn rotate-right' : 'btn rotate-left'}  style={{backgroundColor:'coral', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}}
         onClick={()=>setMinimize(!minimize)}>&nbsp;▲&nbsp;</button>
     </form>
+    </>
   )
 }

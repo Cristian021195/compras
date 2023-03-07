@@ -15,14 +15,14 @@ id: string;
 export const EditContext = createContext<any>("");
 
 export const EditProvider = ({children}:IProps) => {
-    const [data, setData] = useState<any>({});
+    const [data, setData] = useState<any>({id:'', nombre:'', precio:0, cantidad:1, descuento:0, categoria:'cualquiera', total:0, chekar:false});
     const location = useLocation();
 
-    useEffect(()=>{
+    /*useEffect(()=>{
         if(data !== ""){
             setData("");
         }
-    },[location.pathname])
+    },[location.pathname])*/
     return (
         <EditContext.Provider value={{data, setData}}>
             {children}
