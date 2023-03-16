@@ -8,8 +8,7 @@ import { EditProvider } from './Context/EditContext'
 
 function App() {
 
-  return (
-    
+  return (    
       <BrowserRouter>
         <EditProvider>
           <div id="top"></div>
