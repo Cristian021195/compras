@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSlideRouter } from '../Hooks';
+import { IRouter } from '../Interfaces';
 
-interface IProps{
-  runner:number,
-  setRunner:any
-}
-
-export const Inicio = ({runner, setRunner}:IProps) => {
+export const Inicio = ({runner, setRunner}:IRouter) => {
   const {pos1, pos2, setPos1, setPos2} = useSlideRouter(window.location.pathname, runner, setRunner);
   const [bip, setBip] = useState<any>(undefined);
   useEffect(()=>{

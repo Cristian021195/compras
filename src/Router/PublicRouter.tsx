@@ -1,7 +1,8 @@
-import {useState} from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import {useEffect, useState} from 'react'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { HeadTitleUrl } from '../Helpers'
 import { Contacto, Inicio, Nuevo } from '../Pages'
+import { useSlideRouter } from '../Hooks'
 /*import { Configuracion } from '../Pages/Configuracion'
 import { Contacto } from '../Pages/Contacto'
 import { Escritos } from '../Pages/Escritos'
@@ -11,10 +12,14 @@ import {HeadTitleUrl} from '../Helpers/HeadTitleUrl';
 import { EscritoSingular } from '../Components/EscritoSingular'
 import { Nuevo } from '../Pages/Nuevo'*/
 
-export const PublicRouter = () => {
+interface IProps{
+  runner:number,
+  setRunner:any
+}
+export const PublicRouter = ({runner, setRunner}:IProps) => {
   const location = useLocation()
-  HeadTitleUrl(location.pathname, 'Lista Compras');
-  const [runner, setRunner] = useState(0);
+  HeadTitleUrl(location.pathname, 'Lista Compras'); 
+  
   return (
     <Routes>
         <Route index element={<Inicio runner={runner} setRunner={setRunner}/>}></Route>

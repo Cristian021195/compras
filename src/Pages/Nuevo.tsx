@@ -5,14 +5,10 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../DB/db';
 import { cantidadProductos, cantidadTotalProductos, totalProducto } from '../Helpers';
 import { useSlideRouter } from '../Hooks';
+import { IRouter } from '../Interfaces';
 
 
-interface IProps{
-  runner:number,
-  setRunner:any
-}
-
-export const Nuevo = ({runner, setRunner}:IProps) => {
+export const Nuevo = ({runner, setRunner}:IRouter) => {
   const {pos1, pos2, setPos1, setPos2} = useSlideRouter(window.location.pathname, runner, setRunner);
   const [alerta, setAlerta] = useState<string>('');
   const productos = useLiveQuery(
