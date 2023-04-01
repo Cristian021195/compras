@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { useSlideRouter } from '../Hooks';
 
-export const Inicio = () => {
+interface IProps{
+  runner:number,
+  setRunner:any
+}
+
+export const Inicio = ({runner, setRunner}:IProps) => {
+  const {pos1, pos2, setPos1, setPos2} = useSlideRouter(window.location.pathname, runner, setRunner);
   const [bip, setBip] = useState<any>(undefined);
   useEffect(()=>{
         window.addEventListener('beforeinstallprompt', (event) => {
@@ -8,7 +15,7 @@ export const Inicio = () => {
         });
   },[])
   return (
-    <section style={{textAlign:'center'}} className='pop-up'>
+    <section style={{textAlign:'center'}} className='pop-up' id='detector'>
         <h1>Inicio</h1>
         <div style={{textAlign:'start', margin:'2em auto'}} className='col-6'>
           <p><b>ListaCompras</b> es una app sencilla, el propósito es para mis prácticas en Desarrollo Web.</p>

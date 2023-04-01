@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import { BrowserRouter } from 'react-router-dom'
 import './App.css'
 import { PublicRouter } from './Router/PublicRouter'
 import { Header } from './Components/Layout';
 import { EditProvider } from './Context/EditContext'
+//import { useSlideRouter } from './Hooks'
 
-function App() {
-
+function App() {  
+  //const {pos1, pos2, setPos1, setPos2} = useSlideRouter(window.location.pathname)
   return (    
       <BrowserRouter>
         <EditProvider>

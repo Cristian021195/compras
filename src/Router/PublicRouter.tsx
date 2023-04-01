@@ -1,4 +1,4 @@
-import React from 'react'
+import {useState} from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { HeadTitleUrl } from '../Helpers'
 import { Contacto, Inicio, Nuevo } from '../Pages'
@@ -13,13 +13,14 @@ import { Nuevo } from '../Pages/Nuevo'*/
 
 export const PublicRouter = () => {
   const location = useLocation()
-  HeadTitleUrl(location.pathname, 'Lista Compras')
+  HeadTitleUrl(location.pathname, 'Lista Compras');
+  const [runner, setRunner] = useState(0);
   return (
     <Routes>
-        <Route index element={<Inicio/>}></Route>
-        <Route path='/inicio' element={<Inicio/>}></Route>
-        <Route path='/nuevo' element={<Nuevo/>}></Route>
-        <Route path='/contacto' element={<Contacto/>}></Route>
+        <Route index element={<Inicio runner={runner} setRunner={setRunner}/>}></Route>
+        <Route path='/inicio' element={<Inicio runner={runner} setRunner={setRunner}/>}></Route>
+        <Route path='/nuevo' element={<Nuevo runner={runner} setRunner={setRunner}/>}></Route>
+        <Route path='/contacto' element={<Contacto runner={runner} setRunner={setRunner}/>}></Route>
     </Routes>
   )
 }
