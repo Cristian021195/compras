@@ -186,46 +186,31 @@ select option{
 .col-12 {width: 100%;}
 
 /* font size */
-.font-sm p, .font-sm label, .font-sm select, .font-sm a, .font-sm td, .font-sm th, .font-sm ul li{
+.font-sm p, .font-sm label, .font-sm select, .font-sm .btn, .font-sm td, .font-sm th, .font-sm .recursos li{
   font-size: 0.8em;
 }
-.font-md p, .font-md label, .font-md select, .font-md a, .font-md td, .font-md th, .font-md ul li{
+.font-md p, .font-md label, .font-md select, .font-md .btn, .font-md td, .font-md th, .font-md .recursos li{
   font-size: 1em;
 }
-.font-lg p, .font-lg label, .font-lg select, .font-lg a, .font-lg td, .font-lg th, .font-lg ul li{
+.font-lg p, .font-lg label, .font-lg select, .font-lg .btn, .font-lg td, .font-lg th, .font-lg .recursos li{
   font-size: 1.2em;
 }
 .font-sm button{font-size: 0.7em;}
 .font-md button{font-size: 0.8em;}
 .font-lg button{font-size: 1em;}
 
-.font-sm h3{
-  font-size: 1.25em;
-}
-.font-md h3{
-  font-size: 1.5em;
-}
-.font-lg h3{
-  font-size: 1.75em;
-}
-.font-sm h1{
-  font-size: 2.25em;
-}
-.font-md h1{
-  font-size: 2.5em;
-}
-.font-lg h1{
-  font-size: 2.75em;
-}
-.font-sm h2{
-  font-size: 1.25em;
-}
-.font-md h2a{
-  font-size: 1.5em;
-}
-.font-lg h2{
-  font-size: 1.75em;
-}
+.font-sm h3{font-size: 1.25em;}
+.font-md h3{  font-size: 1.5em;}
+.font-lg h3{  font-size: 1.75em;}
+
+.font-sm h1{  font-size: 2.25em;}
+.font-md h1{  font-size: 2.5em;}
+.font-lg h1{  font-size: 2.75em;}
+
+.font-sm h2{  font-size: 1.25em;}
+.font-md h2{  font-size: 1.5em;}
+.font-lg h2{  font-size: 1.75em;}
+.font-md header a{  font-size: 1em; } .font-lg header a{  font-size: 1.2em; } .font-sm header a{  font-size: 0.85em; }
 
 header{
   background-color: #ff7f50;

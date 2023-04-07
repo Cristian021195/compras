@@ -9,6 +9,7 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
         window.addEventListener('beforeinstallprompt', (event) => {
             setBip(event)
         });
+        document.body.classList.add('font-'+font);
   },[])
   return (
     <section style={{textAlign:'center'}} className='pop-up' id='detector'>
@@ -35,7 +36,7 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
           
           <h3>RECURSOS USADOS</h3>
           <p>La aplicación usa los siguientes recursos:</p>
-          <ul style={{width:'12em', margin:'0 auto'}}>
+          <ul className='recursos' style={{width:'12em', margin:'0 auto'}}>
             <li>React JS</li>
             <li>TypeScript</li>
             <li>Vite</li>
