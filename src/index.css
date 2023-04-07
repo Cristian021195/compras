@@ -41,9 +41,9 @@ html{
   border-radius: 0.4em;
   font-weight: bold;
 }
-.d-flex{display: flex;}
-.d-block{display: block;}
-.d-none{display: none;}
+.d-flex{display: flex!important;}
+.d-block{display: block!important;}
+.d-none{display: none!important;}
 .flex-wrap{
   flex-wrap: wrap;
 }
@@ -133,6 +133,15 @@ input[type="text"]:focus,input[type="number"]:focus, select:focus{
   outline:none;
   border-bottom: 0.2em solid #ffa281;
 }
+fieldset {
+  max-width: 320px;
+  border-radius: 0.5em;
+  border: 2px solid #ffa281;
+}
+select option{
+  background-color: #ff7f50;
+  color: white;
+}
 @keyframes introMove{
   0%{
       -webkit-clip-path: polygon(3% 19%, 92% 5%, 96% 93%, 8% 89%);
@@ -175,6 +184,48 @@ input[type="text"]:focus,input[type="number"]:focus, select:focus{
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
+
+/* font size */
+.font-sm p, .font-sm label, .font-sm select, .font-sm a, .font-sm td, .font-sm th, .font-sm ul li{
+  font-size: 0.8em;
+}
+.font-md p, .font-md label, .font-md select, .font-md a, .font-md td, .font-md th, .font-md ul li{
+  font-size: 1em;
+}
+.font-lg p, .font-lg label, .font-lg select, .font-lg a, .font-lg td, .font-lg th, .font-lg ul li{
+  font-size: 1.2em;
+}
+.font-sm button{font-size: 0.7em;}
+.font-md button{font-size: 0.8em;}
+.font-lg button{font-size: 1em;}
+
+.font-sm h3{
+  font-size: 1.25em;
+}
+.font-md h3{
+  font-size: 1.5em;
+}
+.font-lg h3{
+  font-size: 1.75em;
+}
+.font-sm h1{
+  font-size: 2.25em;
+}
+.font-md h1{
+  font-size: 2.5em;
+}
+.font-lg h1{
+  font-size: 2.75em;
+}
+.font-sm h2{
+  font-size: 1.25em;
+}
+.font-md h2a{
+  font-size: 1.5em;
+}
+.font-lg h2{
+  font-size: 1.75em;
+}
 
 header{
   background-color: #ff7f50;

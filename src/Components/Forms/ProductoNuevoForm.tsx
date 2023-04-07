@@ -86,16 +86,16 @@ export const ProductoNuevoForm = () => {
     <>
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
         <div className={minimize ? 'd-none' : 'd-block'} style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3'}}>
-        <label htmlFor="nombre" style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Producto: 
+        <label htmlFor="nombre" style={{padding:'1em'}} className='d-flex align-items-center justify-content-between flex-wrap'>Producto: 
             <input type="text" name='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>
         </label>
-        <label htmlFor="precio"  style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Precio: (con punto)
+        <label htmlFor="precio"  style={{padding:'1em'}} className='d-flex align-items-center justify-content-between flex-wrap'>Precio: (con punto)
             <input type="number" name="precio" min={0} step='0.01' required value={data?.precio} onChange={(e)=>{setData({...data, precio: e.target.value})}}/>
         </label>
-        <label htmlFor="number" style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Cantidad: (n)
+        <label htmlFor="number" style={{padding:'1em'}} className='d-flex align-items-center justify-content-between flex-wrap'>Cantidad: (n)
             <input type="number" name="cantidad" min={1} required value={data?.cantidad} onChange={(e)=>{setData({...data, cantidad: e.target.value})}}/>
         </label>
-        <label htmlFor="descuento" style={{padding:'1em', display:'flex', justifyContent:'space-between', alignItems:'end'}}>Descuento (%): 
+        <label htmlFor="descuento" style={{padding:'1em'}} className='d-flex align-items-center justify-content-between flex-wrap'>Descuento (%): 
             <input type="number" name="descuento" min={0} required value={data?.descuento} onChange={(e)=>{setData({...data, descuento: e.target.value})}}/>
         </label>
         <input type="hidden" name="id" defaultValue={data?.id}/>

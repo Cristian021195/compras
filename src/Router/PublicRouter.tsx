@@ -3,6 +3,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { HeadTitleUrl } from '../Helpers'
 import { Contacto, Inicio, Nuevo } from '../Pages'
 import { useSlideRouter } from '../Hooks'
+import { IRouter } from '../Interfaces'
 /*import { Configuracion } from '../Pages/Configuracion'
 import { Contacto } from '../Pages/Contacto'
 import { Escritos } from '../Pages/Escritos'
@@ -12,18 +13,14 @@ import {HeadTitleUrl} from '../Helpers/HeadTitleUrl';
 import { EscritoSingular } from '../Components/EscritoSingular'
 import { Nuevo } from '../Pages/Nuevo'*/
 
-interface IProps{
-  runner:number,
-  setRunner:any
-}
-export const PublicRouter = ({runner, setRunner}:IProps) => {
+export const PublicRouter = ({runner, setRunner, font, setFont}:IRouter) => {
   const location = useLocation()
   HeadTitleUrl(location.pathname, 'Lista Compras'); 
   
   return (
     <Routes>
         <Route index element={<Inicio runner={runner} setRunner={setRunner}/>}></Route>
-        <Route path='/inicio' element={<Inicio runner={runner} setRunner={setRunner}/>}></Route>
+        <Route path='/inicio' element={<Inicio runner={runner} setRunner={setRunner} font={font} setFont={setFont}/>}></Route>
         <Route path='/nuevo' element={<Nuevo runner={runner} setRunner={setRunner}/>}></Route>
         <Route path='/contacto' element={<Contacto runner={runner} setRunner={setRunner}/>}></Route>
     </Routes>
