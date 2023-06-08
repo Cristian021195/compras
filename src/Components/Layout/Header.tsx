@@ -8,20 +8,28 @@ export const Header = ({runner, setRunner}:IRouter) => {
         <header className='d-flex justify-content-end align-items-center' style={{zIndex:1}}>
           <ul style={{display:'flex', justifyContent:'start'}} className='h-scroll-style'>
             <li>
-                <a onClick={()=>setRunner(0)}>Inicio</a>
+                <NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to='/inicio' onClick={()=>setRunner(0)}>Inicio</NavLink>
             </li>            
             <li>
-                <a onClick={()=>setRunner(1)}>Nueva Compra</a>
+                <NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to='/nuevo' onClick={()=>setRunner(1)}>Nueva Compra</NavLink>
             </li>
             <li>
-                <a onClick={()=>setRunner(2)}>Contacto</a>
+                <NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to='/contacto' onClick={()=>setRunner(2)}>Contacto</NavLink>
             </li>
           </ul>
         </header>
       );
 }
 /*
+<NavLink to='/' className={({isActive})=> isActive === true ? 'actual' : ''}  onClick={()=>setRunner(0)}>Inicio</NavLink>
+<NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to={'/nuevo'} onClick={()=>setRunner(1)}>Nueva Compra</NavLink>
+<NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to={'/contacto'} onClick={()=>setRunner(2)}>Contacto</NavLink>
+
 <NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to={'/inicio'}>Inicio</NavLink>
 <NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to={'/nuevo'}>Nueva Compra</NavLink>
 <NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to={'/contacto'}>Contacto</NavLink>
+
+<a onClick={()=>setRunner(0)}>Inicio</a>
+<a onClick={()=>setRunner(1)}>Nueva Compra</a>
+<a onClick={()=>setRunner(2)}>Contacto</a>
 */

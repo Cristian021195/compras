@@ -11,7 +11,12 @@ function App() {
   const [font, setFont] = useState<string>(localStorage.getItem('font') || 'md');
 
 
-  //useEffect(()=>{console.log(font)},[font])
+  useEffect(()=>{
+    localStorage.setItem('font', font);
+    document.body.className = '';
+    document.body.classList.add('font-'+font);
+  }
+  ,[font])
 
   
   return (    

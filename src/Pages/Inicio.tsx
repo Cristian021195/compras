@@ -5,6 +5,11 @@ import { IRouter } from '../Interfaces';
 export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
   const {pos1, pos2, setPos1, setPos2} = useSlideRouter(window.location.pathname, runner, setRunner);
   const [bip, setBip] = useState<any>(undefined);
+  const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
+
+  useEffect(()=>{
+    localStorage.setItem('sound', sound+'');
+  },[sound])
   useEffect(()=>{
         window.addEventListener('beforeinstallprompt', (event) => {
             setBip(event)
@@ -23,13 +28,17 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
               <legend><label htmlFor="fuente"><b>Tamaño de fuente: </b></label></legend>
               <select name="fuente" id="fuente" onChange={(e)=>{
                 setFont(e.target.value);
-                localStorage.setItem('font', e.target.value);
-                document.body.className = '';
-                document.body.classList.add('font-'+e.target.value);
                 }} defaultValue={font}>
                 <option value="sm">Pequeño</option>
                 <option value="md">Normal</option>
                 <option value="lg">Grande</option>
+              </select>
+            </fieldset>
+            <fieldset className='d-flex align-items-center justify-content-center'>
+              <legend><label htmlFor="sonido"><b>Sonido: </b></label></legend>
+              <select name="sonido" id="sonido" onChange={(e)=>{ setSound(JSON.parse(e.target.value)) }} defaultValue={sound+''}>
+                <option value="true">Habilitado</option>
+                <option value="false">Deshabilitado</option>
               </select>
             </fieldset>
           </article>

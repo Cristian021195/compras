@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useFormAnimation } from '../../Hooks';
 import {FormEvent} from 'react'
 import { db } from '../../DB/db';
@@ -6,6 +6,7 @@ import {v4 as uuid} from "uuid";
 import { EditContext } from '../../Context/EditContext';
 import { TProductoContext, TProducto } from '../../Interfaces/IContext';
 import { useLocation } from 'react-router-dom'
+import { beep } from '../../Helpers';
 /*
     id: string;
     nombre: string;
@@ -34,6 +35,7 @@ const borrarCompras = async () => {
 export const ProductoNuevoForm = () => {
     const {data, setData} = useContext(EditContext) as TProductoContext | any;
     const {minimize, setMinimize} = useFormAnimation();
+    const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
 
     const limpiar = () => { setData({id:'', nombre:'', precio:0, cantidad:1, descuento:0, categoria:'cualquiera', total:0, chekar:false}) }
 
@@ -57,7 +59,13 @@ export const ProductoNuevoForm = () => {
                     total: parseFloat(data?.total+""),
                     chekar:true
                 });
-                if(id){alert('¡Editado!');}
+                if(id){
+                    if(sound){
+                        beep();
+                    }else{
+                        alert('¡Editado!');
+                    }
+                }
                 limpiar();
             }else{
                 const id = await db.productos.add({
@@ -70,7 +78,13 @@ export const ProductoNuevoForm = () => {
                     total: parseFloat(data?.total+""),
                     chekar:true
                 });
-                if(id){alert('¡Cargado!');}
+                if(id){
+                    if(sound){
+                        beep();
+                    }else{
+                        alert('¡Cargado!');
+                    }
+                }
                 limpiar();
             }
             //setData({id:'', cantidad:1, precio:0, total:0, categoria:'cualquiera', nombre:'', descuento:0})
