@@ -11,7 +11,7 @@ const updateSW = registerSW({
       updateSW();
       //location.reload();
       let $recarga = document.getElementById('recarga')!;
-      $recarga.click();
+      $recarga?.click();
     }
   },
   onOfflineReady() {},
