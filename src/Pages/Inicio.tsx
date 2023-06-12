@@ -18,7 +18,7 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
   },[])
   return (
     <section style={{textAlign:'center'}} className='pop-up' id='detector'>
-        <h1>BInicio</h1>
+        <h1>Inicio</h1>
         <div style={{textAlign:'start', margin:'2em auto'}} className='col-6'>
           <p><b>ListaCompras</b>, es una aplicación simple, creada para mis prácticas en Desarrollo Web.</p>
           <p>La app es surge al momento de tener que hacer compras en el supermercado, e ir cargando lo que necesitemos, asi tener mayor control de que compramos.</p>
