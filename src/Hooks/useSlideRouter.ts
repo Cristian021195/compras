@@ -6,9 +6,9 @@ interface IProps {
     y:number
 }
 
-const locations = ['/inicio', '/nuevo', '/contacto'];
+const locations = ['/', '/nuevo', '/contacto'];
 
-export const useSlideRouter = (actual='inicio', runner=0, setRunner:any) => {
+export const useSlideRouter = (actual='/', runner=0, setRunner:any) => {
 
     const [pos1, setPos1] = useState<IProps>({x:0,y:0});
     const [pos2, setPos2] = useState<IProps>({x:0,y:0});
