@@ -44,7 +44,7 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
           </article>
           
           <h3>RECURSOS USADOS</h3>
-          <p>La aplicación usa los siguientes recursos:</p>
+          <p>La aplicación usa las siguientes librerias y tecnologias:</p>
           <ul className='recursos' style={{width:'12em', margin:'0 auto'}}>
             <li>React JS</li>
             <li>TypeScript</li>
