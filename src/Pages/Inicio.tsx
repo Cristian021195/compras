@@ -22,6 +22,7 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
         <div style={{textAlign:'start', margin:'2em auto'}} className='col-6'>
           <p><b>ListaCompras</b>, es una aplicación simple, creada para mis prácticas en Desarrollo Web.</p>
           <p>La app es surge al momento de tener que hacer compras en el supermercado, e ir cargando lo que necesitemos, asi tener mayor control de que compramos.</p>
+          <small><i>*Para tener siempre la ultima version, puede ser necesario <a href="/">recargar</a> la web app</i></small>
           <br />
           <article className='d-flex justify-content-center'>
             <fieldset className='d-flex align-items-center justify-content-center'>
