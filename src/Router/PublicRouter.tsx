@@ -18,9 +18,8 @@ export const PublicRouter = ({runner, setRunner, font, setFont}:IRouter) => {
   HeadTitleUrl(location.pathname, 'Lista Compras'); 
   
   return (
-    <Routes>
-        <Route index element={<Inicio runner={runner} setRunner={setRunner}/>}></Route>
-        <Route path='/' element={<Inicio runner={runner} setRunner={setRunner} font={font} setFont={setFont}/>}></Route>
+    <Routes>        
+        <Route index path='/' element={<Inicio runner={runner} setRunner={setRunner} font={font} setFont={setFont}/>}></Route>
         <Route path='/nuevo' element={<Nuevo runner={runner} setRunner={setRunner}/>}></Route>
         <Route path='/contacto' element={<Contacto runner={runner} setRunner={setRunner}/>}></Route>
     </Routes>
@@ -28,7 +27,7 @@ export const PublicRouter = ({runner, setRunner, font, setFont}:IRouter) => {
 }
 
 /*
-
+<Route index element={<Inicio runner={runner} setRunner={setRunner}/>}></Route>
 
         <Route path='/escritos' element={<Escritos/>}></Route>
         <Route path='/escritos/:id' element={<EscritoSingular/>}></Route>
