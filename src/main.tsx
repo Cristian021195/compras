@@ -11,7 +11,7 @@ const updateSW = registerSW({
       updateSW();
       if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) === false){
         location.reload();
-      }
+      }//asd
       //location.reload();
       //let $recarga = document.getElementById('recarga')!;
       //$recarga?.click();
