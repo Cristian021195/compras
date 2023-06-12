@@ -51,7 +51,7 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
             <li>Vite</li>
             <li>Vite PWA</li>
             <li>React Router DOM</li>
-            <li>uuid</li>
+            <li>uuid v4</li>
             <li>Dexie JS</li>
             <li>dexie-react-hooks</li>
           </ul>
