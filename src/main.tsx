@@ -17,6 +17,7 @@ const updateSW = registerSW({
       //let $recarga = document.getElementById('recarga')!;
       //$recarga?.click();
     }*/
+    updateSW();
     alert('Hay una version nueva, 𝗿𝗲𝗰𝗮𝗿𝗴𝗮𝗿 para actualizar.');
   },
   onOfflineReady() {},
