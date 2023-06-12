@@ -11,8 +11,9 @@ export default defineConfig({
   plugins: [react(), VitePWA({ 
     //registerType: 'autoUpdate'
     workbox: {
-      cleanupOutdatedCaches: true,
-      skipWaiting: true,
+      sourcemap:true
+      //cleanupOutdatedCaches: true,
+      //skipWaiting: true,
     }
   })]
 })
