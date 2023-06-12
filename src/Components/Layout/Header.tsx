@@ -8,7 +8,7 @@ export const Header = ({runner, setRunner}:IRouter) => {
         <header className='d-flex justify-content-end align-items-center' style={{zIndex:1}}>
           <ul style={{display:'flex', justifyContent:'start'}} className='h-scroll-style'>
             <li>
-                <NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to='/inicio' onClick={()=>setRunner(0)}>Inicio</NavLink>
+                <NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to='/' onClick={()=>setRunner(0)}>Inicio</NavLink>
             </li>            
             <li>
                 <NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to='/nuevo' onClick={()=>setRunner(1)}>Nueva Compra</NavLink>
