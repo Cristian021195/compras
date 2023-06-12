@@ -71,4 +71,4 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
     </section>
   )
 }
-// <a className='btn p-1 m-2' style={{backgroundColor:'coral', color:'whitesmoke'}} href='/'>Buscar Actualizacion</a>
+// <a className='btn p-1 m-2' style={{backgroundColor:'coral', color:'whitesmoke'}} href='/'>Actualizar</a>

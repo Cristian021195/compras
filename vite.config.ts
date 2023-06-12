@@ -9,11 +9,11 @@ import { VitePWA } from 'vite-plugin-pwa'
 */
 export default defineConfig({
   plugins: [react(), VitePWA({ 
-    //registerType: 'autoUpdate'
+    registerType: 'autoUpdate',
     
     workbox: {
-      sourcemap:true,
-      cleanupOutdatedCaches: true,
+      //sourcemap:true,
+      //cleanupOutdatedCaches: true,
       //skipWaiting:true
     }
   })]
