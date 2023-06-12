@@ -56,6 +56,7 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
             <li>dexie-react-hooks</li>
           </ul>
           <div>
+            <a className='btn p-1' style={{backgroundColor:'coral', color:'whitesmoke'}} href='/'>Buscar Actualizacion</a>
           {bip !== undefined ? <button
                   onClick={async ()=>{
                       if(bip) bip.prompt();
