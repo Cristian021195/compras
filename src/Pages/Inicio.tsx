@@ -31,7 +31,7 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
                 setFont(e.target.value);
                 }} defaultValue={font}>
                 <option value="sm">Pequeño</option>
-                <option value="md">Normal</option>
+                <option value="md">Normal (defecto)</option>
                 <option value="lg">Grande</option>
               </select>
             </fieldset>
@@ -45,7 +45,7 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
           </article>
           
           <h3>RECURSOS USADOS</h3>
-          <p>La aplicación usa las siguientes librerias y tecnologias:</p>
+          <p>La aplicación usa las siguientes librerias y tecnologías:</p>
           <ul className='recursos' style={{width:'12em', margin:'0 auto'}}>
             <li>React JS</li>
             <li>TypeScript</li>
