@@ -9,9 +9,9 @@ const updateSW = registerSW({
     let res = window.confirm('Hay una version nueva, recargá para actualizar.');
     if(res){
       updateSW();
-      setTimeout(() => {
-        location.reload();
-      }, 500);
+      //location.reload();
+      let $recarga = document.getElementById('recarga')!;
+      $recarga.click();
     }
   },
   onOfflineReady() {},
