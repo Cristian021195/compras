@@ -1,12 +1,11 @@
 import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { locations } from '../Utils';
 
 interface IProps {
     x:number,
     y:number
 }
-
-const locations = ['/', '/nuevo', '/contacto'];
 
 export const useSlideRouter = (actual='/', runner=0, setRunner:any) => {
 

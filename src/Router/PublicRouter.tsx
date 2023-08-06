@@ -15,7 +15,7 @@ import { Nuevo } from '../Pages/Nuevo'*/
 
 export const PublicRouter = ({runner, setRunner, font, setFont}:IRouter) => {
   const location = useLocation()
-  HeadTitleUrl(location.pathname, 'Lista Compras'); 
+  HeadTitleUrl(location.pathname, 'Lista Compras');
   
   return (
     <Routes>        

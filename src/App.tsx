@@ -5,11 +5,11 @@ import './App.css'
 import { PublicRouter } from './Router/PublicRouter'
 import { Header } from './Components/Layout';
 import { EditProvider } from './Context/EditContext'
+import { locations } from './Utils'
 
 function App() {
-  const [runner, setRunner] = useState(0);
+  const [runner, setRunner] = useState( locations.findIndex((lo)=>lo===window.location.pathname) );
   const [font, setFont] = useState<string>(localStorage.getItem('font') || 'md');
-
 
   useEffect(()=>{
     localStorage.setItem('font', font);
