@@ -14,6 +14,9 @@ export const Nuevo = ({runner, setRunner}:IRouter) => {
   const productos = useLiveQuery(
     () => db.productos.toArray()
   );
+  const filtrados = useLiveQuery(
+    () => db.productos.toArray()
+  );
   return (
     <>
     <section style={{textAlign:'center'}} className='pop-up' id='detector'>
@@ -50,7 +53,7 @@ export const Nuevo = ({runner, setRunner}:IRouter) => {
         </div>
     </section>
     <section className='d-flex justify-content-center'>
-      <TablaProductosCrud clases='stripped'/>
+      <TablaProductosCrud clases='stripped scroll-all vh-40'/>
     </section>
     </>
   )//<a href="#top" style={{backgroundColor:'rgba(255,127,80,0.7)', color:'whitesmoke', padding:'1em', borderRadius:'50%', textDecoration:'none', position:'fixed', bottom:'1em', right:'1em'}}>▲</a>

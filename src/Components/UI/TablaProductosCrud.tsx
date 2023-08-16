@@ -28,7 +28,9 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
     const editar = async (id:string) => {
         try {
             let resp = await db.productos.get(id) as TProducto;
-            setData(resp)
+            setData(resp);
+            //window.scrollTo({ top: 0, behavior: 'smooth' })
+            document.getElementById('nombre')?.focus();
         } catch (error) {
             console.log(error)
         }    
@@ -44,8 +46,8 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
     }
     
   return (
-    <div style={{overflowX:'scroll'}} className={clases}>
-        <table>
+    <div className={clases}>
+        <table className='sticky-header'>
             <thead>
                 <tr>
                     <th>#</th>

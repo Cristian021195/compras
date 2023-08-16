@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 interface IProps {
     children: React.ReactNode
@@ -16,7 +16,8 @@ export const EditContext = createContext<any>("");
 
 export const EditProvider = ({children}:IProps) => {
     const [data, setData] = useState<any>({id:'', nombre:'', precio:0, cantidad:1, descuento:0, categoria:'cualquiera', total:0, chekar:false});
-    const location = useLocation();
+    //const edit = useRef(document.getElementById('nombre'));
+    //const location = useLocation();
 
     /*useEffect(()=>{
         if(data !== ""){
