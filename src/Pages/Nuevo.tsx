@@ -46,8 +46,7 @@ export const Nuevo = ({runner, setRunner}:IRouter) => {
           <></>
         }
         <div style={{display:'flex', justifyContent:'center', flexWrap:'wrap', gap:'1em'}}>
-          <ProductoNuevoForm/>
-          
+          <ProductoNuevoForm/>          
         </div>
     </section>
     <section className='d-flex justify-content-center'>

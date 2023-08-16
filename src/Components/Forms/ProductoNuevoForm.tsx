@@ -7,17 +7,7 @@ import { EditContext } from '../../Context/EditContext';
 import { TProductoContext, TProducto } from '../../Interfaces/IContext';
 import { useLocation } from 'react-router-dom'
 import { beep } from '../../Helpers';
-/*
-    id: string;
-    nombre: string;
-    precio: number;
-    cantidad: number;
-    descuento?: number;
-    categoria?: string;
-    total:number,
-    chekar:boolean
-
-*/
+import { Add, Clean, Search, Trash } from '../Icons';
 const borrarCompras = async () => {
     let resp = window.confirm("¿Borrar toda la lista de compras?")
     if(resp){
@@ -45,7 +35,6 @@ export const ProductoNuevoForm = () => {
 
         data.total = ((parseFloat(data.precio.toString()) * parseFloat(data.cantidad.toString()))*(1-parseInt(data.descuento.toString())/100))+"";
         e.currentTarget.reset();
-
 
         try {
 
@@ -99,18 +88,26 @@ export const ProductoNuevoForm = () => {
   return (
     <>
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
-        <div className={minimize ? 'd-none' : 'd-block'} style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3'}}>
-        <label htmlFor="nombre" style={{padding:'1em'}} className='d-flex align-items-center justify-content-between flex-wrap'>Producto: 
+        <div className={minimize ? 'd-none' : 'd-block'} style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'1rem'}}>
+
+        <div className='d-flex align-items-center justify-content-between flex-wrap'>
+            <label htmlFor="nombre" className='p-2'>Producto: </label>
             <input type="text" name='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>
-        </label>
-        <label htmlFor="precio"  style={{padding:'1em'}} className='d-flex align-items-center justify-content-between flex-wrap'>Precio: (con punto)
-            <input type="number" name="precio" min={0} step='0.01' required value={data?.precio} onChange={(e)=>{setData({...data, precio: e.target.value})}}/>
-        </label>
-        <label htmlFor="number" style={{padding:'1em'}} className='d-flex align-items-center justify-content-between flex-wrap'>Cantidad: (n)
-            <input type="number" name="cantidad" min={1} required value={data?.cantidad} onChange={(e)=>{setData({...data, cantidad: e.target.value})}}/>
-        </label>
-        <label htmlFor="descuento" style={{padding:'1em'}} className='d-flex align-items-center justify-content-between flex-wrap'>Descuento (%): 
-            <input type="number" name="descuento" min={0} required value={data?.descuento} onChange={(e)=>{setData({...data, descuento: e.target.value})}}/>
+        </div>
+
+        <div className='costado'>
+            <div>
+                <label htmlFor="precio" className='p-2'>Precio:</label>
+                <input type="number" name="precio" min={0} step='0.01' required value={data?.precio} onChange={(e)=>{setData({...data, precio: e.target.value})}}/>
+            </div>
+
+            <div>
+                <label htmlFor="number" className='p-2'>Cantidad:</label>
+                <input type="number" name="cantidad" min={1} required value={data?.cantidad} onChange={(e)=>{setData({...data, cantidad: e.target.value})}}/>
+            </div>
+        </div>
+
+        <label htmlFor="descuento" style={{padding:'1em', display:'none'}} className='d-none align-items-center justify-content-between flex-wrap'>Descuento (%): <input type="number" name="descuento" min={0} required value={data?.descuento} onChange={(e)=>{setData({...data, descuento: e.target.value})}}/>
         </label>
         <input type="hidden" name="id" defaultValue={data?.id}/>
         <label htmlFor="categoria" style={{padding:'1em', display:'none', justifyContent:'space-between', alignItems:'end'}}>Categoria: 
@@ -123,12 +120,19 @@ export const ProductoNuevoForm = () => {
             </select>
         </label>
         </div>
-        <button type="submit" className='btn' style={{backgroundColor:'coral', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}}>Cargar</button>
-        <button type="reset" className='btn' style={{backgroundColor:'dodgerblue', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}} onClick={limpiar}>Limpiar</button>
-        <button type="button" className='btn' style={{backgroundColor:'dodgerblue', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}} onClick={borrarCompras}>Borrar Compras</button>
+        <button type="submit" className='btn' style={{backgroundColor:'coral', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}}><Add width={14} height={14}/></button>
+        <button type="reset" className='btn' style={{backgroundColor:'dodgerblue', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}} onClick={limpiar}><Clean width={14} height={14}/></button>
+        <button type="button" className='btn' style={{backgroundColor:'dodgerblue', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}} onClick={borrarCompras}><Trash width={14} height={14}/></button>
+        <button type="button" className='btn' style={{backgroundColor:'dodgerblue', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}} onClick={()=>{}}>
+            <Search width={14} height={14}/>
+        </button>
         <button type='button' className={minimize ? 'btn rotate-right' : 'btn rotate-left'}  style={{backgroundColor:'coral', color:'whitesmoke', padding:'0.5em', margin:'0.4em'}}
         onClick={()=>setMinimize(!minimize)}>&nbsp;▲&nbsp;</button>
     </form>
     </>
   )
 }
+/*
+d-flex align-items-center justify-content-between flex-wrap
+d-flex align-items-center justify-content-between flex-wrap
+*/

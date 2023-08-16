@@ -22,9 +22,18 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
         <div style={{textAlign:'start', margin:'2em auto'}} className='col-6'>
           <p><b>ListaCompras</b>, es una aplicación simple, creada para mis prácticas en Desarrollo Web.</p>
           <p>La app es surge al momento de tener que hacer compras en el supermercado, e ir cargando lo que necesitemos, asi tener mayor control de que compramos.</p>
-          <small><i>*Para tener siempre la ultima version, puede ser necesario <a id='recarga' href="/" style={{backgroundColor: 'coral', color: 'whitesmoke', margin: '0.1em', padding: '0.2em',borderRadius: '0.2em'}}>recargar</a> la web app</i></small>
-          <br /><br />
-          <article className='d-flex justify-content-center'>
+          <div style={{textAlign:'center'}}>{bip !== undefined ? <button
+                  onClick={async ()=>{
+                      if(bip) bip.prompt();
+                      const biip = await bip?.userChoice;
+                      if (biip?.outcome){
+                          if (biip?.outcome === 'accepted') {setBip(null)}
+                      }
+                  }}
+                className='btn p-1 m-2' style={{backgroundColor:'coral', color:'whitesmoke'}}>Instalar</button> : <></> }</div>
+          <p><small><i>*Para tener siempre la ultima version, puede ser necesario <a id='recarga' href="/" style={{backgroundColor: 'coral', color: 'whitesmoke', margin: '0.1em', padding: '0.2em',borderRadius: '0.2em'}}>recargar</a> la web app</i></small></p>
+          <br />
+          <article className='d-flex justify-content-center flex-wrap'>
             <fieldset className='d-flex align-items-center justify-content-center'>
               <legend><label htmlFor="fuente"><b>Tamaño de fuente: </b></label></legend>
               <select name="fuente" id="fuente" onChange={(e)=>{
@@ -58,15 +67,7 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
           </ul>
           <div>
             
-          {bip !== undefined ? <button
-                  onClick={async ()=>{
-                      if(bip) bip.prompt();
-                      const biip = await bip?.userChoice;
-                      if (biip?.outcome){
-                          if (biip?.outcome === 'accepted') {setBip(null)}
-                      }
-                  }}
-                className='btn p-1 m-2' style={{backgroundColor:'coral', color:'whitesmoke'}}>Instalar</button> : <></> }
+          
           </div>
         </div>
     </section>
