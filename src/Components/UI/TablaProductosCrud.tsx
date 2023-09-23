@@ -54,7 +54,7 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
                     <th>NOMBRE</th>
                     <th>PRECIO</th>
                     <th>CANTIDAD</th>
-                    <th>DESCUENTO</th>
+                    <th>SUM/DESC</th>
                     <th>TOTAL</th>
                     <th>ACCIONES</th>
                 </tr>
@@ -70,7 +70,7 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
                         <td>{p.nombre}</td>
                         <td>{p.precio}</td>
                         <td>{p.cantidad}</td>
-                        <td>{p.descuento}</td>
+                        <td>{p.sum_desc}</td>
                         <td>{p.total}</td>
                         <td>
                             <button className='btn' style={{padding:'0.5em', backgroundColor:'#ffa892'}} onClick={()=>{eliminar(p.id)}}>
