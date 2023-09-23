@@ -10,6 +10,7 @@ export type TProducto = {
     nombre: string;
     precio: number;
     cantidad: number;
+    sum_desc: number;
     descuento?: number;
     categoria?: string;
     total:number,
