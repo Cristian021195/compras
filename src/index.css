@@ -14,7 +14,7 @@
   padding: 0;
 }
 body{
-  /*overscroll-behavior-y: contain; prevent scroll slide-down android*/
+  overscroll-behavior-y: contain; /* prevent scroll slide-down android */
   overflow-x: hidden;
 }
 button{
@@ -129,6 +129,14 @@ html{
   box-shadow: 2px 0px 0px 0px #FFA281 inset;
   -webkit-box-shadow: 2px 0px 0px 0px #FFA281 inset;
   -moz-box-shadow: 2px 0px 0px 0px #FFA281 inset;
+}
+.total-status{
+  color:whitesmoke;
+  background-color:coral;
+  width:10em;
+  margin:2em auto;
+  border-radius:0.3em;
+  padding:0.5em;
 }
 table{
   border-collapse: collapse;

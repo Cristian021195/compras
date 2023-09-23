@@ -102,18 +102,18 @@ export const ProductoNuevoForm = () => {
         <div  style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'1rem'}}>
             <AccordionParent state={minimize}>
                 <div className='d-flex align-items-center justify-content-between flex-wrap'>
-                    <label htmlFor="nombre" className='p-2'>Producto: </label>
+                    <label htmlFor="nombre" className='p-2'>Producto 🛒: </label>
                     <input type="text" ref={nombre} name='nombre' id='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>
                 </div>
 
                 <div className='costado'>
                     <div>
-                        <label htmlFor="precio" className='p-2'>Precio:</label>
+                        <label htmlFor="precio" className='p-2'>Precio 💲:</label>
                         <input type="number" name="precio" min={0} step='0.01' required value={data?.precio} onChange={(e)=>{setData({...data, precio: e.target.value})}}/>
                     </div>
 
                     <div>
-                        <label htmlFor="number" className='p-2'>Cantidad:</label>
+                        <label htmlFor="number" className='p-2'>Cantidad 🔢:</label>
                         <input type="number" name="cantidad" min={1} required value={data?.cantidad} onChange={(e)=>{setData({...data, cantidad: e.target.value})}}/>
                     </div>
                 </div>

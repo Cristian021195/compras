@@ -22,7 +22,7 @@ export const Nuevo = ({runner, setRunner}:IRouter) => {
     <section style={{textAlign:'center'}} className='pop-up' id='detector'>
         <h1>Nueva Compra</h1>
         {
-          productos && <h2 style={{color:'whitesmoke', backgroundColor:'coral', width:'10em', margin:'2em auto', borderRadius:'0.3em', padding:'0.5em'}}>Total: ${totalProducto(productos)}</h2>
+          productos && <h2 className='total-status'>Total: ${totalProducto(productos).toFixed(2)}</h2>
         }
         {
           productos?.length! > 0 ? 
