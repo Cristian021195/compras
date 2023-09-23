@@ -4,6 +4,7 @@ export interface IProducto {
     precio: number;
     cantidad: number;
     descuento?: number;
+    sum_desc: number;
     categoria?: string;
     total:number,
     chekar:boolean

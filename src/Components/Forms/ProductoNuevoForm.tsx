@@ -9,6 +9,7 @@ import { useLocation } from 'react-router-dom'
 import { beep } from '../../Helpers';
 import { Add, Clean, Search, Trash } from '../Icons';
 import { AccordionParent } from '../UI/AccordeonParent';
+import { IProducto } from '../../Interfaces';
 const borrarCompras = async () => {
     let resp = window.confirm("¿Borrar toda la lista de compras?");
     if(resp){
@@ -30,7 +31,7 @@ export const ProductoNuevoForm = () => {
     const [filtrados, setFiltrados] = useState<TProducto[]>([]);
     const nombre = useRef<HTMLInputElement>(null);
 
-    const limpiar = () => { setData({id:'', nombre:'', precio:0, cantidad:1, descuento:0, categoria:'cualquiera', total:0, chekar:false}); setFiltrados([]); }
+    const limpiar = () => { setData({id:'', nombre:'', precio:0, cantidad:1, descuento:0, sum_desc: 0, categoria:'cualquiera', total:0, chekar:false}); setFiltrados([]); }
 
     const buscar = async()=>{
         //console.log(nombre.current?.value);
@@ -44,7 +45,7 @@ export const ProductoNuevoForm = () => {
         e.preventDefault();
         let formData = new FormData(e.currentTarget);   let data = Object.fromEntries(formData);
 
-        data.total = ((parseFloat(data.precio.toString()) * parseFloat(data.cantidad.toString()))*(1-parseInt(data.descuento.toString())/100))+"";
+        data.total = ((parseFloat(data.precio.toString()) * parseFloat(data.cantidad.toString())) + parseFloat(data.sum_desc.toString()) * (1-parseInt(data.descuento.toString())/100))+"";
         e.currentTarget.reset();
 
         try {
@@ -55,6 +56,7 @@ export const ProductoNuevoForm = () => {
                     precio: parseFloat(data?.precio+""),
                     cantidad: parseInt(data?.cantidad+""),
                     descuento: parseFloat(data?.descuento+""),
+                    sum_desc: parseFloat(data?.sum_desc+""),
                     categoria: data?.categoria+"",
                     total: parseFloat(data?.total+""),
                     chekar:true
@@ -74,6 +76,7 @@ export const ProductoNuevoForm = () => {
                     precio: parseFloat(data?.precio+""),
                     cantidad: parseInt(data?.cantidad+""),
                     descuento: parseFloat(data?.descuento+""),
+                    sum_desc: parseFloat(data?.sum_desc+""),
                     categoria: data?.categoria+"",
                     total: parseFloat(data?.total+""),
                     chekar:true
@@ -92,7 +95,7 @@ export const ProductoNuevoForm = () => {
         } catch (error) {
             console.log(error)
             alert('¡Error, revisar la consola!');
-            setData({id:'', cantidad:1, precio:0, total:0, categoria:'cualquiera', nombre:'', descuento:0})
+            setData({id:'', cantidad:1, precio:0, total:0, categoria:'cualquiera', sum_desc:0 ,nombre:'', descuento:0})
             //setData("")
         }
     }
@@ -101,20 +104,28 @@ export const ProductoNuevoForm = () => {
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
         <div  style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'1rem'}}>
             <AccordionParent state={minimize}>
-                <div className='d-flex align-items-center justify-content-between flex-wrap'>
-                    <label htmlFor="nombre" className='p-2'>Producto 🛒: </label>
-                    <input type="text" ref={nombre} name='nombre' id='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>
+
+                <div className='costado'>
+                    <div>
+                        <label htmlFor="nombre" className='p-2'>Producto 🛒: </label>
+                        <input type="text" ref={nombre} name='nombre' id='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>
+                    </div>
+
+                    <div>
+                        <label htmlFor="precio" className='p-2'>Precio <b>($)</b>:</label>
+                        <input type="number" name="precio" min={0} max={1000000} step='0.01' required value={data?.precio} onChange={(e)=>{setData({...data, precio: e.target.value})}}/>
+                    </div>
                 </div>
 
                 <div className='costado'>
                     <div>
-                        <label htmlFor="precio" className='p-2'>Precio 💲:</label>
-                        <input type="number" name="precio" min={0} step='0.01' required value={data?.precio} onChange={(e)=>{setData({...data, precio: e.target.value})}}/>
+                        <label htmlFor="cantidad" className='p-2'>Cantidad <b>(¾)</b>:</label>
+                        <input type="number" name="cantidad" min={1} max={1000000} required value={data?.cantidad} onChange={(e)=>{setData({...data, cantidad: e.target.value})}}/>
                     </div>
 
                     <div>
-                        <label htmlFor="number" className='p-2'>Cantidad 🔢:</label>
-                        <input type="number" name="cantidad" min={1} required value={data?.cantidad} onChange={(e)=>{setData({...data, cantidad: e.target.value})}}/>
+                        <label htmlFor="sum_desc" className='p-2'>suma/desc <b>(±) </b>: </label>
+                        <input type="number" name="sum_desc" min={-999999} max={1000000} step='0.01' required value={data?.sum_desc} onChange={(e)=>{setData({...data, sum_desc: e.target.value})}}/>
                     </div>
                 </div>
 

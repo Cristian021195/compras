@@ -15,7 +15,7 @@ id: string;
 export const EditContext = createContext<any>("");
 
 export const EditProvider = ({children}:IProps) => {
-    const [data, setData] = useState<any>({id:'', nombre:'', precio:0, cantidad:1, descuento:0, categoria:'cualquiera', total:0, chekar:false});
+    const [data, setData] = useState<any>({id:'', nombre:'', precio:0, cantidad:1, descuento:0, sum_desc:0, categoria:'cualquiera', total:0, chekar:false});
     //const edit = useRef(document.getElementById('nombre'));
     //const location = useLocation();
 

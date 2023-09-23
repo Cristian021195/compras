@@ -320,7 +320,7 @@ header ul{
   body{zoom: 0.9;}
   .costado{display: flex; justify-content: center;}
   .costado div{display: block; margin-top: 1rem;}
-  .costado input[type="number"]{width: 60px!important;}
+  .costado input[type="number"], .costado input[type="text"]{width: 60px!important;}
 }
 @media only screen and (max-width: 768px) {
   [class*="col-"] {
@@ -328,11 +328,11 @@ header ul{
   }
   .costado{display: flex; justify-content: center;}
   .costado div{display: block; margin-top: 1rem;}
-  .costado input[type="number"]{width: 120px;}
+  .costado input[type="number"], .costado input[type="text"]{width: 120px;}
   .mobile-field{
     display:'flex'; gap:1rem; padding:1rem;
   }
-  .mobile-field input[type="number"]{
+  .mobile-field input[type="number"], .mobile-field input[type="text"]{
     width: 120px;
   }
   .h-scroll{
