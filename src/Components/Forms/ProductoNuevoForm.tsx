@@ -12,15 +12,6 @@ import { AccordionParent } from '../UI/AccordeonParent';
 import { IProducto } from '../../Interfaces';
 import { Prompt, Toast } from '../UI';
 const borrarCompras = async () => {
-    /*let resp = window.confirm("¿Borrar toda la lista de compras?");
-    if(resp){
-        try {
-            db.productos.clear();
-            alert('¡Datos borrados!')
-        } catch (error) {
-            alert('Hubo un error, revise la consola.')
-        }
-    }*/
     try {
         db.productos.clear();
     } catch (error) {
@@ -33,19 +24,9 @@ export const ProductoNuevoForm = () => {
     const {minimize, setMinimize} = useFormAnimation();
     const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
     const [filtrados, setFiltrados] = useState<TProducto[]>([]);
-
     const [alerta,setAlerta] = useState(false);
     const [promptAlert,setPromptAlert] = useState(false);
     const [alertaDetalle, setAlertaDetalle] = useState({});
-    /*color?:string,
-    bgcolor?:string,
-    cssClass?:string,
-    title?:string,
-    text?:string,
-    status?:boolean,
-    copied?:boolean,
-    timeout?:number,
-    children?:React.ReactNode*/
 
     const nombre = useRef<HTMLInputElement>(null);
 
@@ -87,7 +68,7 @@ export const ProductoNuevoForm = () => {
                         setAlertaDetalle({color:"#f5f5f5", bgcolor:"#008009", title:"Edicion",text:"¡Editado!", status:true});
                         setTimeout(() => {
                             setAlerta(false);
-                        }, 3000);
+                        }, 4000);
                     }
                 }
                 limpiar();
@@ -106,6 +87,11 @@ export const ProductoNuevoForm = () => {
                 if(id){
                     if(sound){
                         beep();
+                        setAlerta(true);
+                        setAlertaDetalle({color:"#f5f5f5", bgcolor:"#008009", title:"Nuevo Producto",text:"¡Agregado!", status:true});
+                        setTimeout(() => {
+                            setAlerta(false);
+                        }, 3000);
                     }else{
                         setAlerta(true);
                         setAlertaDetalle({color:"#f5f5f5", bgcolor:"#008009", title:"Nuevo Producto",text:"¡Agregado!", status:true});

@@ -13,15 +13,8 @@ interface IToast{
 }
 export const Toast = ({color="#f5f5f5", bgcolor="#c4ffc4", title="Title",
     text="Default Toast", status=true, children,timeout=4000, copied=false, cssClass=""}:IToast) => {
-    const [hide, setHide] = useState<boolean>(false);
-    useEffect(()=>{
-        setTimeout(() => {
-            setHide(true);
-        }, timeout);
-    },[])
     return (
-    <div style={{backgroundColor:bgcolor, color:color, position:'absolute', top:0, left:0, zIndex:3, width:'100%'}}
-        className={hide ? "d-none" : "d-block"}>
+    <div style={{backgroundColor:bgcolor, color:color, position:'fixed', top:0, left:0, zIndex:3, width:'100%', height:'5rem'}}>
         <p>
             <b>{title}</b>
             <br />

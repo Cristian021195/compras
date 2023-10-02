@@ -19,7 +19,7 @@ function App() {
   ,[font])
 
   
-  return (    
+  return (
       <BrowserRouter>
         <EditProvider>
           <div id="top"></div>
