@@ -91,13 +91,13 @@ export const ProductoNuevoForm = () => {
                         setAlertaDetalle({color:"#f5f5f5", bgcolor:"#008009", title:"Nuevo Producto",text:"¡Agregado!", status:true});
                         setTimeout(() => {
                             setAlerta(false);
-                        }, 3000);
+                        }, 4000);
                     }else{
                         setAlerta(true);
                         setAlertaDetalle({color:"#f5f5f5", bgcolor:"#008009", title:"Nuevo Producto",text:"¡Agregado!", status:true});
                         setTimeout(() => {
                             setAlerta(false);
-                        }, 3000);
+                        }, 4000);
                         //alert('¡Cargado!');
                     }
                 }
