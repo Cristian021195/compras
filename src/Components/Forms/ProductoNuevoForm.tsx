@@ -10,17 +10,21 @@ import { beep } from '../../Helpers';
 import { Add, Clean, Search, Trash } from '../Icons';
 import { AccordionParent } from '../UI/AccordeonParent';
 import { IProducto } from '../../Interfaces';
+import { Prompt, Toast } from '../UI';
 const borrarCompras = async () => {
-    let resp = window.confirm("¿Borrar toda la lista de compras?");
+    /*let resp = window.confirm("¿Borrar toda la lista de compras?");
     if(resp){
-
         try {
             db.productos.clear();
             alert('¡Datos borrados!')
         } catch (error) {
             alert('Hubo un error, revise la consola.')
         }
-
+    }*/
+    try {
+        db.productos.clear();
+    } catch (error) {
+        console.log('Hubo un error, revise la consola: '+error)
     }
 }
 
@@ -29,6 +33,20 @@ export const ProductoNuevoForm = () => {
     const {minimize, setMinimize} = useFormAnimation();
     const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
     const [filtrados, setFiltrados] = useState<TProducto[]>([]);
+
+    const [alerta,setAlerta] = useState(false);
+    const [promptAlert,setPromptAlert] = useState(false);
+    const [alertaDetalle, setAlertaDetalle] = useState({});
+    /*color?:string,
+    bgcolor?:string,
+    cssClass?:string,
+    title?:string,
+    text?:string,
+    status?:boolean,
+    copied?:boolean,
+    timeout?:number,
+    children?:React.ReactNode*/
+
     const nombre = useRef<HTMLInputElement>(null);
 
     const limpiar = () => { setData({id:'', nombre:'', precio:0, cantidad:1, descuento:0, sum_desc: 0, categoria:'cualquiera', total:0, chekar:false}); setFiltrados([]); }
@@ -65,7 +83,11 @@ export const ProductoNuevoForm = () => {
                     if(sound){
                         beep();
                     }else{
-                        alert('¡Editado!');
+                        setAlerta(true);
+                        setAlertaDetalle({color:"#f5f5f5", bgcolor:"#008009", title:"Edicion",text:"¡Editado!", status:true});
+                        setTimeout(() => {
+                            setAlerta(false);
+                        }, 3000);
                     }
                 }
                 limpiar();
@@ -85,7 +107,12 @@ export const ProductoNuevoForm = () => {
                     if(sound){
                         beep();
                     }else{
-                        alert('¡Cargado!');
+                        setAlerta(true);
+                        setAlertaDetalle({color:"#f5f5f5", bgcolor:"#008009", title:"Nuevo Producto",text:"¡Agregado!", status:true});
+                        setTimeout(() => {
+                            setAlerta(false);
+                        }, 3000);
+                        //alert('¡Cargado!');
                     }
                 }
                 limpiar();
@@ -101,13 +128,15 @@ export const ProductoNuevoForm = () => {
     }
   return ( //className={minimize ? 'd-none' : 'd-block'}
     <>
+    {alerta && <Toast {...alertaDetalle}/>}
+    {promptAlert && <Prompt onConfirm={()=>{borrarCompras(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
         <div  style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'1rem'}}>
             <AccordionParent state={minimize}>
 
                 <div className='costado'>
                     <div>
-                        <label htmlFor="nombre" className='p-2'>Producto 🛒: </label>
+                        <label htmlFor="nombre" className='p-2'>Producto 🛒/🔎: </label>
                         <input type="text" ref={nombre} name='nombre' id='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>
                     </div>
 
@@ -149,7 +178,9 @@ export const ProductoNuevoForm = () => {
         <button type="reset" className='btn text-w m-1 p-1' style={{backgroundColor:'#00897B'}} onClick={limpiar}>
             <Clean width={14} height={14}/>
         </button>
-        <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'#FF5252'}} onClick={borrarCompras}>
+        <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'#FF5252'}} onClick={()=>{
+            setPromptAlert(true);
+        }}>
             <Trash width={14} height={14}/>
         </button>
         <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'dodgerblue'}} onClick={buscar}>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSlideRouter } from '../Hooks';
 import { IRouter } from '../Interfaces';
+import { Prompt, Toast } from '../Components';
 
 export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
   const {pos1, pos2, setPos1, setPos2} = useSlideRouter(window.location.pathname, runner, setRunner);
