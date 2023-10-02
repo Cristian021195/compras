@@ -12,7 +12,7 @@ interface IToast{
     children?:React.ReactNode
 }
 export const Toast = ({color="#f5f5f5", bgcolor="#c4ffc4", title="Title",
-    text="Default Toast", status=true, children,timeout=3000, copied=false, cssClass=""}:IToast) => {
+    text="Default Toast", status=true, children,timeout=4000, copied=false, cssClass=""}:IToast) => {
     const [hide, setHide] = useState<boolean>(false);
     useEffect(()=>{
         setTimeout(() => {
@@ -20,7 +20,7 @@ export const Toast = ({color="#f5f5f5", bgcolor="#c4ffc4", title="Title",
         }, timeout);
     },[])
     return (
-    <div style={{backgroundColor:bgcolor, color:color, position:'absolute', top:0, left:0, zIndex:1, width:'100%'}}
+    <div style={{backgroundColor:bgcolor, color:color, position:'absolute', top:0, left:0, zIndex:3, width:'100%'}}
         className={hide ? "d-none" : "d-block"}>
         <p>
             <b>{title}</b>

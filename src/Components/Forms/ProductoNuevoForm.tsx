@@ -129,14 +129,14 @@ export const ProductoNuevoForm = () => {
   return ( //className={minimize ? 'd-none' : 'd-block'}
     <>
     {alerta && <Toast {...alertaDetalle}/>}
-    {promptAlert && <Prompt onConfirm={()=>{borrarCompras(); setPromptAlert(false)}} onCancel={ ()=>{setPromptAlert(false)} }/>}
+    {promptAlert && <Prompt onConfirm={()=>{borrarCompras(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
         <div  style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'1rem'}}>
             <AccordionParent state={minimize}>
 
                 <div className='costado'>
                     <div>
-                        <label htmlFor="nombre" className='p-2'>Producto 🛒: </label>
+                        <label htmlFor="nombre" className='p-2'>Producto 🛒/🔎: </label>
                         <input type="text" ref={nombre} name='nombre' id='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>
                     </div>
 
