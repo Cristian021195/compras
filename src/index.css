@@ -114,6 +114,7 @@ html{
 }
 .align-items-center{
   align-items: center;
+  align-content: center;
 }
 .align-items-end{
   align-items: end;

@@ -5,7 +5,7 @@ import { IRouter } from '../../Interfaces';
 
 export const Header = ({runner, setRunner}:IRouter) => {
     return (
-        <header className='d-flex justify-content-end align-items-center' style={{zIndex:1}}>
+        <header className='d-flex justify-content-end align-items-center' style={{zIndex:3}}>
           <ul style={{display:'flex', justifyContent:'start'}} className='h-scroll-style'>
             <li>
                 <NavLink className={({isActive})=> isActive === true ? 'actual' : ''} to='/' onClick={()=>setRunner(0)}>Inicio</NavLink>
