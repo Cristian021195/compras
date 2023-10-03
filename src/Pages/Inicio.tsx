@@ -21,7 +21,7 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
     <section style={{textAlign:'center'}} className='pop-up' id='detector'>
         <h1>Inicio</h1>
         <div style={{textAlign:'start', margin:'2em auto'}} className='col-6'>
-          <p><b>ListaCompras</b>, es una aplicación simple, creada para mis prácticas en Desarrollo Web.</p>
+          <p><b>ListaCompras</b>, es una aplicación simple, creada para mis prácticas en el Desarrollo Web.</p>
           <p>La app es surge al momento de tener que hacer compras en el supermercado, e ir cargando lo que necesitemos, asi tener mayor control de que compramos.</p>
           <div style={{textAlign:'center'}}>{bip !== undefined ? <button
                   onClick={async ()=>{
