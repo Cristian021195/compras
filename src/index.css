@@ -90,6 +90,14 @@ html{
 .scroll-all{
   overflow: scroll;
 }
+.update-bar{
+  position: fixed;
+  height: 5rem;
+  width: 100%;
+  background: #4eb753;
+  z-index: 4; color: white;
+  overflow-wrap: break-word;
+  }
 .vh-40{height: 40vh;}
 .text-center{text-align: center;}
 .d-flex{display: flex!important;}
