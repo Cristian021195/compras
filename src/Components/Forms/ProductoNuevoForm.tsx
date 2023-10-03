@@ -33,10 +33,11 @@ export const ProductoNuevoForm = () => {
     const limpiar = () => { setData({id:'', nombre:'', precio:0, cantidad:1, descuento:0, sum_desc: 0, categoria:'cualquiera', total:0, chekar:false}); setFiltrados([]); }
 
     const buscar = async()=>{
-        //console.log(nombre.current?.value);
         if(nombre.current?.value.length! > 0){
             let prod = await db.productos.filter(pd=> new RegExp(nombre.current?.value || '', "i").test(pd.nombre)).toArray();
             setFiltrados(prod);
+        }else{
+            nombre.current?.focus();
         }
     }
 
@@ -61,15 +62,12 @@ export const ProductoNuevoForm = () => {
                     chekar:true
                 });
                 if(id){
-                    if(sound){
-                        beep();
-                    }else{
-                        setAlerta(true);
-                        setAlertaDetalle({color:"#f5f5f5", bgcolor:"#008009", title:"Edicion",text:"¡Editado!", status:true});
-                        setTimeout(() => {
-                            setAlerta(false);
-                        }, 4000);
-                    }
+                    setAlerta(true);
+                    setAlertaDetalle({color:"#f5f5f5", bgcolor:"#66bb6a", title:"Edicion",text:"¡Editado!", status:true});
+                    setTimeout(() => {
+                        setAlerta(false);
+                    }, 4000);
+                    if(sound){ beep(); }
                 }
                 limpiar();
             }else{
@@ -85,21 +83,12 @@ export const ProductoNuevoForm = () => {
                     chekar:true
                 });
                 if(id){
-                    if(sound){
-                        beep();
-                        setAlerta(true);
-                        setAlertaDetalle({color:"#f5f5f5", bgcolor:"#008009", title:"Nuevo Producto",text:"¡Agregado!", status:true});
-                        setTimeout(() => {
-                            setAlerta(false);
-                        }, 4000);
-                    }else{
-                        setAlerta(true);
-                        setAlertaDetalle({color:"#f5f5f5", bgcolor:"#008009", title:"Nuevo Producto",text:"¡Agregado!", status:true});
-                        setTimeout(() => {
-                            setAlerta(false);
-                        }, 4000);
-                        //alert('¡Cargado!');
-                    }
+                    setAlerta(true);
+                    setAlertaDetalle({color:"#f5f5f5", bgcolor:"#66bb6a", title:"Nuevo Producto",text:"¡Agregado!", status:true});
+                    setTimeout(() => {
+                        setAlerta(false);
+                    }, 4000);
+                    if(sound){ beep(); }
                 }
                 limpiar();
             }
@@ -115,7 +104,7 @@ export const ProductoNuevoForm = () => {
   return ( //className={minimize ? 'd-none' : 'd-block'}
     <>
     {alerta && <Toast {...alertaDetalle}/>}
-    {promptAlert && <Prompt onConfirm={()=>{borrarCompras(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
+    {promptAlert && <Prompt cssClass='text-center' title='¿Borrar compras?' text='Esto borrará todas las compras, no puede deshacerse.' onConfirm={()=>{borrarCompras(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
         <div  style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'1rem'}}>
             <AccordionParent state={minimize}>

@@ -91,6 +91,7 @@ html{
   overflow: scroll;
 }
 .vh-40{height: 40vh;}
+.text-center{text-align: center;}
 .d-flex{display: flex!important;}
 .d-block{display: block!important;}
 .d-none{display: none!important;}

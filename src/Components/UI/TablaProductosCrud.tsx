@@ -55,7 +55,7 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
     
   return (
     <>
-        {pState && <Prompt onCancel={()=>setPState(false)} onConfirm={()=>{eliminar(selectedId); setPState(false);}}/>}
+        {pState && <Prompt cssClass='text-center' title='¿Borrar producto?' text='Se borrará solo el producto seleccionado' onCancel={()=>setPState(false)} onConfirm={()=>{eliminar(selectedId); setPState(false);}}/>}
         <div className={clases}>
             <table className='sticky-header'>
                 <thead>
