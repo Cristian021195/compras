@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import { registerSW } from 'virtual:pwa-register'
-const $update_bar = document.getElementById('update-bar');
+const $update_bar = document.getElementById('update-bar');//comentario
 const updateSW = registerSW({
   onNeedRefresh() {
     /*let res = window.confirm('Hay una version nueva, 𝗿𝗲𝗰𝗮𝗿𝗴𝗮́ para actualizar.');
