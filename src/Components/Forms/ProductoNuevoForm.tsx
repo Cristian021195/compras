@@ -106,20 +106,17 @@ export const ProductoNuevoForm = () => {
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
         <div  style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'1rem'}}>
             <AccordionParent state={minimize}>
-
                 <div className='costado'>
                     <div>
                         <label htmlFor="nombre" className='p-2'>Producto 🛒/🔎: </label>
                         <input type="text" ref={nombre} name='nombre' id='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>
                     </div>
-
                     <div>
                         <label htmlFor="precio" className='p-2'>Precio <b>($)</b>:</label>
                         <input type="number" name="precio" min={0} max={1000000} step='0.01' required value={data?.precio} 
                             onChange={(e)=>{setData({...data, precio: e.target.value })}}/>
                     </div>
                 </div>
-
                 <div className='costado'>
                     <div>
                         <label htmlFor="cantidad" className='p-2'>Cantidad <b>(¾)</b>:</label>
