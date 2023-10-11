@@ -1,8 +1,6 @@
-import {useEffect, useState} from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { HeadTitleUrl } from '../Helpers'
 import { Contacto, Inicio, Nuevo } from '../Pages'
-import { useSlideRouter } from '../Hooks'
 import { IRouter } from '../Interfaces'
 
 export const PublicRouter = ({runner, setRunner, font, setFont}:IRouter) => {

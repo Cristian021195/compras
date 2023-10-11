@@ -90,6 +90,17 @@ html{
 .scroll-all{
   overflow: scroll;
 }
+.info-counter{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  column-gap: 3rem;
+  color: #4e4e4e;
+}
+.info-counter p{
+  margin: 0;
+}
 .update-bar{
   position: fixed;
   height: 5rem;

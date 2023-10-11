@@ -26,18 +26,16 @@ interface ITable{
     clases:string
 }
 export const TablaProductosCrud = ({clases=''}:ITable) => {
-    const {data, setData} = useContext(EditContext) as TProductoContext;
+    const {data, setData, resetData} = useContext(EditContext) as TProductoContext;
     const [selectedId, setSelectedId] = useState<string>("");
     const [pState, setPState] = useState(false);
     const productos = useLiveQuery(
-        //() => db.productos.toArray() .orderBy('name')
         () => db.productos.orderBy('nombre').toArray()
     );
     const editar = async (id:string) => {
         try {
             let resp = await db.productos.get(id) as TProducto;
             setData(resp);
-            //window.scrollTo({ top: 0, behavior: 'smooth' })
             document.getElementById('nombre')?.focus();
         } catch (error) {
             console.log(error)
@@ -55,7 +53,11 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
     
   return (
     <>
-        {pState && <Prompt cssClass='text-center' title='¿Borrar producto?' text='Se borrará solo el producto seleccionado' onCancel={()=>setPState(false)} onConfirm={()=>{eliminar(selectedId); setPState(false);}}/>}
+        {
+            pState && 
+            <Prompt cssClass='text-center' title='¿Borrar producto?' text='Se borrará solo el producto seleccionado' 
+                onCancel={()=>setPState(false)} onConfirm={()=>{eliminar(selectedId); resetData(); setPState(false);}}/>
+        }
         <div className={clases}>
             <table className='sticky-header'>
                 <thead>
@@ -84,7 +86,6 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
                             <td>{p.total}</td>
                             <td>
                                 <button className='btn' style={{padding:'0.5em', backgroundColor:'#ffa892'}} onClick={()=>{
-                                        //eliminar(p.id)
                                         setSelectedId(p.id);
                                         setPState(true);
                                     }}>
@@ -93,7 +94,9 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
                                 <button className='btn' style={{padding:'0.5em', backgroundColor:'#ffe68d'}} onClick={()=>{editar(p.id)}}>
                                     <b style={{color:'#4e4e4e'}}>✎</b>
                                 </button>
-                                <input type="checkbox" style={{height:'1.5em', width:'1.5em',verticalAlign:'middle'}} onChange={(e)=>{chekar(p.id, e.target.checked)}} defaultChecked={p.chekar}/>
+                                <input type="checkbox" style={{height:'1.5em', width:'1.5em',verticalAlign:'middle'}} onChange={(e)=>{
+                                    chekar(p.id, e.target.checked)
+                                }} checked={p.chekar}/>
                             </td>
                         </tr>
                     })}

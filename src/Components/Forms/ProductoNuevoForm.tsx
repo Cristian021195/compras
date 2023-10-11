@@ -1,15 +1,13 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { useFormAnimation } from '../../Hooks';
 import {FormEvent} from 'react'
 import { db } from '../../DB/db';
 import {v4 as uuid} from "uuid";
 import { EditContext } from '../../Context/EditContext';
 import { TProductoContext, TProducto } from '../../Interfaces/IContext';
-import { useLocation } from 'react-router-dom'
 import { beep } from '../../Helpers';
 import { Add, Clean, Search, Trash } from '../Icons';
 import { AccordionParent } from '../UI/AccordeonParent';
-import { IProducto } from '../../Interfaces';
 import { Prompt, Toast } from '../UI';
 const borrarCompras = async () => {
     try {
@@ -20,7 +18,7 @@ const borrarCompras = async () => {
 }
 
 export const ProductoNuevoForm = () => {
-    const {data, setData} = useContext(EditContext) as TProductoContext | any;
+    const {data, setData, resetData} = useContext(EditContext) as TProductoContext | any;
     const {minimize, setMinimize} = useFormAnimation();
     const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
     const [filtrados, setFiltrados] = useState<TProducto[]>([]);
@@ -30,7 +28,10 @@ export const ProductoNuevoForm = () => {
 
     const nombre = useRef<HTMLInputElement>(null);
 
-    const limpiar = () => { setData({id:'', nombre:'', precio:0, cantidad:1, descuento:0, sum_desc: 0, categoria:'cualquiera', total:0, chekar:false}); setFiltrados([]); }
+    const limpiar = () => { 
+        resetData();
+        setFiltrados([]); 
+    }
 
     const buscar = async()=>{
         if(nombre.current?.value.length! > 0){
@@ -92,19 +93,16 @@ export const ProductoNuevoForm = () => {
                 }
                 limpiar();
             }
-            //setData({id:'', cantidad:1, precio:0, total:0, categoria:'cualquiera', nombre:'', descuento:0})
-            //setData("")
         } catch (error) {
             console.log(error)
             alert('¡Error, revisar la consola!');
-            setData({id:'', cantidad:1, precio:0, total:0, categoria:'cualquiera', sum_desc:0 ,nombre:'', descuento:0})
-            //setData("")
+            resetData();
         }
     }
   return ( //className={minimize ? 'd-none' : 'd-block'}
     <>
     {alerta && <Toast {...alertaDetalle}/>}
-    {promptAlert && <Prompt cssClass='text-center' title='¿Borrar compras?' text='Esto borrará todas las compras, no puede deshacerse.' onConfirm={()=>{borrarCompras(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
+    {promptAlert && <Prompt cssClass='text-center' title='¿Borrar compras?' text='Esto borrará todas las compras, no puede deshacerse.' onConfirm={()=>{borrarCompras(); resetData(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
         <div  style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'1rem'}}>
             <AccordionParent state={minimize}>
@@ -117,23 +115,26 @@ export const ProductoNuevoForm = () => {
 
                     <div>
                         <label htmlFor="precio" className='p-2'>Precio <b>($)</b>:</label>
-                        <input type="number" name="precio" min={0} max={1000000} step='0.01' required value={data?.precio} onChange={(e)=>{setData({...data, precio: e.target.value})}}/>
+                        <input type="number" name="precio" min={0} max={1000000} step='0.01' required value={data?.precio} 
+                            onChange={(e)=>{setData({...data, precio: e.target.value })}}/>
                     </div>
                 </div>
 
                 <div className='costado'>
                     <div>
                         <label htmlFor="cantidad" className='p-2'>Cantidad <b>(¾)</b>:</label>
-                        <input type="number" name="cantidad" min={1} max={1000000} required value={data?.cantidad} onChange={(e)=>{setData({...data, cantidad: e.target.value})}}/>
+                        <input type="number" name="cantidad" min={1} max={1000000} required value={data?.cantidad} 
+                            onChange={(e)=>{setData({...data, cantidad: e.target.value })}}/>
                     </div>
 
                     <div>
                         <label htmlFor="sum_desc" className='p-2'>suma/desc <b>(±) </b>: </label>
-                        <input type="number" name="sum_desc" min={-999999} max={1000000} step='0.01' required value={data?.sum_desc} onChange={(e)=>{setData({...data, sum_desc: e.target.value})}}/>
+                        <input type="number" name="sum_desc" min={-999999} max={1000000} step='0.01' required value={data?.sum_desc} 
+                            onChange={(e)=>{setData({...data, sum_desc: e.target.value })}}/>
                     </div>
                 </div>
 
-                <label htmlFor="descuento" style={{padding:'1em', display:'none'}} className='d-none align-items-center justify-content-between flex-wrap'>Descuento (%): <input type="number" name="descuento" min={0} required value={data?.descuento} onChange={(e)=>{setData({...data, descuento: e.target.value})}}/>
+                <label htmlFor="descuento" style={{padding:'1em', display:'none'}} className='d-none align-items-center justify-content-between flex-wrap'>Descuento (%): <input type="number" name="descuento" min={0} required value={data?.descuento} onChange={(e)=>{setData({...data, descuento: parseFloat(e.target.value)})}}/>
                 </label>
                 <input type="hidden" name="id" defaultValue={data?.id}/>
                 <label htmlFor="categoria" style={{padding:'1em', display:'none', justifyContent:'space-between', alignItems:'end'}}>Categoria: 
@@ -174,7 +175,3 @@ export const ProductoNuevoForm = () => {
     </>
   )
 }
-/*
-d-flex align-items-center justify-content-between flex-wrap
-d-flex align-items-center justify-content-between flex-wrap
-*/

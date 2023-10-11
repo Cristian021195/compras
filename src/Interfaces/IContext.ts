@@ -3,6 +3,7 @@ import { IProducto } from "./IProducto";
 export type TProductoContext = {
     data:IProducto;
     setData: (value:IProducto)=>void;
+    resetData: ()=>void;
 }
 
 export type TProducto = {

@@ -7,14 +7,17 @@ import { cantidadProductos, cantidadTotalProductos, totalProducto } from '../Hel
 import { useSlideRouter } from '../Hooks';
 import { IRouter } from '../Interfaces';
 
+/*
+<p style={{color:'#4e4e4e'}}>
+  <b><span onClick={()=>{setAlerta('Muestra la cantidad total de productos del mismo tipo.')}}>ⓘ</span> &nbsp; Productos: {cantidadProductos(productos!)}</b>
+  <br/><b><span onClick={()=>{setAlerta('Muestra la cantidad total de productos totales y la suma de sus cantidades.')}}>ⓘ</span> &nbsp; Cantidad Total: {cantidadTotalProductos(productos!)}</b>
+</p>
+*/
 
 export const Nuevo = ({runner, setRunner}:IRouter) => {
   const {pos1, pos2, setPos1, setPos2} = useSlideRouter(window.location.pathname, runner, setRunner);
   const [alerta, setAlerta] = useState<string>('');
   const productos = useLiveQuery(
-    () => db.productos.toArray()
-  );
-  const filtrados = useLiveQuery(
     () => db.productos.toArray()
   );
   return (
@@ -28,10 +31,14 @@ export const Nuevo = ({runner, setRunner}:IRouter) => {
           productos?.length! > 0 ? 
           <>
             <div>
-              <p style={{color:'#4e4e4e'}}>
-                <b><span onClick={()=>{setAlerta('Muestra la cantidad total de productos del mismo tipo.')}}>ⓘ</span> &nbsp; Productos: {cantidadProductos(productos!)}</b>
-                <br/><b><span onClick={()=>{setAlerta('Muestra la cantidad total de productos totales y la suma de sus cantidades.')}}>ⓘ</span> &nbsp; Cantidad Total: {cantidadTotalProductos(productos!)}</b>
-              </p>
+              <div className='info-counter'>
+                <p>
+                  <b><span onClick={()=>{setAlerta('Muestra la cantidad total de productos del mismo tipo.')}}>ⓘ</span> &nbsp; Productos: {cantidadProductos(productos!)}</b>
+                </p>
+                <p>                
+                  <b><span onClick={()=>{setAlerta('Muestra la cantidad total de productos totales y la suma de sus cantidades.')}}>ⓘ</span> &nbsp; Cantidad Total: {cantidadTotalProductos(productos!)}</b>
+                </p>
+              </div>
               {alerta == '' ?
                <></> :
                 <i style={{
@@ -56,11 +63,5 @@ export const Nuevo = ({runner, setRunner}:IRouter) => {
       <TablaProductosCrud clases='stripped scroll-all vh-40'/>
     </section>
     </>
-  )//<a href="#top" style={{backgroundColor:'rgba(255,127,80,0.7)', color:'whitesmoke', padding:'1em', borderRadius:'50%', textDecoration:'none', position:'fixed', bottom:'1em', right:'1em'}}>▲</a>
+  )
 }
-/*
-
-<br />
-          <TablaProductosCrud clases='stripped'/>
-          <br />
-*/
