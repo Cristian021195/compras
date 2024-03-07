@@ -1,3 +1,4 @@
+import { Comparadora } from '../Components';
 import { useSlideRouter } from '../Hooks';
 import { IRouter } from '../Interfaces';
 
@@ -7,7 +8,10 @@ export const Calculadora = ({runner, setRunner}:IRouter) => {
     <section style={{textAlign:'center'}} className='pop-up' id='detector'>
         <h1>Calculadora</h1>
         <div style={{textAlign:'start', margin:'2em auto'}} className='col-6'>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur, laboriosam provident quasi voluptatibus sed quos, voluptatum sit repellat cumque deleniti vel omnis aperiam earum suscipit ea, voluptates obcaecati animi nulla?
+          Sirve para saber que producto es mas conveniente en relacion <b>cantidad / precio</b>
+        </div>          
+        <div style={{display:'flex', justifyContent:'center', flexWrap:'wrap', gap:'1em'}}>
+          <Comparadora/>
         </div>
     </section>
   )

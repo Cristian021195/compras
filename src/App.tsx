@@ -8,7 +8,7 @@ import { EditProvider } from './Context/EditContext'
 import { locations } from './Utils'
 
 function App() {
-  const [runner, setRunner] = useState( locations.findIndex((lo)=>lo===window.location.pathname) );
+  const [runner, setRunner] = useState( locations.findIndex((lo)=>lo==='/nuevo') );
   const [font, setFont] = useState<string>(localStorage.getItem('font') || 'md');
 
   useEffect(()=>{
