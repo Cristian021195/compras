@@ -104,8 +104,8 @@ export const ProductoNuevoForm = () => {
     {alerta && <Toast {...alertaDetalle}/>}
     {promptAlert && <Prompt cssClass='text-center' title='¿Borrar compras?' text='Esto borrará todas las compras, no puede deshacerse.' onConfirm={()=>{borrarCompras(); resetData(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
-        <div  style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'1rem'}}>
-            <AccordionParent state={minimize}>
+        <div  style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'0 1rem 1rem 1rem'}}>
+            <AccordionParent state={!minimize}>
                 <div className='costado'>
                     <div>
                         <label htmlFor="nombre" className='p-2'>Producto 🛒/🔎: </label>
@@ -159,14 +159,29 @@ export const ProductoNuevoForm = () => {
         <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'dodgerblue'}} onClick={buscar}>
             <Search width={14} height={14}/>
         </button>
+        <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'gainsboro', color:'black'}} onClick={()=>{}}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+              <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
+            </svg>
+        </button>
+        <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'gold', color:'black'}} onClick={()=>{}}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 18 16">
+                <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5"/>
+            </svg>
+        </button>
         <button type='button' className={minimize ? 'btn rotate-left' : 'btn rotate-right'}  style={{backgroundColor:'coral', color:'whitesmoke', padding:'0.6rem 0.3rem 0.6rem 0.3rem', margin:'0.4em'}}
         onClick={()=>setMinimize(!minimize)}>&nbsp;▲&nbsp;</button>
-        <div className='d-flex justify-content-center pb-2'>
-            {filtrados.length > 0 && <fieldset className='pop-up'>
+        <div className='d-flex justify-content-center'>
+            {
+            filtrados.length > 0 && <fieldset className='pop-up mb-2'>
                 <legend><small>Encontrados: </small></legend>
                 <p><small>Producto, Precio, Cantidad, Total</small></p>
-                {filtrados.map((fil,fili)=><p key={fili}><small>{fil.nombre}, {fil.precio}, {fil.cantidad}, {fil.total}</small></p>)}
-            </fieldset>}
+                {
+                    filtrados.map((fil,fili)=><p key={fili}><small>{fil.nombre}, {fil.precio}, {fil.cantidad}, {fil.total}</small></p>)
+                }
+            </fieldset>
+            }
         </div>
     </form>
     </>

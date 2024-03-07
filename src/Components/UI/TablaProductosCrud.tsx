@@ -63,12 +63,12 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>NOMBRE</th>
+                        <th className='headcol'>NOMBRE</th>
                         <th>PRECIO</th>
                         <th>CANTIDAD</th>
                         <th>SUM/DESC</th>
                         <th>TOTAL</th>
-                        <th>ACCIONES</th>
+                        <th>&nbsp;&nbsp;ACCIONES&nbsp;&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,19 +79,19 @@ export const TablaProductosCrud = ({clases=''}:ITable) => {
                                     {p_i}
                                 </div>                            
                             </td>
-                            <td>{p.nombre}</td>
+                            <td className='headcol'><b>{p.nombre}</b></td>
                             <td>{p.precio}</td>
                             <td>{p.cantidad}</td>
                             <td>{p.sum_desc}</td>
                             <td>{p.total}</td>
                             <td>
-                                <button className='btn' style={{padding:'0.5em', backgroundColor:'#ffa892'}} onClick={()=>{
+                                <button className='btn acciones-btn' style={{backgroundColor:'#ffa892'}} onClick={()=>{
                                         setSelectedId(p.id);
                                         setPState(true);
                                     }}>
                                     <b style={{color:'#4e4e4e'}}>✖</b>
                                 </button>&nbsp;
-                                <button className='btn' style={{padding:'0.5em', backgroundColor:'#ffe68d'}} onClick={()=>{editar(p.id)}}>
+                                <button className='btn acciones-btn' style={{backgroundColor:'#ffe68d'}} onClick={()=>{editar(p.id)}}>
                                     <b style={{color:'#4e4e4e'}}>✎</b>
                                 </button>
                                 <input type="checkbox" style={{height:'1.5em', width:'1.5em',verticalAlign:'middle'}} onChange={(e)=>{

@@ -19,12 +19,12 @@ function App() {
   ,[font])
 
   
-  return (
+  return (//<div id="top"></div>
       <BrowserRouter>
         <EditProvider>
-          <div id="top"></div>
-          <PublicRouter runner={runner} setRunner={setRunner} font={font} setFont={setFont}/>
-          <div style={{height:'2em'}}>&nbsp;</div>
+          <div className='main-height'>
+            <PublicRouter runner={runner} setRunner={setRunner} font={font} setFont={setFont}/>
+          </div>
           <Header runner={runner} setRunner={setRunner}></Header>
         </EditProvider>
       </BrowserRouter>

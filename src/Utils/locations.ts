@@ -1,1 +1,1 @@
-export const locations = ['/', '/nuevo', '/contacto'];
+export const locations = ['/nuevo','/calculadora','/estadistica','/compartir', '', '/'];
