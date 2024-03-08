@@ -30,18 +30,18 @@ export const Comparadora = () => {
       <form className='mb-2' onSubmit={saveData}>
           <div className="d-flex justify-content-between mb-2 mx-1">
             <label htmlFor="nombre">Nombre: </label>
-            <input type="text" name="nombre" id="nombre" placeholder="Galletas" minLength={4} maxLength={40} required />
+            <input type="text" name="nombre" id="nombre" placeholder="Papel Higienol 4x80mts" minLength={4} maxLength={40} required />
           </div>
           <div className="d-flex justify-content-between my-2 mx-1">
             <label htmlFor="precio">Precio: </label>
-            <input type="number" name="precio" id="precio" placeholder="1500" min={0.01} step={0.01} max={1000000} required />
+            <input type="number" name="precio" id="precio" placeholder="3000" min={0.01} step={0.01} max={1000000} required />
             <span>&emsp;</span>
             <label htmlFor="cantidad">Cantidad: </label>
-            <input type="number" name="cantidad" id="cantidad" placeholder="1500" min={1} max={1000000} step={1} required />
+            <input type="number" name="cantidad" id="cantidad" placeholder="4" min={1} max={1000000} step={1} required />
           </div>
           <div className="d-flex justify-content-between my-2 mx-1">
             <label htmlFor="unidades">Unidades (mts/lts/cc/gr/kg): </label>
-            <input type="number" name="unidades" id="unidades" placeholder="1500" min={1} max={1000000} step={1} required />
+            <input type="number" name="unidades" id="unidades" placeholder="80" min={1} max={1000000} step={1} required />
           </div>
           <div className='d-flex justify-content-between gap-1 pb-1'>
             <button type='button' className="btn c-main text-w p-1" onClick={clearData}>
