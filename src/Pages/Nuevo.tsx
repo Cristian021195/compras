@@ -59,7 +59,7 @@ export const Nuevo = ({runner, setRunner}:IRouter) => {
           </div>
       </section>
       <section className='d-flex justify-content-center vh-58'>
-        <TablaProductosCrud clases='stripped scroll-all'/>
+        <TablaProductosCrud clases='stripped scroll-all mb-1'/>
       </section>
     </div>
   )

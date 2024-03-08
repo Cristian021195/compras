@@ -6,6 +6,7 @@
   --c-spink:#FC72B7;
   --c-sgreen:#4eb753;
   --c-green:#66BB6A;
+  --c-lgreen:#A5D6A7;
   --c-dgreen: #00897B;
   --c-ored:#FF5252;
   --c-bred:#FFA892;
@@ -16,10 +17,10 @@
   --c-seorange:#FFA281;
   --c-forange:#ffd1c1;
   --c-gainboro:#dcdcdc;
+  --c-gray:#e7e7e7;
   --c-gold:#ffd700;
   --c-lyellow:#FFE68D;
   --c-dgray:#4e4e4e;
-  --c-str-white:e7e7e7;
 }
 /* colores */
 .c-main{background-color: var(--c-main);}
@@ -40,8 +41,10 @@
 .c-forange{background-color: var(--c-forange);} 
 .c-lyellow{background-color: var(--c-lyellow);}
 .c-bred{background-color: var(--c-bred);}
-.c-str-white{background-color: var(--c-str-white);}
 .c-seorange{background-color: var(--c-seorange);}
+.c-gray{background-color: var(--c-gray);}
+.c-white{background-color: white}
+.c-lgreen{background-color: var(--c-lgreen);}
 
 
 body, div, ul{
@@ -55,6 +58,7 @@ body{
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   height: -webkit-fill-available!important;
 }
+
 button{
   border: none;
 }
@@ -150,6 +154,8 @@ html{
 .vh-62{height: 62vh;}
 .vh-58{height: 58vh;}
 .vh-50{height: 50vh;}
+.vh-36{height: 36vh;}
+    
 .headcol {
   position: sticky;
   width: 5em;
@@ -165,6 +171,7 @@ html{
 .d-flex{display: flex!important;}
 .d-block{display: block!important;}
 .d-none{display: none!important;}
+.gap-1{gap:1rem;}
 .flex-wrap{
   flex-wrap: wrap;
 }
@@ -191,10 +198,10 @@ html{
   align-items: end;
 }
 .stripped tr:nth-child(even){
-  background-color: var(--c-str-white);
+  background-color: var(--c-gray);
 }
 .stripped th {
-  background-color:var(--c-str-white);
+  background-color: whitesmoke;
 }
 .text-w{color: whitesmoke;}
 .selected-row{
@@ -219,14 +226,18 @@ table tr td, table tr th{
 .pb-2{padding-bottom: 1em;}
 .pb-3{padding-bottom: 1.5em;}
 
-.p-1{padding: 0.6em;}
-.p-2{padding: 1em;}
-.p-3{padding: 1.5em;}
-.m-1{margin: 0.4em;}
-.m-2{margin: 1em;}
-.m-3{margin: 1.5em;}
-.mb-1{margin: 0.4em;}
-.mb-2{margin-bottom: 0.6em;}
+.p-05{padding: 0.3rem;}
+.p-1{padding: 0.6rem;}
+.p-2{padding: 1rem;}
+.p-3{padding: 1.5rem;}
+.m-1{margin: 0.4rem;}
+.m-2{margin: 1rem;}
+.m-3{margin: 1.5rem;}
+.mb-1{margin: 0.4rem;}
+.mb-2{margin-bottom: 0.6rem;}
+.my-2{margin-top: 1rem; margin-bottom: 1rem;}
+.my-1{margin-top: 0.5rem; margin-bottom: 0.5rem;}
+.mx-1{margin-left: 0.5rem; margin-right: 0.5rem;}
 .h-scroll-style::-webkit-scrollbar, .v-scroll-style::-webkit-scrollbar {
   width: 7px;
   height: 7px;
@@ -654,6 +665,7 @@ table tr:focus, table tr:focus td b {
   display: flex;
   flex-direction: column;
   min-height: 93vh;
+  padding-bottom: 5vh;
 }
 
 /*convex bar clasic*/
@@ -661,7 +673,9 @@ table tr:focus, table tr:focus td b {
   display: none;
 }
 .cvxc-bar-div{
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 }
 .vh100-scroll-y{
   height: 100vh;
