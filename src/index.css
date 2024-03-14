@@ -225,10 +225,12 @@ table tr td, table tr th{
 .pb-1{padding-bottom: 0.6em;}
 .pb-2{padding-bottom: 1em;}
 .pb-3{padding-bottom: 1.5em;}
-
+.ps-2{padding: 1rem;}
 .p-05{padding: 0.3rem;}
 .p-1{padding: 0.6rem;}
 .p-2{padding: 1rem;}
+.pe-2{padding-right: 1rem;}
+.pt-2{padding-top: 1rem;}
 .p-3{padding: 1.5rem;}
 .m-1{margin: 0.4rem;}
 .m-2{margin: 1rem;}
@@ -238,6 +240,8 @@ table tr td, table tr th{
 .my-2{margin-top: 1rem; margin-bottom: 1rem;}
 .my-1{margin-top: 0.5rem; margin-bottom: 0.5rem;}
 .mx-1{margin-left: 0.5rem; margin-right: 0.5rem;}
+.ms-2{margin-left: 1rem;}
+.me-2{margin-right: 1rem;}
 .h-scroll-style::-webkit-scrollbar, .v-scroll-style::-webkit-scrollbar {
   width: 7px;
   height: 7px;
@@ -418,6 +422,7 @@ header ul{
 }
 @media only screen and (max-width: 320px) {
   body{zoom: 0.9;}
+  .costad{display: flex; justify-content: space-between;}
   .costado{display: flex; justify-content: center;}
   .costado div{display: block; margin-top: 1rem;}
   .costado input[type="number"], .costado input[type="text"]{width: 60px!important;}
@@ -426,6 +431,7 @@ header ul{
   [class*="col-"] {
     width: 100%;
   }
+  .costad{display: flex; justify-content: space-between;}
   .costado{display: flex; justify-content: center;}
   .costado div{display: block; margin-top: 1rem;}
   .costado input[type="number"], .costado input[type="text"]{width: 120px;}

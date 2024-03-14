@@ -17,9 +17,10 @@ import { IRouter } from '../Interfaces';
 export const Nuevo = ({runner, setRunner}:IRouter) => {
   const {pos1, pos2, setPos1, setPos2} = useSlideRouter(window.location.pathname, runner, setRunner);
   const [alerta, setAlerta] = useState<string>('');
+  const [superm, setSuperm] = useState<string>('');
   const productos = useLiveQuery(
-    () => db.productos.toArray()
-  );
+    () => db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === superm))
+  ,[superm]);
   return (
     <div>
       <section style={{textAlign:'center'}} className='pop-up' id='detector'>
@@ -55,11 +56,11 @@ export const Nuevo = ({runner, setRunner}:IRouter) => {
             <></>
           }
           <div style={{display:'flex', justifyContent:'center', flexWrap:'wrap', gap:'1em'}}>
-            <ProductoNuevoForm/>          
+            <ProductoNuevoForm setSuperm={setSuperm}/>
           </div>
       </section>
       <section className='d-flex justify-content-center vh-58'>
-        <TablaProductosCrud clases='stripped scroll-all mb-1'/>
+        <TablaProductosCrud clases='stripped scroll-all mb-1' sel={superm}/>
       </section>
     </div>
   )

@@ -23,15 +23,18 @@ const eliminar = async (id:string) => {
 }
 
 interface ITable{
-    clases:string
+    clases:string,
+    sel:string
 }
-export const TablaProductosCrud = ({clases=''}:ITable) => {
+export const TablaProductosCrud = ({clases='', sel=""}:ITable ) => {
     const {data, setData, resetData} = useContext(EditContext) as TProductoContext;
     const [selectedId, setSelectedId] = useState<string>("");
     const [pState, setPState] = useState(false);
     const productos = useLiveQuery(
-        () => db.productos.orderBy('nombre').toArray()
-    );
+        () => {
+            return db.productos.orderBy('nombre').toArray().then(res=>res.filter((e)=>e.super===sel));
+        }
+    ,[sel]);
     const editar = async (id:string) => {
         try {
             let resp = await db.productos.get(id) as TProducto;

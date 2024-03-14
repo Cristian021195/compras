@@ -4,11 +4,12 @@ import {FormEvent} from 'react'
 import { db } from '../../DB/db';
 import {v4 as uuid} from "uuid";
 import { EditContext } from '../../Context/EditContext';
-import { TProductoContext, TProducto } from '../../Interfaces/IContext';
-import { beep } from '../../Helpers';
-import { Add, Clean, Search, Trash } from '../Icons';
+import { TProductoContext, TProducto,ICompra } from '../../Interfaces/';
+import { ShareText, beep } from '../../Helpers';
+import { Add, Calendar, Clean, Search, Share, Trash, Upload } from '../Icons';
 import { AccordionParent } from '../UI/AccordeonParent';
-import { Prompt, Toast } from '../UI';
+import { Prompt, PromptDouble, Toast } from '../UI';
+import { useLiveQuery } from 'dexie-react-hooks';
 const borrarCompras = async () => {
     try {
         db.productos.clear();
@@ -16,8 +17,10 @@ const borrarCompras = async () => {
         console.log('Hubo un error, revise la consola: '+error)
     }
 }
-
-export const ProductoNuevoForm = () => {
+interface IProps{
+    setSuperm: (e:string)=>void
+}
+export const ProductoNuevoForm = ({setSuperm}:IProps) => {
     const {data, setData, resetData} = useContext(EditContext) as TProductoContext | any;
     const {minimize, setMinimize} = useFormAnimation();
     const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
@@ -26,8 +29,23 @@ export const ProductoNuevoForm = () => {
     const [promptAlert,setPromptAlert] = useState(false);
     const [promptDb,setPromptDb] = useState(false);
     const [alertaDetalle, setAlertaDetalle] = useState({});
+    const [selectedSuper, setSelectedSuper] = useState("");
 
     const nombre = useRef<HTMLInputElement>(null);
+    const listadoSuper = useLiveQuery(
+        () => {
+            //db.compra.limit(1)
+            //.toArray().then((res:any)=>{console.log(res)})
+            let compras = db.compra.toArray();
+            compras.then((resc)=>{
+                if(resc.length > 0){
+                    setSelectedSuper(resc[0].super+"");
+                    setSuperm(resc[0].super+"")
+                }
+            })
+            return compras;
+        }
+    );
 
     const limpiar = () => { 
         resetData();
@@ -44,14 +62,15 @@ export const ProductoNuevoForm = () => {
     }
 
     const compartir = async () => {
-        let prods = await db.productos.toArray(pr=>pr.map(pm=>{return {nombre:pm.nombre, precio:pm.precio}}));
+        /*let prods = await db.productos.toArray(pr=>pr.map(pm=>{return {nombre:pm.nombre, precio:pm.precio}}));
         let formated = prods.map(fp=>`${fp.nombre}=${fp.precio}`);
         let str = formated.join('\n');
 
         let myData = {title: 'Capo',text: str}
         if (navigator.canShare(myData)) {
             await navigator.share(myData);
-        }
+        }*/
+        setPromptDb(true);
     }
 
     const compar = async () => {
@@ -68,9 +87,83 @@ export const ProductoNuevoForm = () => {
         data.total = ((parseFloat(data.precio.toString()) * parseFloat(data.cantidad.toString())) + parseFloat(data.sum_desc.toString()) * (1-parseInt(data.descuento.toString())/100))+"";
         e.currentTarget.reset();
 
-        try {
+        db.compra.add({
+            super: data?.super+"",
+            fecha: data?.fecha+""
+        })
+        .catch((err:any)=>{
+            console.log('Error: producto ya cargado en este supermercado');
+        })
 
-            if(data?.id){
+        if(data?.id){
+
+            const id = await db.productos.update(data?.id+"",{
+                nombre: data?.nombre+"",
+                precio: parseFloat(data?.precio+""),
+                cantidad: parseInt(data?.cantidad+""),
+                descuento: parseFloat(data?.descuento+""),
+                sum_desc: parseFloat(data?.sum_desc+""),
+                categoria: data?.categoria+"",
+                super: data?.super+"",
+                total: parseFloat(data?.total+""),
+                chekar:true
+            });
+            if(id){
+                setAlerta(true);
+                setAlertaDetalle({color:"#f5f5f5", bgcolor:"#66bb6a", title:"Edicion",text:"¡Editado!", status:true});
+                setTimeout(() => {
+                    setAlerta(false);
+                }, 4000);
+                if(sound){ beep(); }
+            }
+            limpiar();
+
+        }else{
+
+            db.productos.add({
+                id: uuid(),
+                super: data?.super+"",
+                nombre: data?.nombre+"",
+                precio: parseFloat(data?.precio+""),
+                cantidad: parseInt(data?.cantidad+""),
+                descuento: parseFloat(data?.descuento+""),
+                sum_desc: parseFloat(data?.sum_desc+""),
+                categoria: data?.categoria+"",
+                total: parseFloat(data?.total+""),
+                chekar:true
+            })
+            .then(res=>{
+                setAlerta(true);
+                setAlertaDetalle({color:"#f5f5f5", bgcolor:"#66bb6a", title:"Nuevo Producto",text:"¡Agregado!", status:true});
+                setTimeout(() => {
+                    setAlerta(false);
+                }, 4000);
+                if(sound){ beep();
+                }
+            })
+            .catch((err:any)=>{
+                setAlerta(true);
+                setAlertaDetalle({color:"#f5f5f5", bgcolor:"#FF5252", title:"¡Error!",text:"producto ya cargado en este supermercado "+data?.super, status:true});
+                setTimeout(() => {
+                    setAlerta(false);
+                }, 4000);
+                resetData();
+            })
+
+        }
+
+        
+            
+            /*if(id){
+                setAlerta(true);
+                setAlertaDetalle({color:"#f5f5f5", bgcolor:"#66bb6a", title:"Nuevo Producto",text:"¡Agregado!", status:true});
+                setTimeout(() => {
+                    setAlerta(false);
+                }, 4000);
+                if(sound){ beep(); }
+            }
+            limpiar();*/
+            /*if(data?.id){
                 const id = await db.productos.update(data?.id+"",{
                     nombre: data?.nombre+"",
                     precio: parseFloat(data?.precio+""),
@@ -108,23 +201,44 @@ export const ProductoNuevoForm = () => {
                     setTimeout(() => {
                         setAlerta(false);
                     }, 4000);
-                    if(sound){ beep(); }
+                    if(sound){ beep();
+                    }
                 }
                 limpiar();
-            }
-        } catch (error) {
-            console.log(error)
-            alert('¡Error, revisar la consola!');
-            resetData();
-        }
+            }*/
+        //catch (error) {
+        //    console.log(error)
+        //    alert('¡Error, revisar la consola!');
+        //    resetData();
+        //}
     }
   return ( //className={minimize ? 'd-none' : 'd-block'}
     <>
     {alerta && <Toast {...alertaDetalle}/>}
     {promptAlert && <Prompt cssClass='text-center' title='¿Borrar compras?' text='Esto borrará todas las compras, no puede deshacerse.' onConfirm={()=>{borrarCompras(); resetData(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
+    {promptDb && <PromptDouble btn1='Archivo' btn2='Texto' cssClass='text-center' title='Compartir Compra' text='Seleccione el metodo de compartir su compra' 
+        onConfirm={()=>{ ShareText() }} onAlternative={()=>{  }} onCancel={ ()=>{setPromptDb(false)} }/>}
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
         <div  style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'0 1rem 1rem 1rem'}}>
-            <AccordionParent state={!minimize}>
+            <AccordionParent state={!minimize} cssClass="pt-2">
+                <div className='d-flex justify-content-between align-items-center'>                
+                    <div className=''>                        
+                        <label htmlFor="super">Supermercado:</label>
+                        <div className="costado">
+                            <input type="text" name='super' id='super' placeholder='Super vea' minLength={3} maxLength={30} required defaultValue={selectedSuper}/>
+                        </div>
+                    </div>
+                    <div className="">
+                        <label htmlFor="listado-super">Supermercados</label>
+                        <select className='costado' style={{width:'120px'}} onChange={(e)=>{setSelectedSuper(e.target.value); setSuperm(e.target.value)}}>
+                            <optgroup>
+                                {listadoSuper?.map((ls,lsi)=>{
+                                    return <option key={lsi} value={ls.super}>{ls.super}</option>
+                                })}
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
                 <div className='costado'>
                     <div>
                         <label htmlFor="nombre" className='p-2'>Producto 🛒/🔎: </label>
@@ -181,15 +295,10 @@ export const ProductoNuevoForm = () => {
         <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'gainsboro', color:'black'}} onClick={
             compar
         }>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-              <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-            </svg>
+            <Upload/>
         </button>
         <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'gold', color:'black'}} onClick={compartir}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 18 16">
-                <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5"/>
-            </svg>
+            <Share/>
         </button>
         <button type='button' className={minimize ? 'btn rotate-left' : 'btn rotate-right'}  style={{backgroundColor:'coral', color:'whitesmoke', padding:'0.6rem 0.3rem 0.6rem 0.3rem', margin:'0.4em'}}
         onClick={()=>setMinimize(!minimize)}>&nbsp;▲&nbsp;</button>

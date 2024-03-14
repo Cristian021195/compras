@@ -24,23 +24,26 @@ export const Comparadora = () => {
   const clearData = () => {
     setData([]);
   }
-
-  return (
+  
+  return (//d-flex justify-content-between mb-2 mx-1 <span>&emsp;</span>
     <div className='col-12'>
       <form className='mb-2' onSubmit={saveData}>
-          <div className="d-flex justify-content-between mb-2 mx-1">
+          <div className="d-flex justify-content-between align-items-center">
             <label htmlFor="nombre">Nombre: </label>
-            <input type="text" name="nombre" id="nombre" placeholder="Papel Higienol 4x80mts" minLength={4} maxLength={40} required />
+            <input type="text" name="nombre" id="nombre" placeholder="Papel 4x80mts" minLength={4} maxLength={40} required />
           </div>
-          <div className="d-flex justify-content-between my-2 mx-1">
-            <label htmlFor="precio">Precio: </label>
-            <input type="number" name="precio" id="precio" placeholder="3000" min={0.01} step={0.01} max={1000000} required />
-            <span>&emsp;</span>
-            <label htmlFor="cantidad">Cantidad: </label>
-            <input type="number" name="cantidad" id="cantidad" placeholder="4" min={1} max={1000000} step={1} required />
+          <div className="d-flex justify-content-between my-2">
+            <div className='d-flex align-items-center'>
+              <label htmlFor="precio">Precio: </label>
+              <input type="number" name="precio" id="precio" placeholder="3000" min={0.01} step={0.01} max={1000000} required style={{width:'5rem'}}/>
+            </div>
+            <div className='d-flex align-items-center'>
+              <label htmlFor="cantidad">Cantidad: </label>
+              <input type="number" name="cantidad" id="cantidad" placeholder="4" min={1} max={1000000} step={1} required />
+            </div>
           </div>
-          <div className="d-flex justify-content-between my-2 mx-1">
-            <label htmlFor="unidades">Unidades (mts/lts/cc/gr/kg): </label>
+          <div className="d-flex justify-content-between my-2">
+            <label htmlFor="unidades">Unid. mts/lts/cc/gr/kg: </label>
             <input type="number" name="unidades" id="unidades" placeholder="80" min={1} max={1000000} step={1} required />
           </div>
           <div className='d-flex justify-content-between gap-1 pb-1'>

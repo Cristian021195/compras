@@ -7,6 +7,12 @@ export interface IProducto {
     sum_desc: number;
     categoria?: string;
     total:number,
-    chekar:boolean
-  }
+    chekar:boolean,
+    super?:string
+}
+
+export interface ICompra {
+  super?:string,
+  fecha?:string
+}
   

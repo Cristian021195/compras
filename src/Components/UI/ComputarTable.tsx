@@ -10,11 +10,18 @@ export interface ICTProps {
 interface ICT{
   data: ICTProps[]
 }
+interface ICheaper extends ICTProps {}
 
 export const ComputarTable = ({data}:ICT) => {
-  let cheaper = data.reduce((p, c)=>{
-    return ((c.cantidad * c.unidades)/c.precio) < ((p.cantidad * p.unidades)/p.precio) ? p : c;
-  });
+  let cheaper: ICTProps | undefined;
+  if(data.length>0){
+    cheaper = data?.reduce((p, c)=>{
+      return ((c.cantidad * c.unidades)/c.precio) < ((p.cantidad * p.unidades)/p.precio) ? p : c;
+    });
+  }else{
+    cheaper = undefined;
+  }
+  
 
   return (
     <div className='stripped scroll-all vh-36'>
@@ -30,10 +37,10 @@ export const ComputarTable = ({data}:ICT) => {
                 data.map((e,ei)=>{ 
                   let m = e.cantidad * e.unidades;
                   let r = m !== 0 ? e.precio / m : 0;
-                  return (<tr key={ei} className={cheaper.id === e.id ? 'c-lgreen' : ''}>
+                  return (<tr key={ei} className={cheaper?.id === e.id ? 'c-lgreen' : ''}>
                           <td>{ei}</td>
                           <td className={ei % 2 === 0 ? 'headcol c-white' : 'headcol c-gray'}>{e.nombre}</td>
-                          <td>{e.precio}</td><td>{e.cantidad}</td><td>{e.unidades}</td><td>{r}</td>
+                          <td>{e.precio}</td><td>{e.cantidad}</td><td>{e.unidades}</td><td>{r.toFixed(2)}</td>
                           </tr>)
                   })
               }
