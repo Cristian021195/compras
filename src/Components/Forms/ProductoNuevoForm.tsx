@@ -5,7 +5,7 @@ import { db } from '../../DB/db';
 import {v4 as uuid} from "uuid";
 import { EditContext } from '../../Context/EditContext';
 import { TProductoContext, TProducto,ICompra } from '../../Interfaces/';
-import { ShareText, beep } from '../../Helpers';
+import { ShareFile, ShareText, beep } from '../../Helpers';
 import { Add, Calendar, Clean, Search, Share, Trash, Upload } from '../Icons';
 import { AccordionParent } from '../UI/AccordeonParent';
 import { Prompt, PromptDouble, Toast } from '../UI';
@@ -29,7 +29,7 @@ export const ProductoNuevoForm = ({setSuperm}:IProps) => {
     const [promptAlert,setPromptAlert] = useState(false);
     const [promptDb,setPromptDb] = useState(false);
     const [alertaDetalle, setAlertaDetalle] = useState({});
-    const [selectedSuper, setSelectedSuper] = useState("");
+    const [selectedSuper, setSelectedSuper] = useState<ICompra>();
 
     const nombre = useRef<HTMLInputElement>(null);
     const listadoSuper = useLiveQuery(
@@ -39,7 +39,7 @@ export const ProductoNuevoForm = ({setSuperm}:IProps) => {
             let compras = db.compra.toArray();
             compras.then((resc)=>{
                 if(resc.length > 0){
-                    setSelectedSuper(resc[0].super+"");
+                    setSelectedSuper(resc[0]);
                     setSuperm(resc[0].super+"")
                 }
             })
@@ -61,35 +61,35 @@ export const ProductoNuevoForm = ({setSuperm}:IProps) => {
         }
     }
 
-    const compartir = async () => {
-        /*let prods = await db.productos.toArray(pr=>pr.map(pm=>{return {nombre:pm.nombre, precio:pm.precio}}));
-        let formated = prods.map(fp=>`${fp.nombre}=${fp.precio}`);
-        let str = formated.join('\n');
-
-        let myData = {title: 'Capo',text: str}
+    const fileSave = async () => {
+        let prod = await db.productos.filter(pd=> new RegExp(nombre.current?.value || '', "i").test(pd.nombre)).toArray();
+        console.log(prod)
+        /*let myData = {title: 'My title',text: 'My text'}
         if (navigator.canShare(myData)) {
             await navigator.share(myData);
         }*/
-        setPromptDb(true);
     }
 
     const compar = async () => {
-        let myData = {title: 'My title',text: 'My text'}
+        let prod = await db.productos.filter(pd=> new RegExp(nombre.current?.value || '', "i").test(pd.nombre)).toArray();
+        console.log(prod)
+        /*let myData = {title: 'My title',text: 'My text'}
         if (navigator.canShare(myData)) {
             await navigator.share(myData);
-        }
+        }*/
     }
 
     const cargaProducto = async (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let formData = new FormData(e.currentTarget);   let data = Object.fromEntries(formData);
+        let fecha = new Date();
 
         data.total = ((parseFloat(data.precio.toString()) * parseFloat(data.cantidad.toString())) + parseFloat(data.sum_desc.toString()) * (1-parseInt(data.descuento.toString())/100))+"";
         e.currentTarget.reset();
 
-        db.compra.add({
+        db.compra.add({//fecha.getFullYear()+"-"+fecha.getMonth()+"-"+fecha.getDate()
             super: data?.super+"",
-            fecha: data?.fecha+""
+            fecha:  fecha.getFullYear()+"-"+fecha.getMonth()+"-"+fecha.getDate()
         })
         .catch((err:any)=>{
             console.log('Error: producto ya cargado en este supermercado');
@@ -217,7 +217,7 @@ export const ProductoNuevoForm = ({setSuperm}:IProps) => {
     {alerta && <Toast {...alertaDetalle}/>}
     {promptAlert && <Prompt cssClass='text-center' title='¿Borrar compras?' text='Esto borrará todas las compras, no puede deshacerse.' onConfirm={()=>{borrarCompras(); resetData(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
     {promptDb && <PromptDouble btn1='Archivo' btn2='Texto' cssClass='text-center' title='Compartir Compra' text='Seleccione el metodo de compartir su compra' 
-        onConfirm={()=>{ ShareText() }} onAlternative={()=>{  }} onCancel={ ()=>{setPromptDb(false)} }/>}
+        onConfirm={()=>{ ShareText(selectedSuper!, ()=>{setPromptDb(!promptDb)}) }} onAlternative={()=>{ ShareFile(selectedSuper!, ()=>{setPromptDb(!promptDb)})  }} onCancel={ ()=>{setPromptDb(false)} }/>}
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
         <div  style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'0 1rem 1rem 1rem'}}>
             <AccordionParent state={!minimize} cssClass="pt-2">
@@ -225,12 +225,12 @@ export const ProductoNuevoForm = ({setSuperm}:IProps) => {
                     <div className=''>                        
                         <label htmlFor="super">Supermercado:</label>
                         <div className="costado">
-                            <input type="text" name='super' id='super' placeholder='Super vea' minLength={3} maxLength={30} required defaultValue={selectedSuper}/>
+                            <input type="text" name='super' id='super' placeholder='Super vea' minLength={3} maxLength={30} required defaultValue={selectedSuper?.super || ""}/>
                         </div>
                     </div>
                     <div className="">
                         <label htmlFor="listado-super">Supermercados</label>
-                        <select className='costado' style={{width:'120px'}} onChange={(e)=>{setSelectedSuper(e.target.value); setSuperm(e.target.value)}}>
+                        <select className='costado' style={{width:'120px'}} onChange={(e)=>{setSelectedSuper({super:e.target.value}); setSuperm(e.target.value)}}>
                             <optgroup>
                                 {listadoSuper?.map((ls,lsi)=>{
                                     return <option key={lsi} value={ls.super}>{ls.super}</option>
@@ -297,7 +297,7 @@ export const ProductoNuevoForm = ({setSuperm}:IProps) => {
         }>
             <Upload/>
         </button>
-        <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'gold', color:'black'}} onClick={compartir}>
+        <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'gold', color:'black'}} onClick={()=>{setPromptDb(true)}}>
             <Share/>
         </button>
         <button type='button' className={minimize ? 'btn rotate-left' : 'btn rotate-right'}  style={{backgroundColor:'coral', color:'whitesmoke', padding:'0.6rem 0.3rem 0.6rem 0.3rem', margin:'0.4em'}}
