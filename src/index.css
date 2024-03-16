@@ -21,6 +21,7 @@
   --c-gold:#ffd700;
   --c-lyellow:#FFE68D;
   --c-dgray:#4e4e4e;
+  --c-dtheme:#141414;
 }
 /* colores */
 .c-main{background-color: var(--c-main);}
@@ -45,6 +46,7 @@
 .c-gray{background-color: var(--c-gray);}
 .c-white{background-color: white}
 .c-lgreen{background-color: var(--c-lgreen);}
+.c-dtheme{background-color: var(--c-dtheme);}
 
 
 body, div, ul{
@@ -222,6 +224,10 @@ table{
 table tr td, table tr th{
   padding: 0.5em;
 }
+tr td button svg{
+  vertical-align: middle;
+}
+
 
 .pb-1{padding-bottom: 0.6em;}
 .pb-2{padding-bottom: 1em;}
@@ -240,6 +246,7 @@ table tr td, table tr th{
 .mb-2{margin-bottom: 0.6rem;}
 .my-2{margin-top: 1rem; margin-bottom: 1rem;}
 .my-1{margin-top: 0.5rem; margin-bottom: 0.5rem;}
+.mt-1{margin-top: 1rem}
 .py-05{padding-top: 0.25rem; padding-bottom: 0.25rem;}
 .py-1{padding-top: 0.5rem; padding-bottom: 0.5rem;}
 .mx-1{margin-left: 0.5rem; margin-right: 0.5rem;}
@@ -293,15 +300,16 @@ input[type="text"]:focus,input[type="number"]:focus, select:focus{
   border-bottom: 0.2em solid #ffa281;
 }
 fieldset {
-  max-width: 320px;
   border-radius: 0.5em;
   border: 2px solid #ffa281;
+  text-align: left;
+  width: 100%;
 }
-select option{
-  background-color: #ff7f50;
-  color: white;
+fieldset select {
+  width: 100%;
 }
-.txt-nwrap{white-space: nowrap;}
+.t-nwrap{white-space: nowrap;}
+.txt-nwrap td{white-space: nowrap;}
 .no-select {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -424,6 +432,7 @@ header ul{
   background-color: rgb(245, 245, 245);
   padding: 1rem;
   border-radius: 0.3rem;
+  margin:1rem;
 }
 @media only screen and (max-width: 320px) {
   body{zoom: 0.9;}
@@ -704,6 +713,7 @@ table tr:focus, table tr:focus td b {
   position: fixed;
   bottom: 0;
   width: 100vw;
+  box-shadow: 0px 0px 6px -1px rgba(0,0,0,.5);
 }
 .vh100-scroll-y{
   height: 100vh;
@@ -722,7 +732,6 @@ table tr:focus, table tr:focus td b {
   all: unset;
   position: relative;
   animation: downCvx 0.25s forwards ease-in-out;
-  /*background-color: yellow;*/
   border-radius: 50%;
   width: var(--bottom-button);
   height: var(--bottom-button);
@@ -742,7 +751,6 @@ table tr:focus, table tr:focus td b {
 .cvxc-bar a:focus{
   animation: upCvx 0.25s alternate forwards ease-in-out;    
   box-shadow: 0px 0px 0px 0.25rem coral inset;
-  /*border: 0.25rem solid dodgerblue;*/
 }
 .cvxc-bar a:focus > *{
   animation: upCvx 0.25s alternate forwards ease-in-out;
@@ -777,7 +785,71 @@ table tr:focus, table tr:focus td b {
       width: calc(var(--bottom-button) + 1rem);
       height: calc(var(--bottom-button) + 1rem);
       margin: -0.5rem;
+      color: coral;
       background-color: whitesmoke;
+  }
+}
+@keyframes downCvx {
+  from {
+      bottom: 1rem;
+  }
+  to{
+      bottom: 0rem;
+  }
+}
+
+/* tema claro */
+
+/* tema oscuro */
+.theme-dark {
+  background-color: #000!important;
+}
+.theme-dark footer .cvxc-bar a:focus, .theme-dark footer .cvxc-bar a:focus svg{
+  background-color: var(--c-main)!important;
+  color:whitesmoke!important;
+}
+.theme-dark div, .theme-dark div h1, .theme-dark div legend, .theme-dark div label{
+  color:whitesmoke!important;
+}
+.theme-dark table, .theme-dark table thead tr:first-child, .theme-dark table thead th, .theme-dark table tr{
+  background-color: var(--c-dgray)!important;
+}
+.theme-dark form{
+  border: none!important;
+}
+.theme-dark form div{
+  background-color: var(--c-dtheme)!important;
+}
+.theme-dark form input,.theme-dark select{
+  background-color: var(--c-dtheme)!important;
+  color: whitesmoke!important;
+}
+.theme-dark .prompt-in, .theme-dark .headcol, .theme-dark .headcol b{
+  background-color: var(--c-dgray)!important;
+  color: whitesmoke!important;
+}
+.theme-dark footer .cvxc-bar a:focus{
+  animation: upCvxD 0.25s alternate forwards ease-in-out;    
+  box-shadow: 0px 0px 0px 0.25rem coral inset;
+}
+.theme-dark footer .cvxc-bar a:focus > *{
+  animation: upCvxD 0.25s alternate forwards ease-in-out;
+  border-radius: 25%;
+  transform: scale(0.8);
+}
+.theme-dark table tr:focus, .theme-dark table tr:focus .headcol, .theme-dark table tr:focus td b, 
+.theme-dark table tr:hover, .theme-dark table tr:hover .headcol, .theme-dark table tr:hover td b {
+  background-color: var(--c-dtheme)!important;
+}
+@keyframes upCvxD {
+  from {
+      bottom: 0rem;
+  }
+  to{
+      bottom: 1.25rem;
+      width: calc(var(--bottom-button) + 1rem);
+      height: calc(var(--bottom-button) + 1rem);
+      margin: -0.5rem;
       color: coral;
   }
 }

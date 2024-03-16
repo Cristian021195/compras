@@ -10,9 +10,15 @@ import { Add, Calendar, Clean, Search, Share, Trash, Upload } from '../Icons';
 import { AccordionParent } from '../UI/AccordeonParent';
 import { Prompt, PromptDouble, Toast } from '../UI';
 import { useLiveQuery } from 'dexie-react-hooks';
-const borrarCompras = async () => {
+const borrarCompras = async (val:string|undefined) => {
     try {
-        db.productos.clear();
+        if(val){
+            db.compra.where("super").equals(val).delete();
+            db.productos.where("super").equals(val).delete();
+        }else{
+            console.log('Error a manejar')
+        }
+        
     } catch (error) {
         console.log('Hubo un error, revise la consola: '+error)
     }
@@ -31,6 +37,7 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
     const [promptDb,setPromptDb] = useState(false);
     const [alertaDetalle, setAlertaDetalle] = useState({});
     const [selectedSuper, setSelectedSuper] = useState<ICompra>();
+    const [findError, setFindError] = useState(false);
 
     const nombre = useRef<HTMLInputElement>(null);
     const listadoSuper = useLiveQuery(
@@ -59,9 +66,11 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
     const buscar = async()=>{
         if(nombre.current?.value.length! > 0){
             let prod = await db.productos.filter(pd=> new RegExp(nombre.current?.value || '', "i").test(pd.nombre)).toArray();
-            setFiltrados(prod);
+            prod.length === 0 ? setFindError(true) : setFindError(false);
+            setFiltrados(prod.filter(e=>e.super == selectedSuper?.super));
         }else{
             nombre.current?.focus();
+            setFindError(true);
         }
     }
 
@@ -166,7 +175,8 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
   return (
     <>
     {alerta && <Toast {...alertaDetalle}/>}
-    {promptAlert && <Prompt cssClass='text-center' title='¿Borrar compras?' text='Esto borrará todas las compras, no puede deshacerse.' onConfirm={()=>{borrarCompras(); resetData(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
+    {promptAlert && <Prompt cssClass='text-center' title='¿Borrar compras?' text='Esto borrará todas las compras, no puede deshacerse.' 
+        onConfirm={()=>{borrarCompras(selectedSuper?.super); setFiltrados([]); resetData(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
     {promptDb && <PromptDouble btn1='Archivo' btn2='Texto' cssClass='text-center' title='Compartir Compra' text='Seleccione el metodo de compartir su compra' 
         onConfirm={()=>{ ShareText(selectedSuper!, ()=>{setPromptDb(!promptDb)}) }} onAlternative={()=>{ ShareFile(selectedSuper!, ()=>{setPromptDb(!promptDb)})  }} onCancel={ ()=>{setPromptDb(false)} }/>}
     <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
@@ -182,17 +192,15 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
                     <div className="">
                         <label htmlFor="listado-super">Supermercados</label>
                         <select className='costado' style={{width:'120px'}} onChange={(e)=>{setSelectedSuper({super:e.target.value}); setSuperm(e.target.value)}}>
-                            <optgroup>
-                                {listadoSuper?.map((ls,lsi)=>{
-                                    return <option key={lsi} value={ls.super}>{ls.super}</option>
-                                })}
-                            </optgroup>
+                            {listadoSuper?.map((ls,lsi)=>{
+                                return <option key={lsi} value={ls.super}>{ls.super}</option>
+                            })}
                         </select>
                     </div>
                 </div>
                 <div className='costado'>
                     <div>
-                        <label htmlFor="nombre" className='p-2'>Producto 🛒/🔎: </label>
+                        <label htmlFor="nombre" className=''>Producto 🛒/🔎:<span>{findError ? '❌' : ''}</span></label>
                         <input type="text" ref={nombre} name='nombre' id='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>
                     </div>
                     <div>
@@ -242,11 +250,6 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
         </button>
         <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'dodgerblue'}} onClick={buscar}>
             <Search width={14} height={14}/>
-        </button>
-        <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'gainsboro', color:'black'}} onClick={
-            compar
-        }>
-            <Upload/>
         </button>
         <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'gold', color:'black'}} onClick={()=>{setPromptDb(true)}}>
             <Share/>

@@ -32,16 +32,18 @@ export const Compartir = ({runner, setRunner}:IRouter) => {
       onConfirm={()=>{ ShareText(selectedSuper!, ()=>{setPromptDb(!promptDb)}) }}
       onAlternative={()=>{ ShareFile(selectedSuper!, ()=>{setPromptDb(!promptDb)})  }}
       onCancel={ ()=>{setPromptDb(false)} }/>}
-      <section style={{textAlign:'center'}} className='pop-up' id='detector'>
+      <div style={{textAlign:'center'}} className='pop-up' id='detector'>
+        <section>
           <h1>Compartir</h1>
           <div style={{textAlign:'start', margin:'2em auto'}} className='col-6'>
             Aqui estan listadas todos los lugares donde realizamos las compras, donde podemos descargar y compartir el listado de compras realizadas por supermercado
           </div>
-      </section>
+        </section>
+      </div>
       <section>
         <div style={{display:'flex', justifyContent:'center', flexWrap:'wrap', gap:'1em'}}>
           <div className='stripped scroll-all vh-36'>
-            <table className='sticky-header'>
+            <table className='sticky-header txt-nwrap text-center'>
               <thead>
                 <tr>
                   <th>#</th><th className='headcol'>SUPER</th><th>FECHA</th><th>CANTIDAD</th><th>TOTAL</th><th>ACCIONES</th>
@@ -53,12 +55,12 @@ export const Compartir = ({runner, setRunner}:IRouter) => {
                   listadoSuper?.map((e,ei)=>{ 
                     return (<tr key={ei} className='text-center'>
                               <td>{ei}</td>
-                              <td className={ei % 2 == 0 ? 'txt-nwrap headcol c-white' : 'txt-nwrap headcol c-gray'}>
+                              <td className={ei % 2 == 0 ? 'headcol c-white' : 'headcol c-gray'}>
                                 <b className={ei % 2 == 0 ? 'c-white' : 'c-gray'}>{e.super}</b>
                               </td>
-                              <td className='txt-nwrap'>{e.fecha}</td>
-                              <td className='txt-nwrap'>{e.cantidad}</td>
-                              <td className='txt-nwrap'>${e.total}</td>
+                              <td>{e.fecha}</td>
+                              <td>{e.cantidad}</td>
+                              <td>${e.total}</td>
                               <td className='d-flex justify-content-center gap-1'>
                                 <button className='btn btn-sm c-sblue py-05 text-w' onClick={()=>{
                                   setPromptDb(true);

@@ -2,5 +2,7 @@ export interface IRouter{
     runner:number,
     setRunner:any,
     font?:string,
-    setFont?:any
+    setFont?:any,
+    theme?:string,
+    setTheme?:any
 }

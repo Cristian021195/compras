@@ -10,3 +10,5 @@ export * from "./ShoppingCart";
 export * from "./Calculator";
 export * from "./Stats";
 export * from "./Info";
+export * from "./Gear";
+

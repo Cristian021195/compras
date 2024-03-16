@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { IRouter } from '../../Interfaces';
-import { Calculator, Info, Share, ShoppingCart, Stats } from '../Icons';
+import { Calculator, Gear, Info, Share, ShoppingCart } from '../Icons';
 
 
 export const Header = ({ runner, setRunner }: IRouter) => {
@@ -14,12 +14,12 @@ export const Header = ({ runner, setRunner }: IRouter) => {
         <NavLink to='/calculadora' onClick={()=>setRunner(1)}>
           <Calculator/>
         </NavLink>
-        <NavLink to='/estadistica' onClick={()=>setRunner(2)}>
-          <Stats/>
-        </NavLink>
-        <NavLink to='/compartir' onClick={()=>setRunner(3)}>
+        <NavLink to='/compartir' onClick={()=>setRunner(2)}>
           <Share/>
         </NavLink>
+        <NavLink to='/configuracion' onClick={()=>setRunner(3)}>
+          <Gear/>
+        </NavLink>        
         <NavLink to='/' className={"no-select"} onClick={()=>setRunner(4)}>
           <Info/>
         </NavLink>
