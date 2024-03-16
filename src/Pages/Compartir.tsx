@@ -1,11 +1,16 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useSlideRouter } from '../Hooks';
-import { IRouter } from '../Interfaces';
+import { ICompra, IRouter } from '../Interfaces';
 import { db } from '../DB/db';
 import { Share, Upload } from '../Components/Icons';
+import { useState } from 'react';
+import { PromptDouble } from '../Components';
+import { ShareFile, ShareText } from '../Helpers';
 
 export const Compartir = ({runner, setRunner}:IRouter) => {
   const {pos1, pos2, setPos1, setPos2} = useSlideRouter(window.location.pathname, runner, setRunner);
+  const [ promptDb, setPromptDb ] = useState(false);
+  const [selectedSuper, setSelectedSuper] = useState<ICompra>();
 
   const listadoSuper = useLiveQuery(
     () => {
@@ -23,6 +28,10 @@ export const Compartir = ({runner, setRunner}:IRouter) => {
 
   return (
     <>
+    {promptDb && <PromptDouble btn1='Archivo' btn2='Texto' cssClass='text-center' title='Compartir Compra' text='Seleccione el metodo de compartir su compra' 
+      onConfirm={()=>{ ShareText(selectedSuper!, ()=>{setPromptDb(!promptDb)}) }}
+      onAlternative={()=>{ ShareFile(selectedSuper!, ()=>{setPromptDb(!promptDb)})  }}
+      onCancel={ ()=>{setPromptDb(false)} }/>}
       <section style={{textAlign:'center'}} className='pop-up' id='detector'>
           <h1>Compartir</h1>
           <div style={{textAlign:'start', margin:'2em auto'}} className='col-6'>
@@ -35,20 +44,26 @@ export const Compartir = ({runner, setRunner}:IRouter) => {
             <table className='sticky-header'>
               <thead>
                 <tr>
-                  <th>#</th><th className='headcol'>SUPER</th><th>FECHA</th><th>TOTAL</th><th>ACCIONES</th>
+                  <th>#</th><th className='headcol'>SUPER</th><th>FECHA</th><th>CANTIDAD</th><th>TOTAL</th><th>ACCIONES</th>
                 </tr>
               </thead>
               <tbody>
                 {
-                  listadoSuper?.length === 0 ? <tr><td className='headcol' colSpan={5}>Sin datos</td></tr> : 
+                  listadoSuper?.length === 0 ? <tr><td colSpan={5}>Sin datos</td></tr> : 
                   listadoSuper?.map((e,ei)=>{ 
-                    return (<tr key={ei}>
+                    return (<tr key={ei} className='text-center'>
                               <td>{ei}</td>
-                              <td className='txt-nwrap'>{e.super}</td>
+                              <td className={ei % 2 == 0 ? 'txt-nwrap headcol c-white' : 'txt-nwrap headcol c-gray'}>
+                                <b className={ei % 2 == 0 ? 'c-white' : 'c-gray'}>{e.super}</b>
+                              </td>
                               <td className='txt-nwrap'>{e.fecha}</td>
-                              <td className='txt-nwrap'>$1505</td>
+                              <td className='txt-nwrap'>{e.cantidad}</td>
+                              <td className='txt-nwrap'>${e.total}</td>
                               <td className='d-flex justify-content-center gap-1'>
-                                <button className='btn btn-sm c-sblue py-05 text-w'>
+                                <button className='btn btn-sm c-sblue py-05 text-w' onClick={()=>{
+                                  setPromptDb(true);
+                                  setSelectedSuper(e);
+                                }}>
                                   <Share/>
                                 </button>
                               </td>

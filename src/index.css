@@ -82,6 +82,7 @@ html{
 .btn{
   border-radius: 0.4em;
   font-weight: bold;
+  color:whitesmoke;
 }
 
 /*Hover only*/
@@ -165,7 +166,7 @@ html{
   margin-top: -1px;
 }
 .acciones-btn{padding: 0.25rem 0.5em;}
-.headcol > b {background-color: var(--c-llpink); padding: 0 0.5rem 0 0.5rem;}
+/*.headcol > b {background-color: var(--c-llpink); padding: 0 0.5rem 0 0.5rem;}*/
 
 .text-center{text-align: center;}
 .d-flex{display: flex!important;}

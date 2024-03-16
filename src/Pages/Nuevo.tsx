@@ -56,7 +56,7 @@ export const Nuevo = ({runner, setRunner}:IRouter) => {
             <></>
           }
           <div style={{display:'flex', justifyContent:'center', flexWrap:'wrap', gap:'1em'}}>
-            <ProductoNuevoForm setSuperm={setSuperm}/>
+            <ProductoNuevoForm setSuperm={setSuperm} total={parseFloat(totalProducto(productos!).toFixed(2))}/>
           </div>
       </section>
       <section className='d-flex justify-content-center vh-58'>

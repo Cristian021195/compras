@@ -82,7 +82,7 @@ export const TablaProductosCrud = ({clases='', sel=""}:ITable ) => {
                                     {p_i}
                                 </div>                            
                             </td>
-                            <td className='headcol'><b>{p.nombre}</b></td>
+                            <td className='headcol'><b className="c-llpink">{p.nombre}</b></td>
                             <td>{p.precio}</td>
                             <td>{p.cantidad}</td>
                             <td>{p.sum_desc}</td>

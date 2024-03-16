@@ -53,6 +53,9 @@ export const Inicio = ({runner, setRunner, font,setFont}:IRouter) => {
                 <option value="false">Deshabilitado</option>
               </select>
             </fieldset>
+            <button className='btn p-1 my-2 c-ored'
+            onClick={()=>{}}
+            >Borrar Datos</button>
           </article>
           
           <h3>RECURSOS USADOS</h3>

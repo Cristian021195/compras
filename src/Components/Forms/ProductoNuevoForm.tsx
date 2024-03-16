@@ -18,11 +18,12 @@ const borrarCompras = async () => {
     }
 }
 interface IProps{
-    setSuperm: (e:string)=>void
+    setSuperm: (e:string)=>void,
+    total: number
 }
-export const ProductoNuevoForm = ({setSuperm}:IProps) => {
+export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
     const {data, setData, resetData} = useContext(EditContext) as TProductoContext | any;
-    const {minimize, setMinimize} = useFormAnimation();
+    const {minimize, setMinimize} = useFormAnimation(false);
     const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
     const [filtrados, setFiltrados] = useState<TProducto[]>([]);
     const [alerta,setAlerta] = useState(false);
@@ -46,6 +47,9 @@ export const ProductoNuevoForm = ({setSuperm}:IProps) => {
             return compras;
         }
     );
+    const productos = useLiveQuery(
+        () => db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selectedSuper?.super))
+      ,[selectedSuper]);
 
     const limpiar = () => { 
         resetData();
@@ -138,8 +142,13 @@ export const ProductoNuevoForm = ({setSuperm}:IProps) => {
                 setTimeout(() => {
                     setAlerta(false);
                 }, 4000);
-                if(sound){ beep();
-                }
+                if(sound){ beep();}
+
+                db.compra.update(data?.super+"",{
+                    total:  parseFloat(data?.precio+"") + productos!.filter((sup)=>sup.super === data?.super)!.reduce((a,o)=>a+o.precio,0),
+                    cantidad: productos!.filter((sup)=>sup.super === data?.super).length + 1
+                })
+
             })
             .catch((err:any)=>{
                 setAlerta(true);
@@ -150,69 +159,11 @@ export const ProductoNuevoForm = ({setSuperm}:IProps) => {
                 resetData();
             })
 
-        }
-
-        
             
-            /*if(id){
-                setAlerta(true);
-                setAlertaDetalle({color:"#f5f5f5", bgcolor:"#66bb6a", title:"Nuevo Producto",text:"¡Agregado!", status:true});
-                setTimeout(() => {
-                    setAlerta(false);
-                }, 4000);
-                if(sound){ beep(); }
-            }
-            limpiar();*/
-            /*if(data?.id){
-                const id = await db.productos.update(data?.id+"",{
-                    nombre: data?.nombre+"",
-                    precio: parseFloat(data?.precio+""),
-                    cantidad: parseInt(data?.cantidad+""),
-                    descuento: parseFloat(data?.descuento+""),
-                    sum_desc: parseFloat(data?.sum_desc+""),
-                    categoria: data?.categoria+"",
-                    total: parseFloat(data?.total+""),
-                    chekar:true
-                });
-                if(id){
-                    setAlerta(true);
-                    setAlertaDetalle({color:"#f5f5f5", bgcolor:"#66bb6a", title:"Edicion",text:"¡Editado!", status:true});
-                    setTimeout(() => {
-                        setAlerta(false);
-                    }, 4000);
-                    if(sound){ beep(); }
-                }
-                limpiar();
-            }else{
-                const id = await db.productos.add({
-                    id: uuid(),
-                    nombre: data?.nombre+"",
-                    precio: parseFloat(data?.precio+""),
-                    cantidad: parseInt(data?.cantidad+""),
-                    descuento: parseFloat(data?.descuento+""),
-                    sum_desc: parseFloat(data?.sum_desc+""),
-                    categoria: data?.categoria+"",
-                    total: parseFloat(data?.total+""),
-                    chekar:true
-                });
-                if(id){
-                    setAlerta(true);
-                    setAlertaDetalle({color:"#f5f5f5", bgcolor:"#66bb6a", title:"Nuevo Producto",text:"¡Agregado!", status:true});
-                    setTimeout(() => {
-                        setAlerta(false);
-                    }, 4000);
-                    if(sound){ beep();
-                    }
-                }
-                limpiar();
-            }*/
-        //catch (error) {
-        //    console.log(error)
-        //    alert('¡Error, revisar la consola!');
-        //    resetData();
-        //}
+
+        }
     }
-  return ( //className={minimize ? 'd-none' : 'd-block'}
+  return (
     <>
     {alerta && <Toast {...alertaDetalle}/>}
     {promptAlert && <Prompt cssClass='text-center' title='¿Borrar compras?' text='Esto borrará todas las compras, no puede deshacerse.' onConfirm={()=>{borrarCompras(); resetData(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
@@ -223,7 +174,7 @@ export const ProductoNuevoForm = ({setSuperm}:IProps) => {
             <AccordionParent state={!minimize} cssClass="pt-2">
                 <div className='d-flex justify-content-between align-items-center'>                
                     <div className=''>                        
-                        <label htmlFor="super">Supermercado:</label>
+                        <label htmlFor="super">Supermercado: {selectedSuper?.super}</label>
                         <div className="costado">
                             <input type="text" name='super' id='super' placeholder='Super vea' minLength={3} maxLength={30} required defaultValue={selectedSuper?.super || ""}/>
                         </div>

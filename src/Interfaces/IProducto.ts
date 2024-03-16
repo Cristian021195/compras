@@ -13,6 +13,8 @@ export interface IProducto {
 
 export interface ICompra {
   super?:string,
-  fecha?:string
+  fecha?:string,
+  total?:number,
+  cantidad?:number
 }
   

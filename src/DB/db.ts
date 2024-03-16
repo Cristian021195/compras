@@ -11,8 +11,8 @@ export class MySubClassedDexie extends Dexie {
 
   constructor() {
     super('mis-productos');
-    this.version(7).stores({
-        compra: `&super, fecha`,
+    this.version(8).stores({
+        compra: `&super, fecha, total, cantidad`,
         productos: 'id, precio, cantidad, descuento, sum_desc, categoria, super, total, [&nombre+super]' // Primary key and indexed props
     });
   }
