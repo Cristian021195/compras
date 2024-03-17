@@ -9,8 +9,8 @@ export const PublicRouter = ({font, setFont, theme, setTheme}:IRouter) => {
   
   return (
     <Routes>        
-        <Route path='/' element={<Inicio />}></Route>
-        <Route path='/nuevo' element={<Nuevo />}></Route>
+        <Route path='/' element={<Nuevo />}></Route>
+        <Route path='/info' element={<Inicio/>}></Route>
         <Route path='/calculadora' element={<Calculadora />}></Route>
         <Route path='/configuracion' element={<Configuracion font={font} setFont={setFont} theme={theme} setTheme={setTheme}/>}></Route>
         <Route path='/compartir' element={<Compartir />}></Route>
