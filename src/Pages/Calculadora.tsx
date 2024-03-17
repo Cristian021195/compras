@@ -1,9 +1,6 @@
 import { Comparadora } from '../Components';
-import { useSlideRouter } from '../Hooks';
-import { IRouter } from '../Interfaces';
 
-export const Calculadora = ({runner, setRunner}:IRouter) => {
-  useSlideRouter(window.location.pathname, runner, setRunner);
+export const Calculadora = () => {
   return (
     <div className='pop-up'>
       <section id='detector'>

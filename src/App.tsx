@@ -3,10 +3,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { PublicRouter } from './Router/PublicRouter'
 import { Header } from './Components/Layout'
 import { EditProvider } from './Context/EditContext'
-import { locations } from './Utils'
 
 function App() {
-  const [runner, setRunner] = useState( locations.findIndex((lo)=>lo==='/nuevo') );
   const [font, setFont] = useState<string>(localStorage.getItem('font') || 'md');
   const [theme, setTheme] = useState<string>(localStorage.getItem('theme') || 'light');
   const [bip, setBip] = useState<any>(undefined);
@@ -45,8 +43,8 @@ function App() {
                 <button className='btn p-1 c-ored' onClick={()=>{setClose(true)}}>Cerrar</button>
               </div> : <></> }
             </div>            
-            <PublicRouter runner={runner} setRunner={setRunner} font={font} setFont={setFont} theme={theme} setTheme={setTheme}/>
-            <Header runner={runner} setRunner={setRunner}></Header>
+            <PublicRouter font={font} setFont={setFont} theme={theme} setTheme={setTheme}/>
+            <Header></Header>
           </div>          
         </EditProvider>
       </BrowserRouter>

@@ -4,11 +4,8 @@ import { ProductoNuevoForm } from '../Components/Forms';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../DB/db';
 import { cantidadProductos, cantidadTotalProductos, totalProducto } from '../Helpers';
-import { useSlideRouter } from '../Hooks';
-import { IRouter } from '../Interfaces';
 
-export const Nuevo = ({runner, setRunner}:IRouter) => {
-  useSlideRouter(window.location.pathname, runner, setRunner);
+export const Nuevo = () => {
   const [alerta, setAlerta] = useState<string>('');
   const [superm, setSuperm] = useState<string>('');
   const productos = useLiveQuery(

@@ -1,6 +1,6 @@
 export interface IRouter{
-    runner:number,
-    setRunner:any,
+    runner?:number,
+    setRunner?:any,
     font?:string,
     setFont?:any,
     theme?:string,

@@ -1,10 +1,7 @@
 import QRCode from "react-qr-code";
-import { useSlideRouter } from '../Hooks';
-import { IRouter } from '../Interfaces';
 
 
-export const Contacto = ({runner, setRunner}:IRouter) => {
-  useSlideRouter(window.location.pathname, runner, setRunner);
+export const Contacto = () => {
   return (
     <section style={{textAlign:'center'}} className='pop-up' id='detector'>
         <h1>Contacto</h1>

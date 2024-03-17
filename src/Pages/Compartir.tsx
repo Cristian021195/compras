@@ -1,21 +1,17 @@
 import { useLiveQuery } from 'dexie-react-hooks';
-import { useSlideRouter } from '../Hooks';
 import { ICompra, IRouter } from '../Interfaces';
 import { db } from '../DB/db';
-import { Share, Upload } from '../Components/Icons';
+import { Share } from '../Components/Icons';
 import { useState } from 'react';
 import { PromptDouble } from '../Components';
 import { ShareFile, ShareText } from '../Helpers';
 
-export const Compartir = ({runner, setRunner}:IRouter) => {
-  useSlideRouter(window.location.pathname, runner, setRunner);
+export const Compartir = () => {
   const [ promptDb, setPromptDb ] = useState(false);
   const [selectedSuper, setSelectedSuper] = useState<ICompra>();
 
   const listadoSuper = useLiveQuery(
     () => {
-        //db.compra.limit(1)
-        //.toArray().then((res:any)=>{console.log(res)})
         let compras = db.compra.toArray();
         compras.then((resc)=>{
             if(resc.length > 0){

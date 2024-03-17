@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useSlideRouter } from '../Hooks';
 import { IRouter } from '../Interfaces';
 import { db } from '../DB/db';
 import { Prompt, Toast } from '../Components';
 
-export const Configuracion = ({runner, setRunner, font,setFont, theme, setTheme}:IRouter) => {
-  useSlideRouter(window.location.pathname, runner, setRunner);
+export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
   const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
   const [prompt, setPrompt] = useState(false);
   const [alerta, setAlerta] = useState(false)

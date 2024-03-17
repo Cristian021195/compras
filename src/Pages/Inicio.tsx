@@ -1,10 +1,7 @@
 import { useState } from 'react';
-import { useSlideRouter } from '../Hooks';
-import { IRouter } from '../Interfaces';
 import QRCode from 'react-qr-code';
 
-export const Inicio = ({runner, setRunner}:IRouter) => {
-  useSlideRouter(window.location.pathname, runner, setRunner);
+export const Inicio = () => {
   const [shareError, setShareError] = useState(false);
   return (
     <>
