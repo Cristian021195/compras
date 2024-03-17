@@ -26,36 +26,6 @@
             "sizes": "640x1136",
             "type": "image/webp",
             "label": "Splash"
-        },
-        {
-            "src": "/screenshot_2.webp",
-            "sizes": "640x1136",
-            "type": "image/webp",
-            "label": "Info"
-        },
-        {
-            "src": "/screenshot_3.webp",
-            "sizes": "640x1136",
-            "type": "image/webp",
-            "label": "Configuracion"
-        },
-        {
-            "src": "/screenshot_4.webp",
-            "sizes": "640x1136",
-            "type": "image/webp",
-            "label": "Compartir"
-        },
-        {
-            "src": "/screenshot_5.webp",
-            "sizes": "640x1136",
-            "type": "image/webp",
-            "label": "Calculadora"
-        },
-        {
-            "src": "/screenshot_6.webp",
-            "sizes": "640x1136",
-            "type": "image/webp",
-            "label": "Compra"
         }
     ],
     "shortcuts": [
@@ -83,7 +53,7 @@
         },
         {
             "name": "Calculadora",
-            "url": "/",
+            "url": "/calculadora",
             "icons": [
                 {
                     "src": "/calculadora.svg",
