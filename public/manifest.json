@@ -25,7 +25,25 @@
             "src": "/screenshot_1.webp",
             "sizes": "640x1136",
             "type": "image/webp",
-            "label": "Para llevar el control al momento de comprar"
+            "label": "Splash"
+        },
+        {
+            "src": "/screenshot_2.webp",
+            "sizes": "640x1136",
+            "type": "image/webp",
+            "label": "Inicio"
+        },
+        {
+            "src": "/screenshot_3.webp",
+            "sizes": "640x1136",
+            "type": "image/webp",
+            "label": "Compra"
+        },
+        {
+            "src": "/screenshot_4.webp",
+            "sizes": "640x1136",
+            "type": "image/webp",
+            "label": "Contacto"
         }
     ],
     "shortcuts": [
