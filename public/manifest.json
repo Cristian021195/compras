@@ -6,7 +6,7 @@
     "start_url": "/",
     "name": "listaCompras",
     "short_name": "listaCompras",
-    "description": "App para cuando vas de compras",
+    "description": "App para cuando vas de compras al super",
     "icons": [
         {
             "src": "/lista-compras.svg",
