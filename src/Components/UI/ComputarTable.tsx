@@ -27,7 +27,7 @@ export const ComputarTable = ({data, setData}:ICT) => {
 
   return (
     <div className='stripped scroll-all vh-36'>
-        <table className='sticky-header txt-nwrap'>
+        <table className='sticky-header txt-nwrap text-center'>
             <thead>
               <tr>
                 <th>#</th><th className='headcol'>NOMBRE</th><th>PRECIO</th><th>CANTIDAD</th><th>UNIDADES</th><th>RELACION</th><th>ACCION</th>
@@ -35,14 +35,14 @@ export const ComputarTable = ({data, setData}:ICT) => {
             </thead>
             <tbody>
               {
-                data.length === 0 ? <tr><td className='headcol' colSpan={5}>Sin datos</td></tr> : 
+                data.length === 0 ? <tr><td className='headcol' colSpan={6}>Sin datos</td></tr> : 
                 data.map((e,ei)=>{ 
                   let m = e.cantidad * e.unidades;
                   let r = m !== 0 ? e.precio / m : 0;
                   return (<tr key={ei} className={cheaper?.id === e.id ? 'c-lgreen' : ''}>
                           <td>{ei}</td>
-                          <td className={ei % 2 === 0 ? 'headcol c-white' : 'headcol c-gray'}>{e.nombre}</td>
-                          <td>{e.precio}</td><td>{e.cantidad}</td><td>{e.unidades}</td><td>{cheaper?.id === e.id ? r.toFixed(2)+"⭐" : r.toFixed(2) }</td>
+                          <td className={ei % 2 === 0 ? 'headcol c-white' : 'headcol c-gray'}><b>{ cheaper?.id === e.id ? e.nombre+" ★" : e.nombre }</b></td>
+                          <td>{e.precio}</td><td>{e.cantidad}</td><td>{e.unidades}</td><td>{r.toFixed(2)}</td>
                           <td>
                             <button className='btn btn-sm c-sblue py-05 text-w' onClick={()=>{
                               setData(data.filter(d=>d.id!=e.id));

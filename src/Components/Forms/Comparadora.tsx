@@ -41,7 +41,7 @@ export const Comparadora = () => {
           <div className="d-flex justify-content-between my-2">
             <div className='d-flex align-items-center'>
               <label htmlFor="precio">Precio: </label>
-              <input type="number" name="precio" id="precio" placeholder="3000" min={0.01} step={0.01} max={1000000} required style={{width:'5rem'}}/>
+              <input type="number" name="precio" id="precio" placeholder="3000" min={0.01} step={0.01} max={1000000} required/>
             </div>
             <div className='d-flex align-items-center'>
               <label htmlFor="cantidad">Cantidad: </label>

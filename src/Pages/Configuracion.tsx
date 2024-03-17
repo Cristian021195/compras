@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { useSlideRouter } from '../Hooks';
 import { IRouter } from '../Interfaces';
 import { db } from '../DB/db';
-import { Prompt } from '../Components';
+import { Prompt, Toast } from '../Components';
 
 export const Configuracion = ({runner, setRunner, font,setFont, theme, setTheme}:IRouter) => {
-  const {pos1, pos2, setPos1, setPos2} = useSlideRouter(window.location.pathname, runner, setRunner);
+  useSlideRouter(window.location.pathname, runner, setRunner);
   const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
   const [prompt, setPrompt] = useState(false);
+  const [alerta, setAlerta] = useState(false)
+  const [alertaDetalle, setAlertaDetalle] = useState({});
 
   const borrarDatos = async () => {
     try {
@@ -32,11 +34,20 @@ export const Configuracion = ({runner, setRunner, font,setFont, theme, setTheme}
 
   return (
     <>
-      {prompt && <Prompt cssClass='text-center' title='¿Borrar datos?' text='Esto borrará todas las compras y productos, no puede deshacerse.' onConfirm={borrarDatos} onCancel={() => { setPrompt(false) }} />}
-      <div style={{ textAlign: 'center' }} className='pop-up'>
+      {alerta && <Toast {...alertaDetalle}/>}
+      {prompt && <Prompt cssClass='text-center' title='¿Borrar datos?' text='Esto borrará todas las compras y productos, no puede deshacerse.' 
+        onConfirm={ ()=>{
+          borrarDatos();
+          setAlerta(true);
+          setAlertaDetalle({title:"Datos Borrados",text:"Solo compras y productos, las configuraciones no se borran", status:true, cssClass:'c-green text-w text-center'});
+          setTimeout(() => {
+            setAlerta(false);
+          }, 2500);
+        } } onCancel={() => { setPrompt(false) }} />}
+      <div className='pop-up'>
         <section id='detector'>
-          <h1>Configuración</h1>
-          <div style={{ textAlign: 'start', margin: '2em auto' }} className='col-6'>
+          <h1 className='text-center'>Configuración</h1>
+          <div className='col-6 m-1'>
             Toda la configuracion relacionada a la app, en caso de desinstalar la app, todas las configuraciones estarán por defecto.
           </div>
         </section>

@@ -32,7 +32,8 @@ const updateSW = registerSW({
     //updateSW();
     
   },
-  onOfflineReady() {},
+  onOfflineReady() {
+  },
 })
 
 

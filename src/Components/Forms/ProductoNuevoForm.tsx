@@ -6,7 +6,7 @@ import {v4 as uuid} from "uuid";
 import { EditContext } from '../../Context/EditContext';
 import { TProductoContext, TProducto,ICompra } from '../../Interfaces/';
 import { ShareFile, ShareText, beep } from '../../Helpers';
-import { Add, Calendar, Clean, Search, Share, Trash, Upload } from '../Icons';
+import { Add, Clean, Search, Share, Trash, ShoppingCart} from '../Icons';
 import { AccordionParent } from '../UI/AccordeonParent';
 import { Prompt, PromptDouble, Toast } from '../UI';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -42,8 +42,6 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
     const nombre = useRef<HTMLInputElement>(null);
     const listadoSuper = useLiveQuery(
         () => {
-            //db.compra.limit(1)
-            //.toArray().then((res:any)=>{console.log(res)})
             let compras = db.compra.toArray();
             compras.then((resc)=>{
                 if(resc.length > 0){
@@ -74,24 +72,6 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
         }
     }
 
-    const fileSave = async () => {
-        let prod = await db.productos.filter(pd=> new RegExp(nombre.current?.value || '', "i").test(pd.nombre)).toArray();
-        console.log(prod)
-        /*let myData = {title: 'My title',text: 'My text'}
-        if (navigator.canShare(myData)) {
-            await navigator.share(myData);
-        }*/
-    }
-
-    const compar = async () => {
-        let prod = await db.productos.filter(pd=> new RegExp(nombre.current?.value || '', "i").test(pd.nombre)).toArray();
-        console.log(prod)
-        /*let myData = {title: 'My title',text: 'My text'}
-        if (navigator.canShare(myData)) {
-            await navigator.share(myData);
-        }*/
-    }
-
     const cargaProducto = async (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let formData = new FormData(e.currentTarget);   let data = Object.fromEntries(formData);
@@ -109,7 +89,6 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
         })
 
         if(data?.id){
-
             const id = await db.productos.update(data?.id+"",{
                 nombre: data?.nombre+"",
                 precio: parseFloat(data?.precio+""),
@@ -123,16 +102,14 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
             });
             if(id){
                 setAlerta(true);
-                setAlertaDetalle({color:"#f5f5f5", bgcolor:"#66bb6a", title:"Edicion",text:"¡Editado!", status:true});
+                setAlertaDetalle({title:"Edicion",text:"¡Editado!", status:true, cssClass:'c-green text-w text-center'});
                 setTimeout(() => {
                     setAlerta(false);
                 }, 4000);
                 if(sound){ beep(); }
             }
             limpiar();
-
         }else{
-
             db.productos.add({
                 id: uuid(),
                 super: data?.super+"",
@@ -147,7 +124,7 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
             })
             .then(res=>{
                 setAlerta(true);
-                setAlertaDetalle({color:"#f5f5f5", bgcolor:"#66bb6a", title:"Nuevo Producto",text:"¡Agregado!", status:true});
+                setAlertaDetalle({title:"Nuevo Producto",text:"¡Agregado!", status:true, cssClass:'c-green text-w text-center'});
                 setTimeout(() => {
                     setAlerta(false);
                 }, 4000);
@@ -161,15 +138,12 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
             })
             .catch((err:any)=>{
                 setAlerta(true);
-                setAlertaDetalle({color:"#f5f5f5", bgcolor:"#FF5252", title:"¡Error!",text:"producto ya cargado en este supermercado "+data?.super, status:true});
+                setAlertaDetalle({title:"¡Error!",text:"producto ya cargado en este supermercado "+data?.super, status:true, cssClas:'c-gold text-center'});
                 setTimeout(() => {
                     setAlerta(false);
                 }, 4000);
                 resetData();
             })
-
-            
-
         }
     }
   return (
@@ -178,18 +152,41 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
     {promptAlert && <Prompt cssClass='text-center' title='¿Borrar compras?' text='Esto borrará todas las compras, no puede deshacerse.' 
         onConfirm={()=>{borrarCompras(selectedSuper?.super); setFiltrados([]); resetData(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
     {promptDb && <PromptDouble btn1='Archivo' btn2='Texto' cssClass='text-center' title='Compartir Compra' text='Seleccione el metodo de compartir su compra' 
-        onConfirm={()=>{ ShareText(selectedSuper!, ()=>{setPromptDb(!promptDb)}) }} onAlternative={()=>{ ShareFile(selectedSuper!, ()=>{setPromptDb(!promptDb)})  }} onCancel={ ()=>{setPromptDb(false)} }/>}
-    <form onSubmit={cargaProducto} style={{borderRadius:'0.5em', border:'1px solid #ffd8ca', position:'relative', zIndex:0}} className='col-4'>
-        <div  style={{borderRadius:'0.5em 0.5em 0 0',backgroundColor:'#fdeae3', padding:'0 1rem 1rem 1rem'}}>
+        onConfirm={()=>{ 
+            if(selectedSuper?.super !== undefined){
+                ShareText(selectedSuper!, ()=>{setPromptDb(!promptDb)})
+            }else{
+                setAlerta(true);
+                setAlertaDetalle({title:"¡Error!",text:"No hay datos para exportar", status:true, cssClass:"c-ored text-w text-center"});
+                setTimeout(() => {
+                    setAlerta(false);
+                }, 2500);
+            }            
+        }}
+        onAlternative={()=>{
+            if(selectedSuper?.super !== undefined){
+                ShareFile(selectedSuper!, ()=>{setPromptDb(!promptDb)})
+            }else{
+                setAlerta(true);
+                setAlertaDetalle({title:"¡Error!",text:"No hay datos para exportar", status:true, cssClass:"c-ored text-w text-center"});
+                setTimeout(() => {
+                    setAlerta(false);
+                }, 2500);
+            }
+            
+        }}
+        onCancel={ ()=>{setPromptDb(false)} }/>}
+    <form onSubmit={cargaProducto} className='col-4 producto-form'>
+        <div className='ps-2 pb-2 pe-2 rounded-top c-lforange'>
             <AccordionParent state={!minimize} cssClass="pt-2">
-                <div className='d-flex justify-content-between align-items-center'>                
-                    <div className=''>                        
-                        <label htmlFor="super">Supermercado: {selectedSuper?.super}</label>
+                <div className='d-flex justify-content-between align-items-center mb-2'>
+                    <div>                        
+                        <label htmlFor="super">Supermercado: </label>
                         <div className="costado">
                             <input type="text" name='super' id='super' placeholder='Super vea' minLength={3} maxLength={30} required defaultValue={selectedSuper?.super || ""}/>
                         </div>
                     </div>
-                    <div className="">
+                    <div>
                         <label htmlFor="listado-super">Supermercados</label>
                         <select className='costado' style={{width:'120px'}} onChange={(e)=>{setSelectedSuper({super:e.target.value}); setSuperm(e.target.value)}}>
                             {listadoSuper?.map((ls,lsi)=>{
@@ -198,64 +195,62 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
                         </select>
                     </div>
                 </div>
-                <div className='costado'>
+                <div className='d-flex justify-content-between align-items-center mb-2'>
                     <div>
-                        <label htmlFor="nombre" className=''>Producto 🛒/🔎:<span>{findError ? '❌' : ''}</span></label>
-                        <input type="text" ref={nombre} name='nombre' id='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/>
+                        <label htmlFor="nombre">Producto <span><ShoppingCart/> <Search style={{verticalAlign:'bottom', paddingBottom: 2}}/></span>:<span>{findError ? '❌' : ''}</span></label>                        
+                        <div className="costado"><input type="text" ref={nombre} name='nombre' id='nombre' placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={data?.nombre}/></div>
                     </div>
                     <div>
-                        <label htmlFor="precio" className='p-2'>Precio <b>($)</b>:</label>
-                        <input type="number" name="precio" min={0} max={1000000} step='0.01' required value={data?.precio} 
+                        <label htmlFor="precio">Precio <b>($)</b>:</label>                        
+                        <div className="costado">
+                            <input type="number" name="precio" min={0} max={1000000} step='0.01' required value={data?.precio} 
                             onChange={(e)=>{setData({...data, precio: e.target.value })}}/>
+                        </div>
                     </div>
                 </div>
-                <div className='costado'>
+                <div className='d-flex justify-content-between align-items-center mb-2'>                    
                     <div>
-                        <label htmlFor="cantidad" className='p-2'>Cantidad <b>(¾)</b>:</label>
-                        <input type="number" name="cantidad" min={1} max={1000000} required value={data?.cantidad} 
+                        <label htmlFor="cantidad">Cantidad <b>(¾)</b>:</label>
+                        <div className="costado">
+                            <input type="number" name="cantidad" min={1} max={1000000} required value={data?.cantidad} 
                             onChange={(e)=>{setData({...data, cantidad: e.target.value })}}/>
+                        </div>
                     </div>
-
                     <div>
-                        <label htmlFor="sum_desc" className='p-2'>suma/desc <b>(±) </b>: </label>
-                        <input type="number" name="sum_desc" min={-999999} max={1000000} step='0.01' required value={data?.sum_desc} 
+                        <label htmlFor="sum_desc">suma/desc <b>(±) </b>: </label>
+                        <div className="costado">
+                            <input type="number" name="sum_desc" min={-999999} max={1000000} step='0.01' required value={data?.sum_desc} 
                             onChange={(e)=>{setData({...data, sum_desc: e.target.value })}}/>
+                        </div>
                     </div>
                 </div>
-
-                <label htmlFor="descuento" style={{padding:'1em', display:'none'}} className='d-none align-items-center justify-content-between flex-wrap'>Descuento (%): <input type="number" name="descuento" min={0} required value={data?.descuento} onChange={(e)=>{setData({...data, descuento: parseFloat(e.target.value)})}}/>
+                <label htmlFor="descuento" className='d-none align-items-center justify-content-between flex-wrap p-1'>Descuento (%): <input type="number" name="descuento" min={0} required value={data?.descuento} onChange={(e)=>{setData({...data, descuento: parseFloat(e.target.value)})}}/>
                 </label>
                 <input type="hidden" name="id" defaultValue={data?.id}/>
-                <label htmlFor="categoria" style={{padding:'1em', display:'none', justifyContent:'space-between', alignItems:'end'}}>Categoria: 
-                    <select name="categoria" required defaultValue={data?.categoria}>
-                        <option value="cualquiera">cualquiera</option>
-                        <option value="limpieza">limpieza</option>
-                        <option value="comestibles">comestibles</option>
-                        <option value="bazar">bazar</option>
-                        <option value="electrodomesticos">electrodomésticos</option>
-                    </select>
-                </label>
+                <input type="hidden" name="categoria" value="cualquiera"/>
             </AccordionParent>
         </div>
-        <button type="submit" className='btn text-w m-1 p-1' style={{backgroundColor:'#66BB6A'}}>
-            <Add width={14} height={14}/>
-        </button>
-        <button type="reset" className='btn text-w m-1 p-1' style={{backgroundColor:'#00897B'}} onClick={limpiar}>
-            <Clean width={14} height={14}/>
-        </button>
-        <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'#FF5252'}} onClick={()=>{
-            setPromptAlert(true);
-        }}>
-            <Trash width={14} height={14}/>
-        </button>
-        <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'dodgerblue'}} onClick={buscar}>
-            <Search width={14} height={14}/>
-        </button>
-        <button type="button" className='btn text-w m-1 p-1' style={{backgroundColor:'gold', color:'black'}} onClick={()=>{setPromptDb(true)}}>
-            <Share/>
-        </button>
-        <button type='button' className={minimize ? 'btn rotate-left' : 'btn rotate-right'}  style={{backgroundColor:'coral', color:'whitesmoke', padding:'0.6rem 0.3rem 0.6rem 0.3rem', margin:'0.4em'}}
-        onClick={()=>setMinimize(!minimize)}>&nbsp;▲&nbsp;</button>
+        <div className='d-flex justify-content-center'>
+            <button type="submit" className='btn text-w m-1 p-1 c-green'>
+                <Add width={14} height={14}/>
+            </button>
+            <button type="reset" className='btn text-w m-1 p-1 c-dgreen' onClick={limpiar}>
+                <Clean width={14} height={14}/>
+            </button>
+            <button type="button" className='btn text-w m-1 p-1 c-ored' onClick={()=>{
+                setPromptAlert(true);
+            }}>
+                <Trash width={14} height={14}/>
+            </button>
+            <button type="button" className='btn text-w m-1 p-1 c-oblue' onClick={buscar}>
+                <Search width={14} height={14}/>
+            </button>
+            <button type="button" className='btn text-w m-1 p-1 c-lblue' onClick={()=>{setPromptDb(true)}}>
+                <Share/>
+            </button>
+            <button type='button' className={minimize ? 'btn rotate-left c-main p-05 m-1    ' : 'btn rotate-right c-main p-05 m-1   '}
+            onClick={()=>setMinimize(!minimize)}>&nbsp;▲&nbsp;</button>
+        </div>        
         <div className='d-flex justify-content-center'>
             {
             filtrados.length > 0 && <fieldset className='pop-up mb-2'>

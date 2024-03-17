@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import { BrowserRouter, useLocation } from 'react-router-dom'
-import './App.css'
+import { BrowserRouter } from 'react-router-dom'
 import { PublicRouter } from './Router/PublicRouter'
-import { Header } from './Components/Layout';
+import { Header } from './Components/Layout'
 import { EditProvider } from './Context/EditContext'
 import { locations } from './Utils'
 
@@ -28,7 +26,7 @@ function App() {
   ,[font])
 
   
-  return (//<div id="top"></div>
+  return (
       <BrowserRouter>
         <EditProvider>
           <div className={'main-height '+'theme-'+theme}>

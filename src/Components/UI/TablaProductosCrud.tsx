@@ -75,34 +75,37 @@ export const TablaProductosCrud = ({clases='', sel=""}:ITable ) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {productos?.map((p,p_i)=>{
-                        return <tr key={p_i} tabIndex={0} style={{backgroundColor: p.chekar ? '#fcf1ed' : 'transparent'}}>
-                            <td>
-                                <div className={`${p.chekar && 'selected-row'}`} style={{paddingLeft:'10px'}}>
-                                    {p_i}
-                                </div>                            
-                            </td>
-                            <td className='headcol'><b className="c-llpink">{p.nombre}</b></td>
-                            <td>{p.precio}</td>
-                            <td>{p.cantidad}</td>
-                            <td>{p.sum_desc}</td>
-                            <td>{p.total}</td>
-                            <td>
-                                <button className='btn acciones-btn' style={{backgroundColor:'#ffa892'}} onClick={()=>{
-                                        setSelectedId(p.id);
-                                        setPState(true);
-                                    }}>
-                                    <b style={{color:'#4e4e4e'}}>✖</b>
-                                </button>&nbsp;
-                                <button className='btn acciones-btn' style={{backgroundColor:'#ffe68d'}} onClick={()=>{editar(p.id)}}>
-                                    <b style={{color:'#4e4e4e'}}>✎</b>
-                                </button>
-                                <input type="checkbox" style={{height:'1.5em', width:'1.5em',verticalAlign:'middle'}} onChange={(e)=>{
-                                    chekar(p.id, e.target.checked)
-                                }} checked={p.chekar}/>
-                            </td>
-                        </tr>
-                    })}
+                    {
+                        productos?.length === 0 ? <tr><td className='headcol text-center' colSpan={7}>Sin datos</td></tr> : 
+                        productos?.map((p,p_i)=>{
+                            return <tr key={p_i} tabIndex={0} className={p.chekar ? 'c-llpink' : 'c-trans'}>
+                                <td>
+                                    <div className={`${p.chekar && 'selected-row'} ps-1`}>
+                                        {p_i}
+                                    </div>                            
+                                </td>
+                                <td className='headcol'><b className={p.chekar ? 'c-llpink' : ''}>{p.nombre}</b></td>
+                                <td>{p.precio}</td>
+                                <td>{p.cantidad}</td>
+                                <td>{p.sum_desc}</td>
+                                <td>{p.total}</td>
+                                <td>
+                                    <button className='btn acciones-btn c-bred text-d' onClick={()=>{
+                                            setSelectedId(p.id);
+                                            setPState(true);
+                                        }}>
+                                        ✖
+                                    </button>&nbsp;
+                                    <button className='btn acciones-btn c-lyellow text-d' onClick={()=>{editar(p.id)}}>
+                                        ✎
+                                    </button>
+                                    <input type="checkbox" className='checkbox-md' onChange={(e)=>{
+                                        chekar(p.id, e.target.checked)
+                                    }} checked={p.chekar}/>
+                                </td>
+                            </tr>
+                        })
+                    }
                 </tbody>
             </table>
         </div>
