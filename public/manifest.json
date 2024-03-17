@@ -6,7 +6,7 @@
     "start_url": "/",
     "name": "listaCompras",
     "short_name": "listaCompras",
-    "description": "App para cuando vas de compras",
+    "description": "App para hacer las compras, llevar control y compartir precios",
     "icons": [
         {
             "src": "/lista-compras.svg",
@@ -31,19 +31,31 @@
             "src": "/screenshot_2.webp",
             "sizes": "640x1136",
             "type": "image/webp",
-            "label": "Inicio"
+            "label": "Info"
         },
         {
             "src": "/screenshot_3.webp",
             "sizes": "640x1136",
             "type": "image/webp",
-            "label": "Compra"
+            "label": "Configuracion"
         },
         {
             "src": "/screenshot_4.webp",
             "sizes": "640x1136",
             "type": "image/webp",
-            "label": "Contacto"
+            "label": "Compartir"
+        },
+        {
+            "src": "/screenshot_5.webp",
+            "sizes": "640x1136",
+            "type": "image/webp",
+            "label": "Calculadora"
+        },
+        {
+            "src": "/screenshot_6.webp",
+            "sizes": "640x1136",
+            "type": "image/webp",
+            "label": "Compra"
         }
     ],
     "shortcuts": [
@@ -60,10 +72,21 @@
         },
         {
             "name": "Compartir",
-            "url": "/contacto",
+            "url": "/#bottom",
             "icons": [
                 {
                     "src": "/compartir-app.svg",
+                    "type": "image/png",
+                    "sizes": "512x512"
+                }
+            ]
+        },
+        {
+            "name": "Calculadora",
+            "url": "/",
+            "icons": [
+                {
+                    "src": "/calculadora.svg",
                     "type": "image/png",
                     "sizes": "512x512"
                 }

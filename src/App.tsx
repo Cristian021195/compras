@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import { BrowserRouter, useLocation } from 'react-router-dom'
-import './App.css'
+import { BrowserRouter } from 'react-router-dom'
 import { PublicRouter } from './Router/PublicRouter'
-import { Header } from './Components/Layout';
+import { Header } from './Components/Layout'
 import { EditProvider } from './Context/EditContext'
 import { locations } from './Utils'
 
 function App() {
-  const [runner, setRunner] = useState( locations.findIndex((lo)=>lo===window.location.pathname) );
+  const [runner, setRunner] = useState( locations.findIndex((lo)=>lo==='/nuevo') );
   const [font, setFont] = useState<string>(localStorage.getItem('font') || 'md');
+  const [theme, setTheme] = useState<string>(localStorage.getItem('theme') || 'light');
+  const [bip, setBip] = useState<any>(undefined);
+  const [close, setClose] = useState(false);
+
+  useEffect(()=>{
+    window.addEventListener('beforeinstallprompt', (event) => {
+      setBip(event)
+    });
+  },[])
 
   useEffect(()=>{
     localStorage.setItem('font', font);
@@ -22,11 +29,25 @@ function App() {
   return (
       <BrowserRouter>
         <EditProvider>
-          <div id="top"></div>
-          <Header runner={runner} setRunner={setRunner}></Header>
-          <PublicRouter runner={runner} setRunner={setRunner} font={font} setFont={setFont}/>
-          <a href="#top" className='no-select' style={{backgroundColor:'rgba(255,127,80,0.7)', color:'whitesmoke', padding:'1em', width:'1em',height:'1em', borderRadius:'50%', textDecoration:'none', position:'fixed', bottom:'1em', right:'1em'}}>▲</a>
-          <div style={{height:'2em'}}>&nbsp;</div>
+          <div className={'main-height '+'theme-'+theme}>
+            <div className={close ? 'd-none' : 'text-center mt-1'}>{bip !== undefined ? 
+              <div className='d-flex justify-content-evenly gap-1 mx-1'>
+                <div className='d-flex align-items-center'>¿Instalar app? Para una mejor experiencia</div>
+                <button
+                  onClick={async ()=>{
+                      if(bip) bip.prompt();
+                      const biip = await bip?.userChoice;
+                      if (biip?.outcome){
+                          if (biip?.outcome === 'accepted') {setBip(null)}
+                      }
+                  }} className='btn p-1 c-sgreen'>Instalar
+                </button>
+                <button className='btn p-1 c-ored' onClick={()=>{setClose(true)}}>Cerrar</button>
+              </div> : <></> }
+            </div>            
+            <PublicRouter runner={runner} setRunner={setRunner} font={font} setFont={setFont} theme={theme} setTheme={setTheme}/>
+            <Header runner={runner} setRunner={setRunner}></Header>
+          </div>          
         </EditProvider>
       </BrowserRouter>
   )

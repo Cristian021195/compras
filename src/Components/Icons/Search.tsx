@@ -1,6 +1,7 @@
-export function Search({width=16, height=16, color="currentColor", classDefinition="bi bi-search"}) {
+export function Search({width=16, height=16, color="currentColor", classDefinition="bi bi-search", style={} }) {
   return (
     <svg
+      style={style}
       xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}

@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Lista Compras" />
-    <meta name="description" content="App para hacer las compras" />
+    <meta name="description" content="App para hacer las compras, llevar control y compartir precios" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="x5-page-mode" content="app">
@@ -64,5 +64,26 @@
     <div id="update-bar" class="d-flex justify-content-center align-items-center text-center"></div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      const $update_bar = document.getElementById('update-bar');
+      window.addEventListener('online', ()=>{
+        updateBar(msg="Modo online", bg=["c-sgreen", "text-w", "fwb"]);
+      })
+      window.addEventListener('offline', ()=>{
+        updateBar(msg="Modo sin conexión", bg=["c-ored", "text-w", "fwb"]);
+      })
+      function updateBar(msg="msg", bg=["c-ored"]){
+        $update_bar.textContent = msg;
+        bg.forEach(ce=>{
+          $update_bar.classList.add(ce);
+        })
+        setTimeout(() => {
+          $update_bar.textContent = '';
+          bg.forEach(ce=>{
+            $update_bar.classList.remove(ce);
+          })          
+        }, 2500);
+      }
+    </script>
   </body>
 </html>

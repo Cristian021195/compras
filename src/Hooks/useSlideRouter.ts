@@ -1,11 +1,13 @@
 import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { locations } from '../Utils';
+//import { locations } from '../Utils';
 
 interface IProps {
     x:number,
     y:number
 }
+
+const locations = ['/nuevo','/calculadora','/compartir','/configuracion', '', '/'];
 
 export const useSlideRouter = (actual='/', runner=0, setRunner:any) => {
 
@@ -37,7 +39,7 @@ export const useSlideRouter = (actual='/', runner=0, setRunner:any) => {
 
             if((Math.abs(pos1.x - pos2.x)) > (window.screen.width / 6)){
                 if(runner === 0){
-                    setRunner(2);
+                    setRunner(locations.length);
                 }else{
                     setRunner((prev:any) => prev - 1);
                 }
@@ -46,7 +48,7 @@ export const useSlideRouter = (actual='/', runner=0, setRunner:any) => {
             //console.log('de der a izq')
 
             if((Math.abs(pos1.x - pos2.x)) > (window.screen.width / 6)){
-                if(runner === 2){
+                if(runner === locations.length){
                     setRunner(0);
                 }else{
                     setRunner((prev:any)=> prev + 1);

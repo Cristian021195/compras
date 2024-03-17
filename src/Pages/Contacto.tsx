@@ -1,11 +1,10 @@
-import React from 'react'
 import QRCode from "react-qr-code";
 import { useSlideRouter } from '../Hooks';
 import { IRouter } from '../Interfaces';
 
 
 export const Contacto = ({runner, setRunner}:IRouter) => {
-  const {pos1, pos2, setPos1, setPos2} = useSlideRouter(window.location.pathname, runner, setRunner);
+  useSlideRouter(window.location.pathname, runner, setRunner);
   return (
     <section style={{textAlign:'center'}} className='pop-up' id='detector'>
         <h1>Contacto</h1>
