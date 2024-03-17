@@ -23,9 +23,10 @@
     "screenshots":[
         {
             "src": "/screenshot_1.webp",
-            "sizes": "640x1136",
+            "sizes": "750x1334",
             "type": "image/webp",
-            "label": "Splash"
+            "label": "Splash",
+            "form_factor": "wide"
         },
         {
             "src": "/screenshot_2.webp",
