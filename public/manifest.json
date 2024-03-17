@@ -6,7 +6,7 @@
     "start_url": "/",
     "name": "listaCompras",
     "short_name": "listaCompras",
-    "description": "App para cuando vas de compras",
+    "description": "App para hacer las compras, llevar control y compartir precios",
     "icons": [
         {
             "src": "/lista-compras.svg",
