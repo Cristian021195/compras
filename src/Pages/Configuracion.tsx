@@ -192,26 +192,20 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
             <fieldset>
               <legend className='px-05'><label htmlFor="datos"><b>IMPORTAR DESDE TEXTO: </b></label></legend>
               <small><i>Pegue el texto que le compartieron, la aplicación se encargara de sincronizar los datos</i></small>
-              <form ref={form as any} onSubmit={handleSubmit}>
-                <div className='d-flex justify-content-center mt-1'>
+              <form ref={form as any} onSubmit={handleSubmit} className='d-flex justify-content-center mt-1 flex-wrap gap-1'>
                   <textarea name="text" id="text" defaultValue={text} onChange={(e)=>{setText(e.currentTarget.value)}}></textarea>
-                </div>
-                <div className='d-flex justify-content-center mt-1'>
                   <button className={`btn p-1 ${text.length === 0 ? 'c-lgreen' : 'c-green'}`} 
                   disabled={text.length === 0 ? true : false}
                   onClick={()=>{}}
                   >Cargar</button>
-                </div>
               </form>
             </fieldset>
             <fieldset>
               <legend className='px-05'><label htmlFor="datos"><b>IMPORTAR DESDE ARCHIVO .TXT: </b></label></legend>
               <small><i>Seleccione el archivo que tenga descargado en su dispositivo</i></small>
-              <form ref={formF as any} onSubmit={(e)=>{e.preventDefault()}}>
-                <div className='d-flex justify-content-center mt-1'>
+              <form ref={formF as any} onSubmit={(e)=>{e.preventDefault()}} className='d-flex justify-content-center mt-1'>
                   <label htmlFor="archivo" className='btn c-oblue p-1'>Buscar Archivo &nbsp; <Folder/></label>
                   <input type="file" name="archivo" id="archivo" accept='.txt' className='d-none' onChange={changeFile}/>
-                </div>
               </form>
             </fieldset>
             <fieldset className='mb-3'>

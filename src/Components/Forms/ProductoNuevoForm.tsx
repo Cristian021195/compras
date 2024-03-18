@@ -6,7 +6,7 @@ import {v4 as uuid} from "uuid";
 import { EditContext } from '../../Context/EditContext';
 import { TProductoContext, TProducto,ICompra } from '../../Interfaces/';
 import { ShareFile, ShareText, beep } from '../../Helpers';
-import { Add, Clean, Search, Share, Trash, ShoppingCart} from '../Icons';
+import { Add, Clean, Search, Share, Trash, ShoppingCart, Triangle} from '../Icons';
 import { AccordionParent } from '../UI/AccordeonParent';
 import { Prompt, PromptDouble, Toast } from '../UI';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -176,8 +176,8 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
             
         }}
         onCancel={ ()=>{setPromptDb(false)} }/>}
-    <form onSubmit={cargaProducto} className='col-4 producto-form'>
-        <div className='ps-2 pb-2 pe-2 rounded-top c-lforange'>
+    <form onSubmit={cargaProducto} className='col-4 producto-form c-lforange'>
+        <div className='ps-2 pe-2 rounded-top'>
             <AccordionParent state={!minimize} cssClass="pt-2">
                 <div className='d-flex justify-content-between align-items-center mb-2'>
                     <div>                        
@@ -230,26 +230,26 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
                 <input type="hidden" name="categoria" value="cualquiera"/>
             </AccordionParent>
         </div>
-        <div className='d-flex justify-content-center'>
-            <button type="submit" className='btn text-w m-1 p-1 c-green'>
+        <div className='d-flex justify-content-evenly align-items-center align-items-center pb-2'>
+            <button type="submit" className='btn text-w c-green circle p-1'>
                 <Add width={14} height={14}/>
             </button>
-            <button type="reset" className='btn text-w m-1 p-1 c-dgreen' onClick={limpiar}>
+            <button type="reset" className='btn text-w c-dgreen circle p-1' onClick={limpiar}>
                 <Clean width={14} height={14}/>
             </button>
-            <button type="button" className='btn text-w m-1 p-1 c-ored' onClick={()=>{
+            <button type="button" className='btn text-w c-ored circle p-1' onClick={()=>{
                 setPromptAlert(true);
             }}>
                 <Trash width={14} height={14}/>
             </button>
-            <button type="button" className='btn text-w m-1 p-1 c-oblue' onClick={buscar}>
+            <button type="button" className='btn text-w c-oblue circle p-1' onClick={buscar}>
                 <Search width={14} height={14}/>
             </button>
-            <button type="button" className='btn text-w m-1 p-1 c-lblue' onClick={()=>{setPromptDb(true)}}>
+            <button type="button" className='btn text-w c-lblue circle p-1' onClick={()=>{setPromptDb(true)}}>
                 <Share/>
             </button>
-            <button type='button' className={minimize ? 'btn rotate-left c-main p-05 m-1    ' : 'btn rotate-right c-main p-05 m-1   '}
-            onClick={()=>setMinimize(!minimize)}>&nbsp;▲&nbsp;</button>
+            <button type='button' className={minimize ? 'btn rotate-right c-main circle p-1' : 'btn rotate-left c-main circle p-1'}
+            onClick={()=>setMinimize(!minimize)}><Triangle/></button>
         </div>        
         <div className='d-flex justify-content-center'>
             {

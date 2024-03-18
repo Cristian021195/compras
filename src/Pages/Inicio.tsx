@@ -44,7 +44,7 @@ export const Inicio = () => {
               <div className='d-flex align-items-center c-white p-1'>
                 <QRCode value={window.location.origin}></QRCode>
               </div>
-              <div className='d-flex flex-wrap align-items-center c-white p-1 mb-3'>
+              <div className='d-flex flex-wrap align-items-center p-1 mb-3'>
                 <button className='btn p-1 c-main' disabled={shareError}
                   onClick={async (e)=>{
                     try {                      

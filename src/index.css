@@ -47,6 +47,7 @@
 .c-seorange{background-color: var(--c-seorange)!important;}
 .c-gray{background-color: var(--c-gray)!important;}
 .c-white{background-color: white!important;}
+.c-black{background-color: black!important;}
 .c-lgreen{background-color: var(--c-lgreen)!important;}
 .c-dtheme{background-color: var(--c-dtheme)!important;}
 .c-lforange{background-color: var(--c-lforange)!important;}
@@ -92,6 +93,12 @@ html{
   border-radius: 0.4em;
   font-weight: bold;
   color:whitesmoke;
+  text-align: center;
+}
+.btn svg{
+  width: 1.2rem!important;
+  height: 1.2rem!important;
+  vertical-align: middle;
 }
 
 /*Hover only*/
@@ -297,6 +304,7 @@ tr td button svg{
   border-radius: 0.2em;
   font-weight: bold;
 }
+.circle{border-radius: 100%;}
 .btn:active{
   transform: scale(1.05);
   box-shadow: inset 0 0 0 0.2em rgba(255,255,255,0.3);
@@ -848,9 +856,9 @@ table tr:focus, table tr:focus td b {
   border: none!important;
 }
 .theme-dark form div{
-  background-color: var(--c-dtheme)!important;
+  background-color: black!important;
 }
-.theme-dark form input,.theme-dark select{
+.theme-dark form input,.theme-dark select,.theme-dark textarea{
   background-color: var(--c-dtheme)!important;
   color: whitesmoke!important;
 }
@@ -867,6 +875,7 @@ table tr:focus, table tr:focus td b {
   border-radius: 25%;
   transform: scale(0.8);
 }
+.theme-dark .c-lforange{background-color: black!important;}
 .theme-dark table tr:focus, .theme-dark table tr:focus .headcol, .theme-dark table tr:focus td b, 
 .theme-dark table tr:hover, .theme-dark table tr:hover .headcol, .theme-dark table tr:hover td b {
   background-color: var(--c-dtheme)!important;

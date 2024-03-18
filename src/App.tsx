@@ -11,6 +11,14 @@ function App() {
   const [close, setClose] = useState(false);
 
   useEffect(()=>{
+    if(theme === 'dark'){
+      document.body.style.backgroundColor = '#000000';
+    }else{
+      document.body.style.backgroundColor = '#ffffff';
+    }
+  },[theme]);
+
+  useEffect(()=>{
     window.addEventListener('beforeinstallprompt', (event) => {
       setBip(event)
     });
