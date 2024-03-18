@@ -62,7 +62,6 @@ export const Inicio = () => {
                   }}
                 >COMPARTIR</button>
                 {shareError && <span className='c-ored btn p-05 text-w mt-1'>Error al compartir, copia el enlace manualmente</span>}
-                <a id="bottom"></a>
               </div>
             </div>
           </div>
