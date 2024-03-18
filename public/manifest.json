@@ -62,7 +62,7 @@
     "shortcuts": [
         {
             "name": "Nueva compra",
-            "url": "/nuevo",
+            "url": "/",
             "icons": [
                 {
                     "src": "/nueva-compra.svg",
@@ -73,7 +73,7 @@
         },
         {
             "name": "Compartir",
-            "url": "/#bottom",
+            "url": "/info#bottom",
             "icons": [
                 {
                     "src": "/compartir-app.svg",
