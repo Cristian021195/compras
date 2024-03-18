@@ -11,4 +11,5 @@ export * from "./Calculator";
 export * from "./Stats";
 export * from "./Info";
 export * from "./Gear";
+export * from "./Folder";
 

@@ -11,7 +11,7 @@ export const Inicio = () => {
           <div className='col-6'>
             <p><b>ListaCompras</b>, es una aplicación simple, creada para mis prácticas en el Desarrollo Web.</p>
             <p>La app es surge al momento de tener que hacer compras en el supermercado, e ir cargando lo que necesitemos, asi tener mayor control de que compramos.</p>
-            <p><small><i>*Para tener siempre la ultima version, puede ser necesario <a id='recarga' href="/" className='btn c-main p-05'>recargar</a> la web app</i></small></p>
+            <p><small><i>*Para tener siempre la ultima versión, puede ser necesario <a id='recarga' href="/" className='btn c-main p-05'>recargar</a> la web app</i></small></p>
             <br />
             <h3>RECURSOS USADOS</h3>
             <p>La aplicación usa las siguientes librerias y tecnologías:</p>

@@ -265,6 +265,7 @@ tr td button svg{
 .my-1{margin-top: 0.5rem; margin-bottom: 0.5rem;}
 .mt-1{margin-top: 1rem}
 .py-05{padding-top: 0.25rem; padding-bottom: 0.25rem;}
+.px-05{padding-left: 0.25rem; padding-right: 0.25rem;}
 .py-1{padding-top: 0.5rem; padding-bottom: 0.5rem;}
 .mx-1{margin-left: 0.5rem; margin-right: 0.5rem;}
 .mx-3{margin-left: 1.5rem; margin-right: 1.5rem;}
@@ -312,6 +313,16 @@ input[type="text"],input[type="number"], select{
   font-size: 1em;
   border-radius: 0.3em 0.3em 0 0;
   padding: 0.2em;
+}
+textarea{
+  border: 2px solid #ffa281;
+  border-radius: 0.3rem;
+  resize: none;
+  width: 100%!important;
+}
+textarea:hover{
+  outline: none !important;
+  border: 2px solid #ffa281;
 }
 .actual{text-decoration: underline;}
 input[type="text"]:focus,input[type="number"]:focus, select:focus{

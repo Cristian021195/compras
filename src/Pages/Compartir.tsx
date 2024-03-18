@@ -32,7 +32,7 @@ export const Compartir = () => {
         <section>
           <h1 className='text-center'>Compartir</h1>
           <div className='col-6'>
-            Aqui estan listadas todos los lugares donde realizamos las compras, donde podemos descargar y compartir el listado de compras realizadas por supermercado
+           Aquí están listados todos los lugares donde realizamos las compras, donde podemos descargar y compartir el listado de compras realizadas por supermercado
           </div>
         </section>
       </div>

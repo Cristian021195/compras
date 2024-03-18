@@ -3,11 +3,11 @@ import { ICompra, IProducto } from '../Interfaces';
 export const ShareText = async ( selectedSuper:ICompra, cbs:()=>void ) => {
     let prods = await db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selectedSuper.super))
     let parsed = prods.map((e:IProducto)=> `${e.nombre}=${e.precio}`)
-    let txt = parsed.join("\n");
-    
+    let txt = parsed.join("\n");    
+    let superArr = JSON.stringify(selectedSuper)+"\n"+txt;
 
     try {
-        let myData = {title: 'Compras '+selectedSuper.super+' '+selectedSuper.fecha, text: txt}
+        let myData = {title: 'Compras '+selectedSuper.super+' '+selectedSuper.fecha, text: superArr}
         if (navigator.canShare(myData)) {
             await navigator.share(myData);
             cbs();
@@ -23,9 +23,10 @@ export const ShareFile = async (selectedSuper:ICompra, cbs:()=>void ) => {
     let fileName = 'Compras '+selectedSuper.super+' '+selectedSuper.fecha;
     let prods = await db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selectedSuper.super))
     let parsed = prods.map((e:IProducto)=> `${e.nombre}=${e.precio}`)
-    let txt = parsed.join("\n");
+    let txt = parsed.join("\n");    
+    let superArr = JSON.stringify(selectedSuper)+"\n"+txt;
 
-    const file = new File([txt], fileName+'.txt', {
+    const file = new File([superArr], fileName+'.txt', {
         type: 'text/plain',
     })
     //download(file);

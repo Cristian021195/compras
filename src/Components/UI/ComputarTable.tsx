@@ -30,7 +30,7 @@ export const ComputarTable = ({data, setData}:ICT) => {
         <table className='sticky-header txt-nwrap text-center'>
             <thead>
               <tr>
-                <th>#</th><th className='headcol'>NOMBRE</th><th>PRECIO</th><th>CANTIDAD</th><th>UNIDADES</th><th>RELACION</th><th>ACCION</th>
+                <th>#</th><th className='headcol'>NOMBRE</th><th>PRECIO</th><th>CANTIDAD</th><th>UNIDADES</th><th>RELACIÓN</th><th>ACCIONES</th>
               </tr>
             </thead>
             <tbody>

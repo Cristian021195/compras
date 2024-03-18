@@ -6,7 +6,7 @@ export const Calculadora = () => {
       <section id='detector'>
           <h1 className='text-center'>Calculadora</h1>
           <div className='col-6 mt-1'>
-            Sirve para saber que producto es mas conveniente en relacion <b>cantidad / precio</b>
+            Sirve para saber que producto es mas conveniente en relación <b>cantidad / precio</b>
           </div>
       </section>
       <section>
