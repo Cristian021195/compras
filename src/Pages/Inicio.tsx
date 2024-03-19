@@ -8,7 +8,7 @@ export const Inicio = () => {
       <div className='pop-up' id='detector'>
         <section>
           <h1 className='text-center'>Info y Contacto</h1>
-          <div className='col-6'>
+          <div>
             <p><b>ListaCompras</b>, es una aplicación simple, creada para mis prácticas en el Desarrollo Web.</p>
             <p>La app es surge al momento de tener que hacer compras en el supermercado, e ir cargando lo que necesitemos, asi tener mayor control de que compramos.</p>
             <p><small><i>*Para tener siempre la ultima versión, puede ser necesario <a id='recarga' href="/" className='btn c-main p-05'>recargar</a> la web app</i></small></p>
@@ -43,8 +43,9 @@ export const Inicio = () => {
             <div className='d-flex justify-content-center flex-wrap'>
               <div className='d-flex align-items-center c-white p-1'>
                 <QRCode value={window.location.origin}></QRCode>
-              </div>
-              <div className='d-flex flex-wrap align-items-center p-1 mb-3'>
+              </div>              
+            </div>
+            <div className='p-1 mb-3 text-center'>
                 <button className='btn p-1 c-main' disabled={shareError}
                   onClick={async (e)=>{
                     try {                      
@@ -63,7 +64,6 @@ export const Inicio = () => {
                 >COMPARTIR</button>
                 {shareError && <span className='c-ored btn p-05 text-w mt-1'>Error al compartir, copia el enlace manualmente</span>}
               </div>
-            </div>
           </div>
         </section>
       </div>

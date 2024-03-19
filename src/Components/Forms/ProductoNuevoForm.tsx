@@ -196,7 +196,7 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
             
         }}
         onCancel={ ()=>{setPromptDb(false)} }/>}
-    <form onSubmit={cargaProducto} className='col-4 producto-form c-lforange'>
+    <form onSubmit={cargaProducto} className='producto-form c-lforange mw-100'>
         <div className='ps-2 pe-2 rounded-top'>
             <AccordionParent state={!minimize} cssClass="pt-2">
                 <div className='d-flex justify-content-between align-items-center mb-2'>

@@ -50,8 +50,10 @@ function App() {
                 </button>
                 <button className='btn p-1 c-ored' onClick={()=>{setClose(true)}}>Cerrar</button>
               </div> : <></> }
-            </div>            
-            <PublicRouter font={font} setFont={setFont} theme={theme} setTheme={setTheme}/>
+            </div>
+            <div className='principal'>
+              <PublicRouter font={font} setFont={setFont} theme={theme} setTheme={setTheme}/>
+            </div>
             <Header></Header>
           </div>          
         </EditProvider>

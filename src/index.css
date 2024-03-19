@@ -172,6 +172,7 @@ html{
 .vh-58{height: 58vh;}
 .vh-50{height: 50vh;}
 .vh-36{height: 36vh;}
+.vw-40{width: 40vw;}
     
 .headcol {
   position: sticky;
@@ -186,11 +187,19 @@ html{
 .fixed{position: fixed;}
 .text-center{text-align: center;}
 .d-flex{display: flex!important;}
+.mx-auto{margin: 0 auto;}
 .d-block{display: block!important;}
 .d-none{display: none!important;}
 .gap-1{gap:1rem;}
 .flex-wrap{
   flex-wrap: wrap;
+}
+.flex-nowrap{
+  flex-wrap: nowrap;
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
 }
 .justify-content-center{
   justify-content: center;
@@ -285,6 +294,7 @@ tr td button svg{
   width: 7px;
   height: 7px;
 }
+.principal{width: 40vw; margin: 0 auto;}
 
 .h-scroll-style::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.3);
@@ -486,6 +496,7 @@ header ul{
   [class*="col-"] {
     width: 100%;
   }
+  .mw-100{width: 100%;}
   .costad{display: flex; justify-content: space-between;}
   .costado{display: flex; justify-content: center;}
   .costado div{display: block; margin-top: 1rem;}
@@ -505,6 +516,7 @@ header ul{
     flex-wrap: nowrap;
     align-items: center;
   }
+  
   .scroll-y{
     overflow-y: scroll;
   }
@@ -530,6 +542,7 @@ header ul{
   ul li{
     margin: 0 2em 0 0em;
   }
+  .principal{width: 100%; margin: auto;}
 }
 table tr:focus {/*, table tr:focus td b*/
   background-color: #ffd1c1!important;
