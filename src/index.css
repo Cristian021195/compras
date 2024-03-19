@@ -256,6 +256,8 @@ tr td button svg{
 .pb-3{padding-bottom: 1.5em;}
 .ps-1{padding-left: 0.5rem;}
 .ps-2{padding-left: 1rem;}
+.py-025{padding-top: 0.175rem;padding-bottom: 0.175rem;}
+.px-010{padding-left: 0.1rem; padding-right: 0.10rem;}
 .p-05{padding: 0.3rem;}
 .p-1{padding: 0.6rem;}
 .p-2{padding: 1rem;}
@@ -488,6 +490,7 @@ header ul{
   .costado{display: flex; justify-content: center;}
   .costado div{display: block; margin-top: 1rem;}
   .costado input[type="number"], .costado input[type="text"]{width: 120px;}
+  .costado-esp input[type="text"]{width: 100px;}
   .mobile-field{
     display:'flex'; gap:1rem; padding:1rem;
   }
@@ -528,7 +531,7 @@ header ul{
     margin: 0 2em 0 0em;
   }
 }
-table tr:focus, table tr:focus td b {
+table tr:focus {/*, table tr:focus td b*/
   background-color: #ffd1c1!important;
 }
 /*ANIMACIONES*/

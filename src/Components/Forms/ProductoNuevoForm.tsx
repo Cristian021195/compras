@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useFormAnimation } from '../../Hooks';
 import {FormEvent} from 'react'
 import { db } from '../../DB/db';
@@ -6,7 +6,7 @@ import {v4 as uuid} from "uuid";
 import { EditContext } from '../../Context/EditContext';
 import { TProductoContext, TProducto,ICompra } from '../../Interfaces/';
 import { ShareFile, ShareText, beep } from '../../Helpers';
-import { Add, Clean, Search, Share, Trash, ShoppingCart, Triangle} from '../Icons';
+import { Add, Clean, Search, Share, Trash, ShoppingCart, Triangle, PadlockClosed, PadlockOpen} from '../Icons';
 import { AccordionParent } from '../UI/AccordeonParent';
 import { Prompt, PromptDouble, Toast } from '../UI';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -38,6 +38,8 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
     const [alertaDetalle, setAlertaDetalle] = useState({});
     const [selectedSuper, setSelectedSuper] = useState<ICompra>();
     const [findError, setFindError] = useState(false);
+    const [locked, setLocked] = useState(false);
+    const superRef = useRef<HTMLInputElement>(null);
 
     const nombre = useRef<HTMLInputElement>(null);
     const listadoSuper = useLiveQuery(
@@ -53,7 +55,10 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
         }
     );
     const productos = useLiveQuery(
-        () => db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selectedSuper?.super))
+        () => { 
+            selectedSuper?.super !== undefined && setLocked(true);
+            return db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selectedSuper?.super))
+        }
       ,[selectedSuper]);
 
     const limpiar = () => { 
@@ -101,6 +106,18 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
                 chekar:true
             });
             if(id){
+
+                db.compra.update(data?.super+"",{
+                    //total:  productos!.filter((sup)=>sup.super === data?.super)!.reduce((a,o)=>a+o.precio,0),
+                    total:  productos!.filter((sup)=>sup.super === data?.super)!.reduce((a,o)=>{
+                        if(data?.id === o.id){
+                            return a+ parseFloat(data?.precio+"")
+                        }
+                        return a+o.precio;
+                    },0),
+                    cantidad: productos!.filter((sup)=>sup.super === data?.super).length
+                })
+
                 setAlerta(true);
                 setAlertaDetalle({title:"Edicion",text:"¡Editado!", status:true, cssClass:'c-green text-w text-center'});
                 setTimeout(() => {
@@ -108,6 +125,7 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
                 }, 4000);
                 if(sound){ beep(); }
             }
+            setLocked(true);
             limpiar();
         }else{
             db.productos.add({
@@ -134,11 +152,13 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
                     total:  parseFloat(data?.precio+"") + productos!.filter((sup)=>sup.super === data?.super)!.reduce((a,o)=>a+o.precio,0),
                     cantidad: productos!.filter((sup)=>sup.super === data?.super).length + 1
                 })
+                setLocked(true);
+                limpiar();
 
             })
             .catch((err:any)=>{
                 setAlerta(true);
-                setAlertaDetalle({title:"¡Error!",text:"producto ya cargado en este supermercado "+data?.super, status:true, cssClas:'c-gold text-center'});
+                setAlertaDetalle({title:"¡Advertencia!",text:"producto ya cargado en este supermercado "+data?.super, status:true, cssClass:'c-gold text-center'});
                 setTimeout(() => {
                     setAlerta(false);
                 }, 4000);
@@ -182,13 +202,20 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
                 <div className='d-flex justify-content-between align-items-center mb-2'>
                     <div>                        
                         <label htmlFor="super">Supermercado: </label>
-                        <div className="costado">
-                            <input type="text" name='super' id='super' placeholder='Super vea' minLength={3} maxLength={30} required defaultValue={selectedSuper?.super || ""}/>
+                        <div className="costado-esp">
+                            <input type="text" name='super' ref={superRef} id='super' placeholder='Super vea' minLength={3} maxLength={30} required defaultValue={selectedSuper?.super || ""} readOnly={locked}/>
+                            <button type='button' className='btn c-lblue px-010 py-025' tabIndex={-1} 
+                                onClick={()=>{
+                                    setLocked(!locked);
+                                    locked === true && superRef.current?.focus();
+                                }}>
+                                {locked ? <PadlockClosed/> : <PadlockOpen/>}
+                            </button>
                         </div>
                     </div>
                     <div>
                         <label htmlFor="listado-super">Supermercados</label>
-                        <select className='costado' style={{width:'120px'}} onChange={(e)=>{setSelectedSuper({super:e.target.value}); setSuperm(e.target.value)}}>
+                        <select className='costado' style={{width:'120px'}} tabIndex={-1} onChange={(e)=>{setSelectedSuper({super:e.target.value}); setSuperm(e.target.value)}}>
                             {listadoSuper?.map((ls,lsi)=>{
                                 return <option key={lsi} value={ls.super}>{ls.super}</option>
                             })}

@@ -4,23 +4,7 @@ import { EditContext } from '../../Context/EditContext';
 import { db } from '../../DB/db';
 import { TProductoContext, TProducto } from '../../Interfaces/IContext';
 import { Prompt } from './Prompt';
-
-const eliminar = async (id:string) => {
-    /*let confirm = window.confirm("¿Eliminar Producto?");
-    if(confirm){
-        try {
-            let resp = await db.productos.where('id').anyOf(id).delete();
-        } catch (error) {
-            alert('Hubo error, revisar la consola')
-            console.log(error)
-        }
-    }*/
-    try {
-        let resp = await db.productos.where('id').anyOf(id).delete();
-    } catch (error) {
-        console.log(error)
-    }
-}
+import { IProducto } from '../../Interfaces';
 
 interface ITable{
     clases:string,
@@ -28,13 +12,30 @@ interface ITable{
 }
 export const TablaProductosCrud = ({clases='', sel=""}:ITable ) => {
     const {data, setData, resetData} = useContext(EditContext) as TProductoContext;
-    const [selectedId, setSelectedId] = useState<string>("");
+    const [selected, setSelected] = useState<IProducto>();
     const [pState, setPState] = useState(false);
+
     const productos = useLiveQuery(
         () => {
             return db.productos.orderBy('nombre').toArray().then(res=>res.filter((e)=>e.super===sel));
         }
     ,[sel]);
+
+    const eliminar = async (prd:IProducto) => {
+        
+        try {
+            let resp = await db.productos.where('id').anyOf(prd.id).delete();
+            if(resp){
+                await db.compra.update(sel+"",{
+                    total:  productos!.filter((sup)=>sup.super === sel)!.reduce((a,o)=>a+o.precio,0) - prd.precio,
+                    cantidad: productos!.filter((sup)=>sup.super === sel).length - 1
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const editar = async (id:string) => {
         try {
             let resp = await db.productos.get(id) as TProducto;
@@ -59,7 +60,7 @@ export const TablaProductosCrud = ({clases='', sel=""}:ITable ) => {
         {
             pState && 
             <Prompt cssClass='text-center' title='¿Borrar producto?' text='Se borrará solo el producto seleccionado' 
-                onCancel={()=>setPState(false)} onConfirm={()=>{eliminar(selectedId); resetData(); setPState(false);}}/>
+                onCancel={()=>setPState(false)} onConfirm={()=>{eliminar(selected!); resetData(); setPState(false);}}/>
         }
         <div className={clases}>
             <table className='sticky-header'>
@@ -84,14 +85,14 @@ export const TablaProductosCrud = ({clases='', sel=""}:ITable ) => {
                                         {p_i}
                                     </div>                            
                                 </td>
-                                <td className='headcol'><b className={p.chekar ? 'c-llpink' : ''}>{p.nombre}</b></td>
+                                <td className={ p.chekar ? 'headcol c-llpink' : 'headcol'}><b>{p.nombre}</b></td>
                                 <td>{p.precio}</td>
                                 <td>{p.cantidad}</td>
                                 <td>{p.sum_desc}</td>
                                 <td>{p.total}</td>
                                 <td>
                                     <button className='btn acciones-btn c-bred text-d' onClick={()=>{
-                                            setSelectedId(p.id);
+                                            setSelected(p);
                                             setPState(true);
                                         }}>
                                         ✖
@@ -110,7 +111,7 @@ export const TablaProductosCrud = ({clases='', sel=""}:ITable ) => {
             </table>
         </div>
     </>
-  )
+  )//<td className='headcol'><b className={p.chekar ? 'c-llpink' : ''}>{p.nombre}</b></td>
 }
 /*
 

@@ -18,7 +18,7 @@ const updateSW = registerSW({
       //$recarga?.click();
     }*/
     $update_bar!.className = 'update-bar';
-    $update_bar!.innerHTML = "<div style='padding-right:1rem'><p>Hay una version nueva, actualizando...</p></div>";
+    $update_bar!.innerHTML = '<div class="d-flex justify-content-center p-2 text-w"><b>Hay una version nueva</b><br><p>actualizando...</p></div>';
     setTimeout(() => {
       $update_bar!.remove();
       updateSW();  
