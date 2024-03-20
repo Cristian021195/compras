@@ -30,7 +30,6 @@ function App() {
     document.body.classList.add('font-'+font);
   }
   ,[font])
-
   
   return (
       <BrowserRouter>
