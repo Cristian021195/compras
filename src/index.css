@@ -136,6 +136,16 @@ html{
   position: relative;
   z-index: 0;
 }
+.menu-header{
+  margin: 0;
+  background-color: var(--c-main);
+  padding: 0.5rem 1rem;
+  color: whitesmoke;
+  position: fixed;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 .sticky-header thead{
   position: sticky;
   top:0;
@@ -289,6 +299,7 @@ tr td button svg{
 .my-2{margin-top: 1rem; margin-bottom: 1rem;}
 .my-1{margin-top: 0.5rem; margin-bottom: 0.5rem;}
 .mt-1{margin-top: 1rem}
+.mt-4{margin-top: 4rem}
 .py-05{padding-top: 0.25rem; padding-bottom: 0.25rem;}
 .px-05{padding-left: 0.25rem; padding-right: 0.25rem;}
 .py-1{padding-top: 0.5rem; padding-bottom: 0.5rem;}

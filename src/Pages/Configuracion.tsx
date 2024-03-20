@@ -152,9 +152,9 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
             setAlerta(false);
           }, 2500);
         } } onCancel={() => { setPrompt(false) }} />}
-      <div className='pop-up'>
+      <div className='menu-header'>Configuración</div>
+      <div className='pop-up mt-4'>
         <section id='detector'>
-          <h1 className='text-center'>Configuración</h1>
           <div className='col-6 m-1'>
             Toda la configuración relacionada a la app, en caso de desinstalar la app, todas las configuraciones estarán por defecto.
           </div>

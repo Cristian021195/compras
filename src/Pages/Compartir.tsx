@@ -28,9 +28,9 @@ export const Compartir = () => {
         onConfirm={() => { ShareText(selectedSuper!, () => { setPromptDb(!promptDb) }) }}
         onAlternative={() => { ShareFile(selectedSuper!, () => { setPromptDb(!promptDb) }) }}
         onCancel={() => { setPromptDb(false) }} />}
-      <div className='pop-up' id='detector'>
+      <div className='menu-header'>Compartir</div>
+      <div className='pop-up mt-4' id='detector'>
         <section>
-          <h1 className='text-center'>Compartir</h1>
           <div className='col-6'>
            Aquí están listados todos los lugares donde realizamos las compras, donde podemos descargar y compartir el listado de compras realizadas por supermercado
           </div>

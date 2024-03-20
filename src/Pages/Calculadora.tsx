@@ -4,9 +4,10 @@ import { Comparadora } from '../Components';
 export const Calculadora = () => {
   const [info, setInfo] = useState(false);
   return (
-    <div className='pop-up'>
+    <>
+    <div className='menu-header'>Calculadora</div>
+    <div className='pop-up mt-4'>
       <section id='detector'>
-          <h1 className='text-center'>Calculadora</h1>
           <div className='col-6 mt-1'>
             Sirve para saber que producto es mas conveniente en relación cantidad / precio <span onClick={()=>{setInfo(!info)}}><b style={{color:'coral'}}>ⓘ</b></span>
           </div>
@@ -29,5 +30,6 @@ export const Calculadora = () => {
         </div>
       </section>
     </div>
+    </>
   )
 }
