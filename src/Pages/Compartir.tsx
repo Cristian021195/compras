@@ -38,7 +38,7 @@ export const Compartir = () => {
       </div>
       <section>
         <div className='d-flex justify-content-center flex-wrap gap-1'>
-          <div className='stripped scroll-all vh-36'>
+          <div className='stripped scroll-all vh-58'>
             <table className='sticky-header txt-nwrap text-center'>
               <thead>
                 <tr>
