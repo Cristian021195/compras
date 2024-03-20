@@ -145,6 +145,7 @@ html{
   width: 100%;
   font-size: 1.5rem;
   font-weight: bold;
+  top:0;
 }
 .sticky-header thead{
   position: sticky;
