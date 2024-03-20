@@ -36,7 +36,7 @@ function App() {
       <BrowserRouter>
         <EditProvider>
           <div className={'main-height '+'theme-'+theme}>
-            <div className={close ? 'd-none' : 'text-center mt-1'}>{bip !== undefined ? 
+            <div className={close ? 'd-none' : 'text-center my-1'}>{bip !== undefined ? 
               <div className='d-flex justify-content-evenly gap-1 mx-1'>
                 <div className='d-flex align-items-center'>¿Instalar app? Para una mejor experiencia</div>
                 <button
