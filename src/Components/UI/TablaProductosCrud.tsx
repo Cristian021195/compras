@@ -85,7 +85,7 @@ export const TablaProductosCrud = ({clases='', sel=""}:ITable ) => {
                                         {p_i}
                                     </div>                            
                                 </td>
-                                <td className={ p.chekar ? 'headcol c-llpink' : 'headcol'}><b>{p.nombre}</b></td>
+                                <td className={ p.chekar ? 'check-hc headcol' : 'headcol nocheck-hc'}><b>{p.nombre}</b></td>
                                 <td>{p.precio}</td>
                                 <td>{p.cantidad}</td>
                                 <td>{p.sum_desc}</td>

@@ -215,11 +215,13 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
                     </div>
                     <div>
                         <label htmlFor="listado-super">Supermercados</label>
-                        <select className='costado' style={{width:'120px'}} tabIndex={-1} onChange={(e)=>{setSelectedSuper({super:e.target.value}); setSuperm(e.target.value)}}>
-                            {listadoSuper?.map((ls,lsi)=>{
-                                return <option key={lsi} value={ls.super}>{ls.super}</option>
-                            })}
-                        </select>
+                        <div className='costado'>
+                            <select className='costado' style={{width:'120px'}} tabIndex={-1} onChange={(e)=>{setSelectedSuper({super:e.target.value}); setSuperm(e.target.value)}}>
+                                {listadoSuper?.map((ls,lsi)=>{
+                                    return <option key={lsi} value={ls.super}>{ls.super}</option>
+                                })}
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div className='d-flex justify-content-between align-items-center mb-2'>

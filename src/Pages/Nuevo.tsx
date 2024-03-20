@@ -45,7 +45,7 @@ export const Nuevo = () => {
         </div>
       </section>
       <section className='d-flex justify-content-center vh-58'>
-        <TablaProductosCrud clases='stripped scroll-all mb-1' sel={superm} />
+        <TablaProductosCrud clases='stripped scroll-all mb-01' sel={superm} />
       </section>
     </div>
   )
