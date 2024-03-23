@@ -34,7 +34,7 @@ export const Inicio = () => {
               <a className='btn p-1 c-lblue' href="https://cristian021195.github.io/portfolio/">Portfolio</a>
               <a className='btn p-1 c-sblue' href="https://www.facebook.com/cristianismael.gramajo/">Facebook</a>
               <a className='btn p-1 c-spink' href="https://www.instagram.com/cristiangramajo015/">Instagram</a>
-              <a className='btn p-1 c-sblue' href="https://www.linkedin.com/in/cristian-ismael-gramajo-760534165/">LinkedIn</a>
+              <a className='btn p-1 c-sblue' href="https://www.linkedin.com/in/cristian021195">LinkedIn</a>
             </div>
             <br />
             <br />
