@@ -17,7 +17,8 @@ const updateSW = registerSW({
       //let $recarga = document.getElementById('recarga')!;
       //$recarga?.click();
     }*/
-    $update_bar!.className = 'update-bar';
+    
+    $update_bar!.className = 'update-bar d-flex justify-content-center align-items-center';
     $update_bar!.innerHTML = `<div class="d-flex justify-content-center p-2 text-w">
       <h2 class="m-0"><b class="d-flex align-items-center">¡Hay una nueva versión! Actualizando: 
       <span class="ms-2">
