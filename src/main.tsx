@@ -33,14 +33,6 @@ const updateSW = registerSW({
       $update_bar!.remove();
       updateSW();  
     }, 3000);
-    
-    /*let res = window.confirm('Hay una version nueva, 𝗿𝗲𝗰𝗮𝗿𝗴𝗮́ para actualizar.');
-    if(res){
-      updateSW();  
-    }*/
-    //alert('Hay una version nueva, 𝗿𝗲𝗰𝗮𝗿𝗴𝗮𝗿 para actualizar.');
-    //updateSW();
-    
   },
   onOfflineReady() {
   },
