@@ -31,7 +31,7 @@ export const Compartir = () => {
       <div className='menu-header'>Compartir</div>
       <div className='pop-up mt-4' id='detector'>
         <section>
-          <div className='col-6'>
+          <div className='col-12'>
            Aquí están listados todos los lugares donde realizamos las compras, donde podemos descargar y compartir el listado de compras realizadas por supermercado
           </div>
         </section>

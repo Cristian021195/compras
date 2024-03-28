@@ -43,8 +43,3 @@ export const Nuevo = () => {
     </div>
   )
 }
-
-
-/*export const Nuevo = () => {
-  return <h1>ASD</h1>
-}*/
