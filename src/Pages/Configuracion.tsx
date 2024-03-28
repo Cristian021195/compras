@@ -155,7 +155,7 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
       <div className='menu-header'>Configuración</div>
       <div className='pop-up mt-4'>
         <section id='detector'>
-          <div className='col-6 m-1'>
+          <div className='col-12 m-1'>
             Toda la configuración relacionada a la app, en caso de desinstalar la app, todas las configuraciones estarán por defecto.
           </div>
         </section>

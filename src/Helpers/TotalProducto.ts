@@ -9,14 +9,15 @@ export const totalProducto = (array:IProducto[]) => {
     return cont;
 }
 
-export const cantidadProductos = (array:IProducto[]) => {
-    return array.length;
-}
+export const cantidadProductos = (array:IProducto[]) =>  array ? array.length : 0;
 
 export const cantidadTotalProductos = (array:IProducto[]) => {
     let cont = 0;
-    array.forEach((e:IProducto,e_i:number)=>{
-        if(e.chekar){cont += e.cantidad;}        
-    })
-    return cont;
+    if(array !== undefined){
+        array.forEach((e:IProducto,e_i:number)=>{
+            if(e.chekar){cont += e.cantidad;}        
+        })
+        return cont;
+    }
+    return 0;    
 }

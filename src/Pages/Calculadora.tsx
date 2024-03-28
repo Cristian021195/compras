@@ -8,7 +8,7 @@ export const Calculadora = () => {
     <div className='menu-header'>Calculadora</div>
     <div className='pop-up mt-4'>
       <section id='detector'>
-          <div className='col-6 mt-1'>
+          <div className='col-12 mt-1'>
             Sirve para saber que producto es mas conveniente en relación cantidad / precio <span onClick={()=>{setInfo(!info)}}><b style={{color:'coral'}}>ⓘ</b></span>
           </div>
           <div className={info ? '' : 'd-none'}>
