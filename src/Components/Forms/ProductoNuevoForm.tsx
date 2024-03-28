@@ -260,24 +260,24 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
             </AccordionParent>
         </div>
         <div className='d-flex justify-content-evenly align-items-center align-items-center pb-2'>
-            <button type="submit" className='btn text-w c-green circle p-1'>
+            <button type="submit" className='btn btn-circle text-w c-green circle p-1'>
                 <Add width={14} height={14}/>
             </button>
-            <button type="reset" className='btn text-w c-dgreen circle p-1' onClick={limpiar}>
+            <button type="reset" className='btn btn-circle text-w c-dgreen circle p-1' onClick={limpiar}>
                 <Clean width={14} height={14}/>
             </button>
-            <button type="button" className='btn text-w c-ored circle p-1' onClick={()=>{
+            <button type="button" className='btn btn-circle text-w c-ored circle p-1' onClick={()=>{
                 setPromptAlert(true);
             }}>
                 <Trash width={14} height={14}/>
             </button>
-            <button type="button" className='btn text-w c-oblue circle p-1' onClick={buscar}>
+            <button type="button" className='btn btn-circle text-w c-oblue circle p-1' onClick={buscar}>
                 <Search width={14} height={14}/>
             </button>
-            <button type="button" className='btn text-w c-lblue circle p-1' onClick={()=>{setPromptDb(true)}}>
+            <button type="button" className='btn btn-circle text-w c-lblue circle p-1' onClick={()=>{setPromptDb(true)}}>
                 <Share/>
             </button>
-            <button type='button' className={minimize ? 'btn rotate-right c-main circle p-1' : 'btn rotate-left c-main circle p-1'}
+            <button type='button' className={minimize ? 'btn btn-circle rotate-right c-main circle p-1' : 'btn btn-circle rotate-left c-main circle p-1'}
             onClick={()=>setMinimize(!minimize)}><Triangle/></button>
         </div>        
         <div className='d-flex justify-content-center'>

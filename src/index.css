@@ -95,6 +95,16 @@ html{
   color:whitesmoke;
   text-align: center;
 }
+.btn-circle{
+  height: 2.5rem;
+  width: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  vertical-align: middle;
+}
 .btn svg{
   width: 1.2rem!important;
   height: 1.2rem!important;
