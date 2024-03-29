@@ -17,12 +17,12 @@ export const Nuevo = () => {
       <section className='pop-up' id='detector'>
         <h2 className='total-status text-center text-w'>Total: ${totalProducto(productos!).toFixed(2)}</h2>        
         <div>
-          <div className='info-counter'>
+          <div className='info-counter d-flex flex-wrap justify-content-between'>
             <p>
-              <b><span onClick={() => { setAlerta('Muestra la cantidad total de productos del mismo tipo.') }}>ⓘ</span> &nbsp; Productos: {cantidadProductos(productos!)}</b>
+              <b><span onClick={() => { setAlerta('Muestra la cantidad total de productos del mismo tipo.') }}>ⓘ</span> Productos: {cantidadProductos(productos!)}</b>
             </p>
-            <p>
-              <b><span onClick={() => { setAlerta('Muestra la cantidad total de productos totales y la suma de sus cantidades.') }}>ⓘ</span> &nbsp; Cantidad Total: {cantidadTotalProductos(productos!)}</b>
+            <p className="">
+              <b><span onClick={() => { setAlerta('Muestra la cantidad total de productos totales y la suma de sus cantidades.') }}>ⓘ</span> Cantidad Total: {cantidadTotalProductos(productos!)}</b>
             </p>
           </div>
           {alerta == '' ?

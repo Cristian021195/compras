@@ -257,6 +257,7 @@ html{
   background-color: whitesmoke;
 }
 .text-w{color: whitesmoke;}
+.text-r{color: var(--c-ored);}
 .text-d{color: var(--c-dtheme);}
 .checkbox-md{height:1.5em;width:1.5em;vertical-align:middle;}
 .selected-row{

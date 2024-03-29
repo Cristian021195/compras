@@ -7,7 +7,7 @@ export const Inicio = () => {
     <><div className='menu-header'>Información y Contacto</div>
       <div className='pop-up mt-4' id='detector'>
         <section>
-          <div>
+          <div className='mb-3'>
             <p><b>ListaCompras</b>, es una aplicación simple, creada para mis prácticas en el Desarrollo Web.</p>
             <p>La app es surge al momento de tener que hacer compras en el supermercado, e ir cargando lo que necesitemos, asi tener mayor control de que compramos.</p>
             <p><small><i>*Para tener siempre la ultima versión, puede ser necesario <a id='recarga' href="/" className='btn c-main p-05'>recargar</a> la web app</i></small></p>
@@ -44,7 +44,7 @@ export const Inicio = () => {
                 <QRCode value={window.location.origin}></QRCode>
               </div>              
             </div>
-            <div className='p-1 mb-3 text-center'>
+            <div className='p-1 text-center'>
                 <button className='btn p-1 c-main' disabled={shareError}
                   onClick={async (e)=>{
                     try {                      
@@ -61,8 +61,8 @@ export const Inicio = () => {
                     }
                   }}
                 >COMPARTIR</button>
-                {shareError && <span className='c-ored btn p-05 text-w mt-1'>Error al compartir, copia el enlace manualmente</span>}
               </div>
+              {shareError && <span className='btn p-05 text-r'>Error al compartir, copie el enlace manualmente</span>}
           </div>
         </section>
       </div>
