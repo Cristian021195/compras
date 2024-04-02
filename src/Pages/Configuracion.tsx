@@ -239,6 +239,7 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
                     try {
                       let pasText = await navigator.clipboard.readText();
                       setText(pasText);
+                      setLocked(true);
                     } catch (error) {
                       setAlerta(true);
                       setAlertaDetalle({title:"Error al pegar texto",text:"Peguelo manualmente o verifique los permisos", status:true, cssClass:'c-ored text-w text-center'});
