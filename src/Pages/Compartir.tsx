@@ -3,12 +3,15 @@ import { ICompra, IRouter } from '../Interfaces';
 import { db } from '../DB/db';
 import { Share } from '../Components/Icons';
 import { useState } from 'react';
-import { PromptDouble } from '../Components';
+import { PromptDouble, PromptExchangeOpts } from '../Components';
 import { ShareFile, ShareText } from '../Helpers';
 
 export const Compartir = () => {
   const [ promptDb, setPromptDb ] = useState(false);
   const [selectedSuper, setSelectedSuper] = useState<ICompra>();
+  const [exch, setExch] = useState(1);
+  const [alerta,setAlerta] = useState(false);
+  const [alertaDetalle, setAlertaDetalle] = useState({});
 
   const listadoSuper = useLiveQuery(
     () => {
@@ -22,11 +25,19 @@ export const Compartir = () => {
     }
   );
 
+  const cbsErr = () =>{
+    setAlerta(true);
+    setAlertaDetalle({title:"¡Error!",text:"Su dispositivo no soportar Share API", status:true, cssClass:"c-ored text-w text-center"});
+    setTimeout(() => {
+        setAlerta(false);
+    }, 2500);
+  }
+
   return (
     <>
-      {promptDb && <PromptDouble btn1='Archivo' btn2='Texto' cssClass='text-center' title='Compartir Compra' text='Seleccione el metodo de compartir su compra'
-        onConfirm={() => { ShareText(selectedSuper!, () => { setPromptDb(!promptDb) }) }}
-        onAlternative={() => { ShareFile(selectedSuper!, () => { setPromptDb(!promptDb) }) }}
+      {promptDb && <PromptExchangeOpts exch={exch} setExch={setExch} btn1='Archivo' btn2='Texto' cssClass='text-center' title='Compartir Compra' text='Seleccione el metodo de compartir su compra'
+        onConfirm={() => { ShareText(selectedSuper!, exch, () => { setPromptDb(!promptDb) }, cbsErr)}}
+        onAlternative={() => { ShareFile(selectedSuper!, exch, () => { setPromptDb(!promptDb) }, cbsErr)}}
         onCancel={() => { setPromptDb(false) }} />}
       <div className='menu-header'>Compartir</div>
       <div className='pop-up mt-4' id='detector'>

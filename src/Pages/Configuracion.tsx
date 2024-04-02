@@ -1,14 +1,17 @@
-import { ChangeEvent, FormEvent, LegacyRef, RefObject, useEffect, useRef, useState } from 'react';
-import { ICompra, IProducto, IRouter } from '../Interfaces';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import { ICompra, IRouter } from '../Interfaces';
 import { db } from '../DB/db';
-import { Prompt, Toast } from '../Components';
+import { CurrencyForm, Prompt, Toast } from '../Components';
 import { v4 as uuid } from 'uuid';
-import { Folder } from '../Components/Icons';
+import { Check, Folder } from '../Components/Icons';
+import { Exchange } from '../Types';
 
 export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
   const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
+  const [exchanges, setExchanges] = useState<Exchange[]>(JSON.parse(localStorage.getItem('exchanges') || '[]'));
   const [prompt, setPrompt] = useState(false);
-  const [alerta, setAlerta] = useState(false)
+  const [alerta, setAlerta] = useState(false);
+  const [saved, setSaved] = useState(false);
   const [alertaDetalle, setAlertaDetalle] = useState({});
   const [text, setText] = useState("");
   const form = useRef<FormEvent<HTMLFormElement>>();
@@ -20,6 +23,8 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
     procesarTexto(text);
     e.currentTarget.reset();
   }
+
+  
 
   const changeFile = (e:ChangeEvent<HTMLInputElement>) =>{//as HTMLInputElement
     try {
@@ -122,17 +127,26 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
   const borrarDatos = async () => {
     try {
       localStorage.removeItem('calculadora');
+      localStorage.removeItem('exchanges');
       db.compra.clear();
       db.productos.clear();
       setPrompt(false);
+      setExchanges([]);
     } catch (error) {
-      console.log("Error");
+      setAlerta(true);
+      setAlertaDetalle({title:"¡Error al borrar datos!",text:"Borre los datos de la aplicación desde la configuración de su dispositivo", status:true, cssClass:'c-ored text-w text-center'});
+      setTimeout(() => {
+        setAlerta(false);
+      }, 2500);
     }
   }
 
   useEffect(()=>{
     localStorage.setItem('sound', sound+'');
   },[sound])
+  useEffect(()=>{
+    localStorage.setItem('exchanges', JSON.stringify(exchanges));
+  },[exchanges])
   useEffect(()=>{
     localStorage.setItem('theme', theme+'');
   },[theme])
@@ -188,6 +202,22 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
                 <option value="light">Claro (defecto)</option>
                 <option value="dark">Oscuro</option>
               </select>
+            </fieldset>
+            <fieldset>
+              <legend className='px-05'><label htmlFor="datos"><b>TIPO DE CAMBIO: </b></label></legend>
+              <div className='mb-2'>
+                <small><i>Una unidad de tipo de cambio "A" vale una de cambio "B", por ejemplo: USD-ARS: $1020</i></small>
+              </div>
+              <label>Tipos de cambio guardados: </label>
+              <div className='d-flex align-items-center'>
+                <div className={saved ? 'text-g' : 'd-none'}>
+                  <Check/>
+                </div>
+                <select>
+                  {exchanges.map((em,emi)=><option key={emi} value={em.value}>{em.exchange+" ("+em.ucode+(em.value.toFixed(2))+")"}</option>)}
+                </select>              
+              </div>
+              <CurrencyForm exchanges={exchanges} setExchanges={setExchanges} setSaved={setSaved}/>
             </fieldset>
             <fieldset>
               <legend className='px-05'><label htmlFor="datos"><b>IMPORTAR DESDE TEXTO: </b></label></legend>

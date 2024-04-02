@@ -1,6 +1,6 @@
 import { db } from '../DB/db';
-import { ICompra, IProducto } from '../Interfaces';
-export const ShareText = async ( selectedSuper:ICompra, cbs:()=>void ) => {
+import { ICompra, IProducto } from '../Interfaces'; //exch
+/*export const ShareText = async ( selectedSuper:ICompra, cbs:()=>void ) => {
     let prods = await db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selectedSuper.super))
     let parsed = prods.map((e:IProducto)=> `${e.nombre}=${e.precio}`)
     let txt = parsed.join("\n");    
@@ -17,9 +17,65 @@ export const ShareText = async ( selectedSuper:ICompra, cbs:()=>void ) => {
     } catch (error:any) {
         console.log(error.message || "Error al compartir");
     }
+}*/
+
+export const ShareText = async ( selectedSuper:ICompra, exch:number, cbs:()=>void, cbsErr:()=>void ) => {
+    let prods = await db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selectedSuper.super))
+    let parsed;
+    if(exch === 1){
+        parsed = prods.map((e:IProducto)=> `${e.nombre}=${e.precio}`);
+    }else if(exch < 1){
+        parsed = prods.map((e:IProducto)=> `${e.nombre}=${(e.precio*exch).toFixed(2)}`);
+    }else if(exch > 1){
+        parsed = prods.map((e:IProducto)=> `${e.nombre}=${(e.precio/exch).toFixed(2)}`);
+    }
+    let txt = parsed?.join("\n");
+    let superArr = JSON.stringify(selectedSuper)+"\n"+txt;
+
+    try {
+        let myData = {title: 'Compras '+selectedSuper.super+' '+selectedSuper.fecha, text: superArr}
+        if (navigator.canShare(myData)) {
+            await navigator.share(myData);
+            cbs();
+        }else{
+            throw new Error("No soporta share API");
+        }   
+    } catch (error:any) {
+        cbsErr();
+    }
 }
 
-export const ShareFile = async (selectedSuper:ICompra, cbs:()=>void ) => {
+export const ShareFile = async (selectedSuper:ICompra, exch:number, cbs:()=>void, cbsErr:()=>void ) => {
+    let fileName = 'Compras '+selectedSuper.super+' '+selectedSuper.fecha;
+    let prods = await db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selectedSuper.super));
+    let parsed;
+    if(exch === 1){
+        parsed = prods.map((e:IProducto)=> `${e.nombre}=${e.precio}`);
+    }else if(exch < 1){
+        parsed = prods.map((e:IProducto)=> `${e.nombre}=${(e.precio*exch).toFixed(2)}`);
+    }else if(exch > 1){
+        parsed = prods.map((e:IProducto)=> `${e.nombre}=${(e.precio/exch).toFixed(2)}`);
+    }
+    let txt = parsed?.join("\n");
+    let superArr = JSON.stringify(selectedSuper)+"\n"+txt;
+
+    const file = new File([superArr], fileName+'.txt', {
+        type: 'text/plain',
+    })
+    //download(file);
+    try {
+        await navigator.share({
+          files: [file],
+          title: "Compras "+selectedSuper.fecha,
+          text: selectedSuper.super,
+        });
+        cbs();
+    } catch (error) {
+        cbsErr();
+    }
+}
+
+/*export const ShareFile = async (selectedSuper:ICompra, cbs:()=>void ) => {
     let fileName = 'Compras '+selectedSuper.super+' '+selectedSuper.fecha;
     let prods = await db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selectedSuper.super))
     let parsed = prods.map((e:IProducto)=> `${e.nombre}=${e.precio}`)
@@ -40,7 +96,7 @@ export const ShareFile = async (selectedSuper:ICompra, cbs:()=>void ) => {
     } catch (error) {
         console.log('Error al compartir archivo');
     }
-}
+}*/
 
 
 

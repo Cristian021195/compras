@@ -8,8 +8,9 @@ import { TProductoContext, TProducto,ICompra } from '../../Interfaces/';
 import { ShareFile, ShareText, beep } from '../../Helpers';
 import { Add, Clean, Search, Share, Trash, ShoppingCart, Triangle, PadlockClosed, PadlockOpen} from '../Icons';
 import { AccordionParent } from '../UI/AccordeonParent';
-import { Prompt, PromptDouble, Toast } from '../UI';
+import { Prompt, PromptExchangeOpts, Toast } from '../UI';
 import { useLiveQuery } from 'dexie-react-hooks';
+import { Exchange } from '../../Types';
 const borrarCompras = async (val:string|undefined) => {
     try {
         if(val){
@@ -31,10 +32,11 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
     const {data, setData, resetData} = useContext(EditContext) as TProductoContext | any;
     const {minimize, setMinimize} = useFormAnimation(false);
     const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
+    const [exch, setExch] = useState(1);
     const [filtrados, setFiltrados] = useState<TProducto[]>([]);
-    const [alerta,setAlerta] = useState(false);
     const [promptAlert,setPromptAlert] = useState(false);
     const [promptDb,setPromptDb] = useState(false);
+    const [alerta,setAlerta] = useState(false);
     const [alertaDetalle, setAlertaDetalle] = useState({});
     const [selectedSuper, setSelectedSuper] = useState<ICompra>();
     const [findError, setFindError] = useState(false);
@@ -54,6 +56,13 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
             return compras;
         }
     );
+    const cbsErr = () =>{
+        setAlerta(true);
+        setAlertaDetalle({title:"¡Error!",text:"Su dispositivo no soportar Share API", status:true, cssClass:"c-ored text-w text-center"});
+        setTimeout(() => {
+            setAlerta(false);
+        }, 2500);
+      }
     const productos = useLiveQuery(
         () => { 
             selectedSuper?.super !== undefined && setLocked(true);
@@ -171,21 +180,21 @@ export const ProductoNuevoForm = ({setSuperm, total}:IProps) => {
     {alerta && <Toast {...alertaDetalle}/>}
     {promptAlert && <Prompt cssClass='text-center' title='¿Borrar compras?' text='Esto borrará todas las compras, no puede deshacerse.' 
         onConfirm={()=>{borrarCompras(selectedSuper?.super); setFiltrados([]); resetData(); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
-    {promptDb && <PromptDouble btn1='Archivo' btn2='Texto' cssClass='text-center' title='Compartir Compra' text='Seleccione el metodo de compartir su compra' 
+    {promptDb && <PromptExchangeOpts exch={exch} setExch={setExch} btn1='Archivo' btn2='Texto' cssClass='text-center' title='Compartir Compra' text='Seleccione el metodo de compartir su compra' 
         onConfirm={()=>{ 
             if(selectedSuper?.super !== undefined){
-                ShareText(selectedSuper!, ()=>{setPromptDb(!promptDb)})
+                ShareText(selectedSuper!, exch, ()=>{setPromptDb(!promptDb)}, cbsErr)
             }else{
                 setAlerta(true);
                 setAlertaDetalle({title:"¡Error!",text:"No hay datos para exportar", status:true, cssClass:"c-ored text-w text-center"});
                 setTimeout(() => {
                     setAlerta(false);
                 }, 2500);
-            }            
+            }
         }}
         onAlternative={()=>{
             if(selectedSuper?.super !== undefined){
-                ShareFile(selectedSuper!, ()=>{setPromptDb(!promptDb)})
+                ShareFile(selectedSuper!, exch, ()=>{setPromptDb(!promptDb)}, cbsErr)
             }else{
                 setAlerta(true);
                 setAlertaDetalle({title:"¡Error!",text:"No hay datos para exportar", status:true, cssClass:"c-ored text-w text-center"});

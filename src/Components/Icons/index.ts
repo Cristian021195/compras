@@ -14,4 +14,5 @@ export * from "./Gear";
 export * from "./Folder";
 export * from "./Triangle";
 export * from "./Padlocks";
+export * from "./Check";
 

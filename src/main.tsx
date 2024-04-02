@@ -20,7 +20,7 @@ const updateSW = registerSW({
     
     $update_bar!.className = 'update-bar d-flex justify-content-center align-items-center';
     $update_bar!.innerHTML = `<div class="d-flex justify-content-center p-2 text-w">
-      <h2 class="m-0"><b class="d-flex align-items-center">¡Hay una nueva versión! Actualizando: 
+      <h4 class="m-0"><b class="d-flex align-items-center">¡Hay una nueva versión! Actualizando: 
       <span class="ms-2">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="1.5rem" height="1.5rem" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
           <circle xmlns="http://www.w3.org/2000/svg" cx="50" cy="50" fill="none" stroke="whitesmoke" stroke-width="16" r="37" stroke-dasharray="174.35839227423352 60.119464091411174">
@@ -28,7 +28,7 @@ const updateSW = registerSW({
           </circle>
         </svg>
       </span>
-      </b></h2>
+      </b></h4>
     </div>`;
     setTimeout(() => {
       $update_bar!.remove();

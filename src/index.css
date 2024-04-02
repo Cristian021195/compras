@@ -188,7 +188,12 @@ html{
   background: var(--c-sgreen);
   z-index: 4; color: #ffffff;
   overflow-wrap: break-word;
-  }
+}
+.bip-bar{
+  background-color: #ffffff;
+  position: fixed;
+  z-index: 1;
+}
 .vh-62{height: 62vh;}
 .vh-58{height: 58vh;}
 .vh-50{height: 50vh;}
@@ -258,6 +263,7 @@ html{
 }
 .text-w{color: whitesmoke;}
 .text-r{color: var(--c-ored);}
+.text-g{color: var(--c-green);}
 .text-d{color: var(--c-dtheme);}
 .checkbox-md{height:1.5em;width:1.5em;vertical-align:middle;}
 .selected-row{
@@ -318,6 +324,7 @@ tr td button svg{
 .py-1{padding-top: 0.5rem; padding-bottom: 0.5rem;}
 .mx-1{margin-left: 0.5rem; margin-right: 0.5rem;}
 .mx-3{margin-left: 1.5rem; margin-right: 1.5rem;}
+.ms-1{margin-left: 0.5rem;}
 .ms-2{margin-left: 1rem;}
 .me-2{margin-right: 1rem;}
 .rounded-top{ border-radius: 0.5em 0.5em 0 0;}
@@ -492,6 +499,7 @@ header ul{
   justify-content: space-evenly;
   align-items: center;
 }
+.w-currval{width: 5rem;}
 .costado div{
   display: flex;
   align-items: center;
@@ -507,7 +515,7 @@ header ul{
   transform: translate(-50%, -50%);
   position:fixed;
   background-color:rgba(0,0,0,0.2);
-  backdrop-filter:blur(1px);
+  backdrop-filter:blur(0.7px);
   z-index: 2;
 }
 .prompt-in{
@@ -634,7 +642,7 @@ table tr:focus, table tr:focus td{/*, table tr:focus td b*/
 }
 
 .blur{
-  filter: blur(1px);
+  filter: blur(0.7px);
   transition: all 0.3s;
 }
 
@@ -646,7 +654,7 @@ table tr:focus, table tr:focus td{/*, table tr:focus td b*/
     filter: blur(0);
   }
   100% {
-    filter: blur(1px);
+    filter: blur(0.7px);
   }
 }
 
@@ -655,7 +663,7 @@ table tr:focus, table tr:focus td{/*, table tr:focus td b*/
 }
 @keyframes blurOut{
   0% {
-    filter: blur(1px);
+    filter: blur(0.7px);
   }
   100% {
     filter: blur(0);;
@@ -887,8 +895,13 @@ table tr:focus, table tr:focus td{/*, table tr:focus td b*/
 /* tema claro */
 
 /* tema oscuro */
-.theme-dark {
+.theme-dark{
   background-color: #000!important;
+}
+.theme-dark .bip-bar{
+  background-color: #000!important;
+  position: fixed;
+  z-index: 1;
 }
 .theme-dark footer .cvxc-bar a:focus, .theme-dark footer .cvxc-bar a:focus svg{
   background-color: var(--c-main)!important;
