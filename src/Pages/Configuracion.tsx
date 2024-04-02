@@ -3,7 +3,7 @@ import { ICompra, IRouter } from '../Interfaces';
 import { db } from '../DB/db';
 import { CurrencyForm, Prompt, Toast } from '../Components';
 import { v4 as uuid } from 'uuid';
-import { Check, Folder } from '../Components/Icons';
+import { Check, Folder, PadlockClosed, PadlockOpen } from '../Components/Icons';
 import { Exchange } from '../Types';
 
 export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
@@ -12,6 +12,8 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
   const [prompt, setPrompt] = useState(false);
   const [alerta, setAlerta] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [locked, setLocked] = useState(true);
+  const [clicked, setClicked] = useState(false);
   const [alertaDetalle, setAlertaDetalle] = useState({});
   const [text, setText] = useState("");
   const form = useRef<FormEvent<HTMLFormElement>>();
@@ -64,6 +66,7 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
       let dim = arrTxt.length;
       if(dim > 1){
         let compraData = JSON.parse(arrTxt[0]) as ICompra;
+        compraData.super = compraData.super+"-imp";
         let productoDataArr = [...arrTxt];
         productoDataArr.shift();
         
@@ -88,7 +91,7 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
                 txtProd[1] = parseFloat(txtProd[1]) as any;
                 if(isNaN(txtProd[1] as any)){
                   db.compra.delete(compraData.super);
-                  throw new Error("Formato incorrecto de precio producto");                  
+                  throw new Error("Formato incorrecto de precio producto o el supermercado importado es repetido");
                 }
                 let pObj = {id: pId, nombre: txtProd[0],
                             precio: txtProd[1], cantidad: 1,descuento: 0,
@@ -98,6 +101,7 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
               }
               let idp = await db.productos.bulkAdd(bulkDataArr as any);
               if(idp){
+                setLocked(true)
                 setText("");
                 setAlerta(true);
                 setAlertaDetalle({title:"¡Importado!", text:'Compras y productos importados con éxito', status:true, cssClass:'c-green text-w text-center'})
@@ -115,9 +119,9 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
       }else{
         throw new Error("formato incorrecto");
       }
-    } catch (error) {
+    } catch (error: any) {
       setAlerta(true);
-      setAlertaDetalle({title:"¡ERROR!", text:'Formato de texto incorrecto', status:true, cssClass:'c-ored text-w text-center'})
+      setAlertaDetalle({title:"¡ERROR!", text:'Formato incorrecto o el supermercado es repetido', status:true, cssClass:'c-ored text-w text-center'})
       setTimeout(() => {
         setAlerta(false);
       }, 2500);
@@ -206,7 +210,7 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
             <fieldset>
               <legend className='px-05'><label htmlFor="datos"><b>TIPO DE CAMBIO: </b></label></legend>
               <div className='mb-2'>
-                <small><i>Una unidad de tipo de cambio "A" vale una de cambio "B", por ejemplo: USD-ARS: $1020</i></small>
+                <small><i>Una unidad de tipo de cambio "A" vale X de cambio "B", por ejemplo: 1 USD (destino) en ARS (origen) es: $1020</i></small>
               </div>
               <label>Tipos de cambio guardados: </label>
               <div className='d-flex align-items-center'>
@@ -221,10 +225,30 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
             </fieldset>
             <fieldset>
               <legend className='px-05'><label htmlFor="datos"><b>IMPORTAR DESDE TEXTO: </b></label></legend>
-              <small><i>Pegue el texto que le compartieron, la aplicación se encargara de sincronizar los datos</i></small>
+              <small><i>Pegue el texto que le compartieron, la aplicación se encargara de sincronizar los datos </i></small>
+              <button className='btn p-05 c-seorange' onClick={()=>{setLocked(!locked)}}>{locked ? <PadlockClosed/> : <PadlockOpen/>}</button>
+              {locked && clicked ? <small className='text-r'><i> Desbloqueé la entrada manual </i></small> : <></>}
               <form ref={form as any} onSubmit={handleSubmit} className='d-flex justify-content-center mt-1 flex-wrap gap-1'>
-                  <textarea name="text" id="text" defaultValue={text} onChange={(e)=>{setText(e.currentTarget.value)}}></textarea>
-                  <button className={`btn p-1 ${text.length === 0 ? 'c-lgreen' : 'c-green'}`} 
+                  <textarea name="text" id="text" rows={5} defaultValue={text} 
+                    onChange={(e)=>{setText(e.currentTarget.value)}} readOnly={locked}
+                    onClick={()=>{setClicked(true)}}
+                    >
+                  </textarea>
+                  <button className='btn p-1 c-oblue' type='button'
+                  onClick={async ()=>{
+                    try {
+                      let pasText = await navigator.clipboard.readText();
+                      setText(pasText);
+                    } catch (error) {
+                      setAlerta(true);
+                      setAlertaDetalle({title:"Error al pegar texto",text:"Peguelo manualmente o verifique los permisos", status:true, cssClass:'c-ored text-w text-center'});
+                      setTimeout(() => {
+                        setAlerta(false);
+                      }, 2500);
+                    }
+                  }}
+                  >Pegar</button>
+                  <button type='submit' className={`btn p-1 ${text.length === 0 ? 'c-lgreen' : 'c-green'}`} 
                   disabled={text.length === 0 ? true : false}
                   onClick={()=>{}}
                   >Cargar</button>
