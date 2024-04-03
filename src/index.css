@@ -907,9 +907,6 @@ table tr:focus, table tr:focus td{/*, table tr:focus td b*/
   background-color: var(--c-main)!important;
   color:whitesmoke!important;
 }
-/*.theme-dark div, .theme-dark div h1, .theme-dark div legend, .theme-dark div label, .theme-dark i, .theme-dark p{
-  color:whitesmoke!important;
-}*/
 .theme-dark div, .theme-dark div h1, .theme-dark div legend, .theme-dark div label, .theme-dark i, .theme-dark p{
   color:whitesmoke!important;
 }
