@@ -5,6 +5,7 @@ import { CurrencyForm, Prompt, Toast } from '../Components';
 import { v4 as uuid } from 'uuid';
 import { Check, Folder, PadlockClosed, PadlockOpen } from '../Components/Icons';
 import { Exchange } from '../Types';
+import { beep } from '../Helpers';
 
 export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
   const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
@@ -190,7 +191,8 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
             <fieldset>
               <legend className='px-05'><label htmlFor="sonido"><b>SONIDO: </b></label></legend>
               <select name="sonido" id="sonido" onChange={(e) => { 
-                  setSound(JSON.parse(e.target.value)) 
+                  e.target.value === 'true' && beep();
+                  setSound(JSON.parse(e.target.value)); 
                 }} defaultValue={sound + ''}>
                 <option value="true">Habilitado</option>
                 <option value="false">Deshabilitado (defecto)</option>
