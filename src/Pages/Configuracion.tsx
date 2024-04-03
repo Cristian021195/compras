@@ -172,10 +172,8 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
         } } onCancel={() => { setPrompt(false) }} />}
       <div className='menu-header'>Configuración</div>
       <div className='pop-up mt-4'>
-        <section id='detector'>
-          <div className='col-12 m-1'>
+        <section>
             Toda la configuración relacionada a la app, en caso de desinstalar la app, todas las configuraciones estarán por defecto.
-          </div>
         </section>
         <section>
           <article className='d-flex justify-content-between flex-wrap gap-1'>

@@ -907,6 +907,9 @@ table tr:focus, table tr:focus td{/*, table tr:focus td b*/
   background-color: var(--c-main)!important;
   color:whitesmoke!important;
 }
+/*.theme-dark div, .theme-dark div h1, .theme-dark div legend, .theme-dark div label, .theme-dark i, .theme-dark p{
+  color:whitesmoke!important;
+}*/
 .theme-dark div, .theme-dark div h1, .theme-dark div legend, .theme-dark div label, .theme-dark i, .theme-dark p{
   color:whitesmoke!important;
 }
@@ -926,6 +929,10 @@ table tr:focus, table tr:focus td{/*, table tr:focus td b*/
 .theme-dark .prompt-in, .theme-dark .headcol, .theme-dark .headcol b{
   background-color: var(--c-dgray)!important;
   color: whitesmoke!important;
+}
+.theme-dark .menu-header{
+  background-color: black;
+  color: var(--c-seorange)!important;
 }
 .theme-dark footer .cvxc-bar a:focus{
   animation: upCvxD 0.25s alternate forwards ease-in-out;    
