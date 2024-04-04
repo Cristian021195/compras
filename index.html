@@ -66,6 +66,7 @@
     <script type="module" src="/src/main.tsx"></script>
     <script>
       const $update_bar = document.getElementById('update-bar');
+      const theme = localStorage.getItem('theme');
       
 
       window.addEventListener('online', ()=>{
@@ -86,6 +87,15 @@
           })          
         }, 2500);
       }
+
+      if(theme){
+        if(theme === 'dark'){
+          document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#000000');
+        }else{
+          document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#FF7F50');
+        }
+      }
+
     </script>
     <a id="bottom"></a>
   </body>
