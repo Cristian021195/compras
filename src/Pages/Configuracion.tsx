@@ -201,6 +201,12 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
             <fieldset>
               <legend className='px-05'><label htmlFor="theme"><b>TEMA: </b></label></legend>
               <select name="theme" id="theme" onChange={(e) => {
+                if(e.target.value === 'dark'){
+                  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#000000');
+                }else{
+                  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#FF7F50');
+                }
+                
                 setTheme(e.target.value);
               }} defaultValue={theme}>
                 <option value="light">Claro (defecto)</option>
