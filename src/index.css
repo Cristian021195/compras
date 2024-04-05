@@ -334,7 +334,7 @@ tr td button svg{
   width: 7px;
   height: 7px;
 }
-.principal{width: 40vw; margin: 0 auto;}
+.principal{width: 40vw; margin: 0 auto;-webkit-user-select: none;-ms-user-select: none;user-select: none;}
 
 .h-scroll-style::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.3);
@@ -822,6 +822,7 @@ table tr:focus, table tr:focus td{/*, table tr:focus td b*/
   background-color: coral;
   color: whitesmoke;
   filter: url("#goo");
+  padding: env(safe-area-inset-bottom, 1rem);
 }
 
 .cvxc-bar a{

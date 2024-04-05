@@ -5,7 +5,7 @@ import { Calculator, Gear, Info, Share, ShoppingCart } from '../Icons';
 export const Header = () => {
   return (
     <footer className="cvxc-bar-div">
-      <div className={ /iPad|iPhone|iPod/.test(navigator.userAgent) ? "cvxc-bar pb-2" : "cvxc-bar"}>
+      <div className="cvxc-bar">
         <NavLink to='/'>
           <ShoppingCart/>
         </NavLink>
