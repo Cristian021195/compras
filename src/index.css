@@ -822,7 +822,7 @@ table tr:focus, table tr:focus td{/*, table tr:focus td b*/
   background-color: coral;
   color: whitesmoke;
   filter: url("#goo");
-  padding: env(safe-area-inset-bottom, 1rem);
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
 }
 
 .cvxc-bar a{
