@@ -70,6 +70,8 @@ button{
 }
 section{
   margin: 1em;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 h1{
   font-size: 2.5em;
@@ -822,7 +824,7 @@ table tr:focus, table tr:focus td{/*, table tr:focus td b*/
   background-color: coral;
   color: whitesmoke;
   filter: url("#goo");
-  padding-bottom: env(safe-area-inset-bottom, 1rem);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .cvxc-bar a{
