@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, FormEvent, Dispatch, SetStateAction } from "react";
 import { Currency, Exchange } from "../../Types";
+import { ZConfig } from "../../Store";
 const currencies : Currency[] = [
     {title:"United States Dollar", code:"USD", ucode:"$"},
     {title:"Argentina Peso", code:"ARS", ucode:"$"},
@@ -115,14 +116,15 @@ const currencies : Currency[] = [
 ];
 
 interface IProps {
-    exchanges: Exchange[],
-    setExchanges: Dispatch<SetStateAction<Exchange[]>>,
+    //exchanges: Exchange[],
+    //setExchanges: Dispatch<SetStateAction<Exchange[]>>,
     setSaved: Dispatch<SetStateAction<boolean>>
 }
 
-export const CurrencyForm = ({exchanges,setExchanges,setSaved}:IProps) => {
+export const CurrencyForm = ({setSaved}:IProps) => {
 const formC = useRef<FormEvent<HTMLFormElement>>();
 const [error, setError] = useState(false);
+    const {exchanges, addOrReplaceExchange} = ZConfig((state)=>state)
     const [destino, setDestino] = useState(currencies[0].code+"");
     const [origen, setOrigen] = useState(currencies[0].code+"|"+currencies[0].ucode);
     const [ucode, setUcode] = useState(currencies[0].ucode);
@@ -153,14 +155,8 @@ const [error, setError] = useState(false);
             ucode
         };
 
-        let arr = exchanges;
-        let indx = arr.findIndex(obj => obj.exchange === exchangeData.exchange);
-        if(indx !== -1){
-            arr[indx] = exchangeData;
-            setExchanges([...arr]);
-        }else{
-            setExchanges([...exchanges, exchangeData]);
-        }
+        addOrReplaceExchange(exchangeData);
+
         setSaved(true);
         setTimeout(() => {
             setSaved(false);

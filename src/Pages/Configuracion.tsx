@@ -4,12 +4,12 @@ import { db } from '../DB/db';
 import { CurrencyForm, Prompt, Toast } from '../Components';
 import { v4 as uuid } from 'uuid';
 import { Check, Folder, PadlockClosed, PadlockOpen } from '../Components/Icons';
-import { Exchange } from '../Types';
+import { Exchange, TFont, TSound } from '../Types';
 import { beep } from '../Helpers';
+import { ZConfig } from '../Store';
 
-export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
-  const [sound, setSound] = useState(JSON.parse(localStorage.getItem('sound') || 'false'));
-  const [exchanges, setExchanges] = useState<Exchange[]>(JSON.parse(localStorage.getItem('exchanges') || '[]'));
+export const Configuracion = () => {
+  const {sound, font, theme, exchanges, switchFontSize, switchSound,switchTheme, resetConfig} = ZConfig((state)=>state);
   const [prompt, setPrompt] = useState(false);
   const [alerta, setAlerta] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -136,7 +136,7 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
       db.compra.clear();
       db.productos.clear();
       setPrompt(false);
-      setExchanges([]);
+      //setExchanges([]);
     } catch (error) {
       setAlerta(true);
       setAlertaDetalle({title:"¡Error al borrar datos!",text:"Borre los datos de la aplicación desde la configuración de su dispositivo", status:true, cssClass:'c-ored text-w text-center'});
@@ -146,25 +146,13 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
     }
   }
 
-  useEffect(()=>{
-    localStorage.setItem('sound', sound+'');
-  },[sound])
-  useEffect(()=>{
-    localStorage.setItem('exchanges', JSON.stringify(exchanges));
-  },[exchanges])
-  useEffect(()=>{
-    localStorage.setItem('theme', theme+'');
-  },[theme])
-  useEffect(()=>{    
-    document.body.classList.add('font-'+font);
-  },[])
-
   return (
     <>
       {alerta && <Toast {...alertaDetalle}/>}
       {prompt && <Prompt cssClass='text-center' title='¿Borrar datos?' text='Esto borrará todas las compras y productos, no puede deshacerse.' 
         onConfirm={ ()=>{
-          borrarDatos();
+          resetConfig();
+          //borrarDatos();
           setAlerta(true);
           setAlertaDetalle({title:"Datos Borrados",text:"Solo compras y productos, las configuraciones no se borran", status:true, cssClass:'c-green text-w text-center'});
           setTimeout(() => {
@@ -181,8 +169,8 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
             <fieldset>
               <legend className='px-05'><label htmlFor="fuente"><b>TAMAÑO DE FUENTE:</b></label></legend>
               <select name="fuente" id="fuente" onChange={(e) => {
-                setFont(e.target.value);
-              }} defaultValue={font}>
+                switchFontSize(e.target.value as TFont);
+              }} value={font}>
                 <option value="sm">Pequeño</option>
                 <option value="md">Normal (defecto)</option>
                 <option value="lg">Grande</option>
@@ -192,8 +180,8 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
               <legend className='px-05'><label htmlFor="sonido"><b>SONIDO: </b></label></legend>
               <select name="sonido" id="sonido" onChange={(e) => { 
                   e.target.value === 'true' && beep();
-                  setSound(JSON.parse(e.target.value)); 
-                }} defaultValue={sound + ''}>
+                  switchSound(); 
+                }} value={sound}>
                 <option value="true">Habilitado</option>
                 <option value="false">Deshabilitado (defecto)</option>
               </select>
@@ -201,14 +189,8 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
             <fieldset>
               <legend className='px-05'><label htmlFor="theme"><b>TEMA: </b></label></legend>
               <select name="theme" id="theme" onChange={(e) => {
-                if(e.target.value === 'dark'){
-                  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#000000');
-                }else{
-                  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#FF7F50');
-                }
-                
-                setTheme(e.target.value);
-              }} defaultValue={theme}>
+                switchTheme();
+              }} value={theme}>
                 <option value="light">Claro (defecto)</option>
                 <option value="dark">Oscuro</option>
               </select>
@@ -227,7 +209,7 @@ export const Configuracion = ({font,setFont, theme, setTheme}:IRouter) => {
                   {exchanges.map((em,emi)=><option key={emi} value={em.value}>{em.exchange+" ("+em.ucode+(em.value.toFixed(2))+")"}</option>)}
                 </select>              
               </div>
-              <CurrencyForm exchanges={exchanges} setExchanges={setExchanges} setSaved={setSaved}/>
+              <CurrencyForm setSaved={setSaved}/>
             </fieldset>
             <fieldset>
               <legend className='px-05'><label htmlFor="datos"><b>IMPORTAR DESDE TEXTO: </b></label></legend>

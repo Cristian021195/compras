@@ -4,3 +4,4 @@ export * from "./Nuevo"
 export * from "./Calculadora"
 export * from "./Configuracion"
 export * from "./Compartir"
+export * from "./Pruebas"//a remover

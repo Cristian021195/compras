@@ -3,34 +3,19 @@ import { BrowserRouter } from 'react-router-dom'
 import { PublicRouter } from './Router/PublicRouter'
 import { Header } from './Components/Layout'
 import { EditProvider } from './Context/EditContext'
+import { ZConfig } from './Store'
 
 function App() {
-  const [font, setFont] = useState<string>(localStorage.getItem('font') || 'md');
-  const [theme, setTheme] = useState<string>(localStorage.getItem('theme') || 'light');
+  const {theme, font} = ZConfig((state)=>state);
   const [bip, setBip] = useState<any>(undefined);
   const [close, setClose] = useState(false);
-
-  useEffect(()=>{
-    if(theme === 'dark'){
-      document.body.style.backgroundColor = '#000000';
-    }else{
-      document.body.style.backgroundColor = '#ffffff';
-    }
-  },[theme]);
 
   useEffect(()=>{
     window.addEventListener('beforeinstallprompt', (event) => {
       setBip(event)
     });
   },[])
-
-  useEffect(()=>{
-    localStorage.setItem('font', font);
-    document.body.className = '';
-    document.body.classList.add('font-'+font);
-  }
-  ,[font])
-  
+    
   return (
       <BrowserRouter>
         <EditProvider>
@@ -51,7 +36,7 @@ function App() {
               </div> : <></> }
             </div>
             <div className='principal'>
-              <PublicRouter font={font} setFont={setFont} theme={theme} setTheme={setTheme}/>
+              <PublicRouter font={font} theme={theme}/>
             </div>
             <Header></Header>
           </div>          

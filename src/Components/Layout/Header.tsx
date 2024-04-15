@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { Calculator, Gear, Info, Share, ShoppingCart } from '../Icons';
+import { Calculator, Gear, Info, Share, ShoppingCart, Stats } from '../Icons';
 
 
 export const Header = () => {
   return (
     <footer className="cvxc-bar-div">
       <div className={ /iPad|iPhone|iPod/.test(navigator.userAgent) ? "cvxc-bar pb-1" : "cvxc-bar"}>
-        <NavLink to='/'>
+        <NavLink to='/nuevo'>
           <ShoppingCart/>
         </NavLink>
         <NavLink to='/calculadora'>
@@ -20,6 +20,9 @@ export const Header = () => {
         </NavLink>        
         <NavLink to='/info' className={"no-select"}>
           <Info/>
+        </NavLink>
+        <NavLink to='/pruebas' className={"no-select"}>
+          <Stats/>
         </NavLink>
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="filter-svg">
           <defs>
