@@ -152,7 +152,7 @@ export const Configuracion = () => {
       {prompt && <Prompt cssClass='text-center' title='¿Borrar datos?' text='Esto borrará todas las compras y productos, no puede deshacerse.' 
         onConfirm={ ()=>{
           resetConfig();
-          //borrarDatos();
+          borrarDatos();
           setAlerta(true);
           setAlertaDetalle({title:"Datos Borrados",text:"Solo compras y productos, las configuraciones no se borran", status:true, cssClass:'c-green text-w text-center'});
           setTimeout(() => {
