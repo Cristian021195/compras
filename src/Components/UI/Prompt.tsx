@@ -21,7 +21,9 @@ interface IPrompt{
 
 interface IPropsExchange extends IPrompt{
     setExch: Dispatch<SetStateAction<number>>,
-    exch:number
+    exch:number,
+    setCurr: Dispatch<SetStateAction<string>>,
+    curr: string
 }
 
 export const Prompt = ({color="#f5f5f5", bgcolor="#f5f5f5", title="Accion",borderColor="#f5f5f5",
@@ -96,17 +98,23 @@ text="¿Ejecutar Acción?", status=false, children,timeout=3000, copied=false, c
     )
 }
 
-export const PromptExchangeOpts = ({exch,setExch,color="#f5f5f5", bgcolor="#f5f5f5", title="Accion",borderColor="#f5f5f5", btn1="Aceptar", btn2="Alternativo",
+export const PromptExchangeOpts = ({exch,setExch,setCurr,color="#f5f5f5", bgcolor="#f5f5f5", title="Accion",borderColor="#f5f5f5", btn1="Aceptar", btn2="Alternativo",
     text="¿Ejecutar Acción?", status=false, children,timeout=3000, copied=false, cssClass="", onCancel,onConfirm ,onAlternative}:IPropsExchange) => {
     const [hide, setHide] = useState<boolean | undefined>(status);
     const [exchanges, setExchanges] = useState<Exchange[]>(JSON.parse(localStorage.getItem('exchanges') || '[]'));
     const [selExch, setSelExch] = useState(1);
     useEffect(()=>{
+        setCurr('1:1');
         document.body.style.overflowY = "hidden";
         return () => {
             document.body.style.overflowY = "scroll";
         }
     },[]);
+
+    useEffect(()=>{
+        let exVal = exchanges.find(ex=>ex.value+"" === exch+"")?.exchange+"";
+        setCurr(exVal == 'undefined' ? '1:1' : exVal);
+    },[exch]);
     return (
         <div className={"p-2 d-flex justify-content-center align-items-center prompt "+cssClass}>
             <div className="prompt-in">
@@ -118,9 +126,11 @@ export const PromptExchangeOpts = ({exch,setExch,color="#f5f5f5", bgcolor="#f5f5
                     <label htmlFor="exchange">Tipo de cambio:</label>
                     <select name="exchange" id="exchange" defaultValue={exch} onChange={(el)=>{
                         setExch(parseFloat(el.target.value));
+                        let exVal = exchanges.find(ex=>ex.value+"" === el.target.value)?.exchange+"";
+                        setCurr(exVal == 'undefined' ? '1:1' : exVal);
                     }}>
                         <option value="1">defecto 1:1</option>
-                        {exchanges.map((ex,exi)=><option key={exi} value={ex.value}>{ex.exchange + ": "+ ex.ucode + ex.value.toFixed(2)}</option>)}
+                        {exchanges.map((ex,exi)=><option key={exi} value={`${ex.value}`}>{ex.exchange + ": "+ ex.ucode + ex.value.toFixed(2)}</option>)}
                     </select>
                 </div>
                 <div>

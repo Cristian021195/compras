@@ -21,7 +21,7 @@ export const ZConfig = create<IConfig>((set) => ({
     }),
     switchFontSize: (v:TFont) => set((state:IConfig) => {
         localStorage.setItem('font', v);
-        document.body.classList.add('font-'+v);
+        document.body.className = 'font-'+v;
         return {font: v}        
     }),
     switchSound: () => set((state:IConfig) => {

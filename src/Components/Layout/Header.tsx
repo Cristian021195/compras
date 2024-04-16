@@ -6,7 +6,7 @@ export const Header = () => {
   return (
     <footer className="cvxc-bar-div">
       <div className={ /iPad|iPhone|iPod/.test(navigator.userAgent) ? "cvxc-bar pb-1" : "cvxc-bar"}>
-        <NavLink to='/nuevo'>
+        <NavLink to='/'>
           <ShoppingCart/>
         </NavLink>
         <NavLink to='/calculadora'>
@@ -20,9 +20,6 @@ export const Header = () => {
         </NavLink>        
         <NavLink to='/info' className={"no-select"}>
           <Info/>
-        </NavLink>
-        <NavLink to='/pruebas' className={"no-select"}>
-          <Stats/>
         </NavLink>
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="filter-svg">
           <defs>

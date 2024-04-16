@@ -5,11 +5,13 @@ import { Share } from '../Components/Icons';
 import { useState } from 'react';
 import { PromptDouble, PromptExchangeOpts } from '../Components';
 import { ShareFile, ShareText } from '../Helpers';
+import { ZMainForm } from '../Store';
 
 export const Compartir = () => {
   const [ promptDb, setPromptDb ] = useState(false);
-  const [selectedSuper, setSelectedSuper] = useState<ICompra>();
+  const {selected_super, changeSelectedSuper} = ZMainForm((state)=>state);
   const [exch, setExch] = useState(1);
+  const [curr, setCurr] = useState('');
   const [alerta,setAlerta] = useState(false);
   const [alertaDetalle, setAlertaDetalle] = useState({});
 
@@ -35,9 +37,9 @@ export const Compartir = () => {
 
   return (
     <>
-      {promptDb && <PromptExchangeOpts exch={exch} setExch={setExch} btn1='Archivo' btn2='Texto' cssClass='text-center' title='Compartir Compra' text='Seleccione el metodo de compartir su compra'
-        onConfirm={() => { ShareText(selectedSuper!, exch, () => { setPromptDb(!promptDb) }, cbsErr)}}
-        onAlternative={() => { ShareFile(selectedSuper!, exch, () => { setPromptDb(!promptDb) }, cbsErr)}}
+      {promptDb && <PromptExchangeOpts exch={exch} setExch={setExch} setCurr={setCurr} curr='' btn1='Archivo' btn2='Texto' cssClass='text-center' title='Compartir Compra' text='Seleccione el metodo de compartir su compra'
+        onConfirm={() => { ShareText(selected_super, exch, curr, () => { setPromptDb(!promptDb) }, cbsErr)}}
+        onAlternative={() => { ShareFile(selected_super!, exch, curr, () => { setPromptDb(!promptDb) }, cbsErr)}}
         onCancel={() => { setPromptDb(false) }} />}
       <div className='menu-header'>Compartir</div>
       <div className='pop-up mt-4' id='detector'>
@@ -71,7 +73,7 @@ export const Compartir = () => {
                         <td className='d-flex justify-content-center gap-1'>
                           <button className='btn btn-sm c-sblue py-05 text-w' onClick={() => {
                             setPromptDb(true);
-                            setSelectedSuper(e);
+                            changeSelectedSuper(e.super+"");
                           }}>
                             <Share />
                           </button>

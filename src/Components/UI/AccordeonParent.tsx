@@ -1,7 +1,7 @@
 import {useState} from 'react'
 
 
-export const AccordionParent = ({children, state=true, cssClass=""}:any)=>{
+export const AccordionParent = ({children, state=false, cssClass=""}:any)=>{
     //const [state,setState] = useState<boolean>(false);
   return (
     <article className={"w-100 "+cssClass}>

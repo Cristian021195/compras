@@ -5,13 +5,14 @@ import { ProductoNuevoForm } from '../Components/Forms';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../DB/db';
 import { cantidadProductos, cantidadTotalProductos, totalProducto } from '../Helpers';
+import { ZMainForm } from '../Store';
 
 export const Nuevo = () => {
   const [alerta, setAlerta] = useState<string>('');
-  const [superm, setSuperm] = useState<string>('');
+  const {selected_super} = ZMainForm((state)=>state);
   const productos = useLiveQuery(
-    () => db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === superm))
-  ,[superm]);
+    () => db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selected_super))
+  ,[selected_super]);
   return (
     <div>
       <section className='pop-up' id='detector'>
@@ -34,11 +35,11 @@ export const Nuevo = () => {
         </div>
               <br />
         <div className='d-flex justify-content-center flex-wrap gap-1'>
-          <ProductoNuevoForm setSuperm={setSuperm} total={parseFloat(totalProducto(productos!).toFixed(2))} />
+          <ProductoNuevoForm/>
         </div>
       </section>
       <section className='d-flex justify-content-center vh-58'>
-        <TablaProductosCrud clases='stripped scroll-all mb-01' sel={superm} />
+        <TablaProductosCrud/>
       </section>
     </div>
   )

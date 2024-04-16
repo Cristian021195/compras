@@ -1,19 +1,15 @@
-import { create } from 'zustand'        
-import { Exchange, IConfig, TFont, TSound, TTheme } from '../Types';
-
-interface IMainForm {
-    super: string,
-    selected_super: string,
-    nombre: string,
-    precio: number,
-    cantidad: number,
-    sum_desc: number
-}
+import { create } from 'zustand'
+import { IMainForm, IProducto } from '../Interfaces'
 
 export const ZMainForm = create<IMainForm>((set) => ({
-    super: '',
+    selected_prod: null,
+    super_name: '',
     selected_super: '',
     nombre:'',
+    id:'',
+    categoria:'',
+    total:0,
+    chekar:true,
     precio:0,
     cantidad:0,
     sum_desc:0,
@@ -21,7 +17,7 @@ export const ZMainForm = create<IMainForm>((set) => ({
         return {selected_super: v}
     }),
     changeSuper: (v:string) => set((state:IMainForm) => {
-        return {super: v}
+        return {super_name: v}
     }),
     changeNombre: (v:string) => set((state:IMainForm) => {
         return {nombre: v}
@@ -35,18 +31,49 @@ export const ZMainForm = create<IMainForm>((set) => ({
     changeSumDesc: (v:number) => set((state:IMainForm) => {
         return {sum_desc: v}
     }),
-    partialReset: (v:number) => set((state:IMainForm) => {
+    partialReset: () => set((state:IMainForm) => {
         state.nombre='';
         state.precio=0;
         state.cantidad=0;
         state.sum_desc=0;
         return {
+            id:'',
             nombre:'',
             precio:0,
             cantidad:0,
-            sum_desc:0
+            sum_desc:0,
+            categoria:'cualquiera',
+            total:0,
+            chekar:true,
+            super:''
         }        
     }),
+    setSelectedProd: (v:IProducto) => set((state:IMainForm)=>{
+        return {selected_prod: v}
+    }),
+    cleanProd: ()=>set((state:IMainForm)=>{
+        state.id='';
+        state.nombre='';
+        state.precio=0;
+        state.cantidad=0;
+        state.sum_desc=0;
+        state.categoria='cualquiera';
+        state.total=0;
+        state.chekar=true;
+        const p:IProducto = {
+            id:'',
+            nombre:'',
+            precio:0,
+            cantidad:0,
+            descuento:0,
+            sum_desc:0,
+            categoria:'cualquiera',
+            total:0,
+            chekar:true,
+            super:'',
+        }
+        return {selected_prod:p}
+    })
 }))
 
 //

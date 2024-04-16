@@ -67,6 +67,7 @@
     <script>
       const $update_bar = document.getElementById('update-bar');
       const theme = localStorage.getItem('theme');
+      const font = localStorage.getItem('font');
       
 
       window.addEventListener('online', ()=>{
@@ -94,6 +95,10 @@
         }else{
           document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#FF7F50');
         }
+      }
+
+      if(font){
+        document.body.className = 'font-'+font;
       }
 
     </script>
