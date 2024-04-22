@@ -49,8 +49,9 @@ export const ProductoNuevoForm = () => {
         },
         []
     );
-    const listadoc = useLiveQuery(
+    const listadoc = useLiveQuery(        
         async () => {
+            changeSuper(selected_super);
             let compras = await db.compra.toArray();
             if(compras.length > 0 && selected_super === ''){
                 changeSelectedSuper(compras[0].super+"")
@@ -211,7 +212,7 @@ export const ProductoNuevoForm = () => {
                                 <label htmlFor="super">Supermercado: </label>
                                 <div className="costado-esp">
                                     <input type="text" name='super' id='super' placeholder='Super vea' minLength={3} maxLength={30} readOnly={locked}
-                                    required value={super_name === '' ? selected_super : super_name} defaultValue={selected_super} onChange={(e)=>{
+                                    required value={super_name} defaultValue={selected_super} onChange={(e)=>{
                                         changeSuper(e.target.value);
                                     }}/>
                                     <button type='button' className='btn c-lblue px-010 py-025' tabIndex={-1} 
