@@ -86,6 +86,8 @@ export const ProductoNuevoForm = () => {
         db.compra.add({
             super: data?.super+"",
             fecha:  fecha.getFullYear()+"-"+fecha.getMonth()+"-"+fecha.getDate()
+        }).then(res=>{
+            changeSelectedSuper(data?.super+"");
         })
         .catch((err:any)=>{
             console.log('Error: producto ya cargado en este supermercado');
@@ -172,7 +174,11 @@ export const ProductoNuevoForm = () => {
         <>
         {alerta && <Toast {...alertaDetalle}/>}
         {promptAlert && <Prompt cssClass='text-center' title='¿Borrar compras?' text='Esto borrará todas las compras, no puede deshacerse.' 
-            onConfirm={()=>{borrarCompras(selected_super, changeSuper); setFiltrados([]); setPromptAlert(false);}} onCancel={ ()=>{setPromptAlert(false)} }/>}
+            onConfirm={()=>{
+                borrarCompras(selected_super, changeSuper); setFiltrados([]); setPromptAlert(false);
+                changeSelectedSuper(listadoc?.compras[0].super !== undefined ? listadoc?.compras[0].super : "");
+                changeSuper(listadoc?.compras[0].super !== undefined ? listadoc?.compras[0].super : "");
+            }} onCancel={ ()=>{setPromptAlert(false)} }/>}
         {promptDb && <PromptExchangeOpts exch={exch} curr='' setCurr={setCurr} setExch={setExch} btn1='Archivo' btn2='Texto' cssClass='text-center' title='Compartir Compra' text='Seleccione el metodo de compartir su compra' 
             onConfirm={()=>{ 
                 if(selected_super !== undefined){
@@ -205,7 +211,7 @@ export const ProductoNuevoForm = () => {
                                 <label htmlFor="super">Supermercado: </label>
                                 <div className="costado-esp">
                                     <input type="text" name='super' id='super' placeholder='Super vea' minLength={3} maxLength={30} readOnly={locked}
-                                    required value={super_name === '' ? selected_super: super_name} onChange={(e)=>{
+                                    required value={super_name} onChange={(e)=>{
                                         changeSuper(e.target.value);
                                     }}/>
                                     <button type='button' className='btn c-lblue px-010 py-025' tabIndex={-1} 
