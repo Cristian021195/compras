@@ -113,6 +113,11 @@ export const ProductoNuevoForm = () => {
                     },0),
                     cantidad: listado!.productos?.filter((sup)=>sup.super === data?.super).length
                 })
+                setAlerta(true);
+                setAlertaDetalle({title:"Producto Editado",text:"", status:true, cssClass:'c-green text-w text-center'});
+                setTimeout(() => {
+                    setAlerta(false);
+                }, 2500);
                 if(sound == 'true'){ beep(); }
             }
             setLocked(true);
@@ -135,7 +140,7 @@ export const ProductoNuevoForm = () => {
                 setAlertaDetalle({title:"Nuevo Producto",text:"¡Agregado!", status:true, cssClass:'c-green text-w text-center'});
                 setTimeout(() => {
                     setAlerta(false);
-                }, 4000);
+                }, 2500);
                 if(sound == 'true'){ beep();}
 
                 db.compra.update(data?.super+"",{
@@ -150,7 +155,7 @@ export const ProductoNuevoForm = () => {
                 setAlertaDetalle({title:"¡Advertencia!",text:"producto ya cargado en este supermercado "+data?.super, status:true, cssClass:'c-gold text-center'});
                 setTimeout(() => {
                     setAlerta(false);
-                }, 4000);                
+                }, 2500);
             })
         }
     }
