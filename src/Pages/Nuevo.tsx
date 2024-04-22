@@ -18,7 +18,6 @@ export const Nuevo = () => {
   ,[selected_super]);
   useEffect(()=>{
     setStat(!stat);
-    console.log('a')
   },[productos])
   return (
     <div>
