@@ -8,7 +8,7 @@ export const Inicio = () => {
       <div className='pop-up mt-4' id='detector'>
         <section>
           <div className='mb-3'>
-            <p><b>ListaCompras</b>, es una aplicación simple, creada para mis prácticas en el Desarrollo Web.</p>
+            <p><b>ListaCompras (Beta v3)</b>, es una aplicación simple, creada para mis prácticas en el Desarrollo Web.</p>
             <p>La app es surge al momento de tener que hacer compras en el supermercado, e ir cargando lo que necesitemos, asi tener mayor control de que compramos.</p>
             <p><small><i>*Para tener siempre la ultima versión, puede ser necesario <a id='recarga' href="/" className='btn c-main p-05'>recargar</a> la web app</i></small></p>
             <br />
@@ -20,6 +20,7 @@ export const Inicio = () => {
               <li>Vite</li>
               <li>Vite PWA</li>
               <li>React Router DOM</li>
+              <li>Zustand</li>
               <li>uuid v4</li>
               <li>Dexie JS</li>
               <li>dexie-react-hooks</li>
