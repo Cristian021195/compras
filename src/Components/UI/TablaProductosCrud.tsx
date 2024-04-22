@@ -34,6 +34,7 @@ export const TablaProductosCrud = () => {
                     total:  listado!.productos?.filter((sup)=>sup.super === selected_super)!.reduce((a,o)=>a+o.precio,0) - prod.precio,
                     cantidad: listado!.productos?.filter((sup)=>sup.super === selected_super).length - 1
                 })
+                setSelectedProd({...selected_prod!,id:'',precio:1,cantidad:1,nombre:''})
             }
         } catch (error) {
             console.log(error)

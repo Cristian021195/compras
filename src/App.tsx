@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { PublicRouter } from './Router/PublicRouter'
 import { Header } from './Components/Layout'
 import { EditProvider } from './Context/EditContext'
-import { ZConfig } from './Store'
+import { ZConfig,ZMainForm } from './Store'
 
 function App() {
   const {theme, font} = ZConfig((state)=>state);
@@ -20,7 +20,7 @@ function App() {
       <BrowserRouter>
         <EditProvider>
           <div className={'main-height '+'theme-'+theme}>
-            <div className={close ? 'd-none' : 'text-center py-1 bip-bar p-abs'}>{bip !== undefined ? 
+            <div className={close ? 'd-none' : 'd-none text-center py-1 bip-bar p-abs'}>{bip !== undefined ? 
               <div className='d-flex justify-content-evenly gap-1 mx-1'>
                 <div className='d-flex align-items-center'>¿Instalar app? Para una mejor experiencia</div>
                 <button

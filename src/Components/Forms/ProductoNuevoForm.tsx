@@ -29,11 +29,11 @@ interface IProps{
 
 
 export const ProductoNuevoForm = () => {
-    const {selected_super, changeSelectedSuper, super_name, changeSuper, selected_prod, cleanProd} = ZMainForm((state)=>state);
+    const {selected_super, changeSelectedSuper, super_name, changeSuper, selected_prod, setSelectedProd} = ZMainForm((state)=>state);
     const {sound} = ZConfig((state)=>state);
     const [minimize, setMinimize] = useState(false);
     const [filtrados, setFiltrados] = useState<TProducto[]>([]);
-    const [locked, setLocked] = useState(true);
+    const [locked, setLocked] = useState(false);
     const [exch, setExch] = useState(1);
     const [curr, setCurr] = useState('');
     const [promptAlert,setPromptAlert] = useState(false);
@@ -41,19 +41,23 @@ export const ProductoNuevoForm = () => {
     const [alerta,setAlerta] = useState(false);
     const [findError, setFindError] = useState(false);
     const [alertaDetalle, setAlertaDetalle] = useState({});
-    const cleanRef = useRef<HTMLButtonElement>(null);
     const nombre = useRef<HTMLInputElement>(null);
     const listado = useLiveQuery(
         async () => {
-            let [compras, productos] = await Promise.all([db.compra.toArray(),db.productos.toArray()]);
+            let productos = await db.productos.toArray();
+            return {productos};
+        },
+        []
+    );
+    const listadoc = useLiveQuery(
+        async () => {
+            let compras = await db.compra.toArray();
             if(compras.length > 0 && selected_super === ''){
                 changeSelectedSuper(compras[0].super+"")
             }
-            return {
-                compras, 
-                productos
-            };
-        }
+            return {compras};
+        },
+        [selected_super]
     );
     const cbsErr = () =>{
         setAlerta(true);
@@ -112,7 +116,7 @@ export const ProductoNuevoForm = () => {
                 if(sound == 'true'){ beep(); }
             }
             setLocked(true);
-            cleanRef.current?.click();
+            cleanProd();
         }else{
             db.productos.add({
                 id: uuid(),
@@ -139,7 +143,7 @@ export const ProductoNuevoForm = () => {
                     cantidad: listado!.productos?.filter((sup)=>sup.super === data?.super).length + 1
                 })
                 setLocked(true);
-                cleanRef.current?.click();
+                cleanProd();
             })
             .catch((err:any)=>{
                 setAlerta(true);
@@ -149,6 +153,9 @@ export const ProductoNuevoForm = () => {
                 }, 4000);                
             })
         }
+    }
+    const cleanProd = ()=>{
+        setSelectedProd({...selected_prod!,id:'',precio:1,cantidad:1,nombre:''})
     }
     return (
         <>
@@ -176,8 +183,7 @@ export const ProductoNuevoForm = () => {
                     setTimeout(() => {
                         setAlerta(false);
                     }, 2500);
-                }
-                
+                }                
             }}
             onCancel={ ()=>{setPromptDb(false)} }/>}
             <form onSubmit={cargaProducto} className='producto-form c-lforange mw-100'>
@@ -202,12 +208,13 @@ export const ProductoNuevoForm = () => {
                             <div>
                                 <label htmlFor="listado-super">Supermercados</label>
                                 <div className='costado'>
-                                    <select className='costado' style={{width:'120px'}} tabIndex={-1}
+                                    <select className='costado' style={{width:'120px'}} tabIndex={-1} value={super_name}
                                         onChange={(e)=>{
                                             changeSelectedSuper(e.target.value);
                                             changeSuper(e.target.value);
+                                            cleanProd();
                                         }}>
-                                        {listado?.compras?.map((ls,lsi)=>{
+                                        {listadoc?.compras?.map((ls,lsi)=>{
                                             return <option key={lsi} value={ls.super}>{ls.super}</option>
                                         })}
                                     </select>
@@ -220,13 +227,16 @@ export const ProductoNuevoForm = () => {
                                     <span><ShoppingCart /><Search style={{ verticalAlign: 'bottom', paddingBottom: 2 }} /></span>:{findError ? '❌' : ''}<span></span>
                                 </label>
                                 <div className="costado">
-                                    <input type="text" name='nombre' id='nombre' ref={nombre} placeholder='Galletas x250' minLength={3} maxLength={30} required defaultValue={selected_prod?.nombre || ''}/>
+                                    <input type="text" name='nombre' id='nombre' ref={nombre} placeholder='Galletas x250' minLength={3} maxLength={30} required value={selected_prod?.nombre || ''}
+                                    onChange={(e)=>{setSelectedProd({...selected_prod!, nombre:e.target.value,id:''})}}/>
                                 </div>
                             </div>
                             <div>
                                 <label htmlFor="precio">Precio <b>($)</b>:</label>                        
                                 <div className="costado">
-                                    <input type="number" name="precio" min={0} max={1000000} step='0.01' required onChange={(e)=>{}} defaultValue={selected_prod?.precio || 1}/>
+                                    <input type="number" name="precio" min={0} max={1000000} step='0.01' required onChange={(e)=>{
+                                            setSelectedProd({...selected_prod!, precio:parseFloat(e.target.value)})
+                                        }} value={selected_prod?.precio} defaultValue={1}/>
                                 </div>
                             </div>
                         </div>
@@ -234,13 +244,17 @@ export const ProductoNuevoForm = () => {
                             <div>
                                 <label htmlFor="cantidad">Cantidad <b>(¾)</b>:</label>
                                 <div className="costado">
-                                    <input type="number" name="cantidad" min={1} max={1000000} required onChange={(e)=>{}} defaultValue={selected_prod?.cantidad || 1}/>
+                                    <input type="number" name="cantidad" min={1} max={1000000} required onChange={(e)=>{
+                                        setSelectedProd({...selected_prod!, cantidad:parseFloat(e.target.value)})
+                                    }} defaultValue={1} value={selected_prod?.cantidad}/>
                                 </div>
                             </div>
                             <div>
                                 <label htmlFor="sum_desc">suma/desc <b>(±) </b>: </label>
                                 <div className="costado">
-                                    <input type="number" name="sum_desc" min={-999999} max={1000000} step='0.01' onChange={(e)=>{}} defaultValue={selected_prod?.sum_desc || 0}/>
+                                    <input type="number" name="sum_desc" min={-999999} max={1000000} step='0.01' onChange={(e)=>{
+                                        setSelectedProd({...selected_prod!, sum_desc:parseFloat(e.target.value)})
+                                    }} defaultValue={0} value={selected_prod?.sum_desc}/>
                                 </div>
                             </div>
                         </div>
@@ -255,7 +269,7 @@ export const ProductoNuevoForm = () => {
                     <button type="submit" className='btn btn-circle text-w c-green circle p-1'>
                         <Add width={14} height={14}/>
                     </button>
-                    <button type='reset' className='btn btn-circle text-w c-dgreen circle p-1' onClick={cleanProd} ref={cleanRef}>
+                    <button type='button' className='btn btn-circle text-w c-dgreen circle p-1' onClick={cleanProd}>
                         <Clean width={14} height={14}/>
                     </button>
                     <button type="button" className='btn btn-circle text-w c-ored circle p-1' onClick={()=>{setPromptAlert(true);}}>

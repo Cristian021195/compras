@@ -10,8 +10,8 @@ export const ZMainForm = create<IMainForm>((set) => ({
     categoria:'',
     total:0,
     chekar:true,
-    precio:0,
-    cantidad:0,
+    precio:1,
+    cantidad:1,
     sum_desc:0,
     changeSelectedSuper: (v:string) => set((state:IMainForm) => {
         return {selected_super: v}
@@ -33,14 +33,14 @@ export const ZMainForm = create<IMainForm>((set) => ({
     }),
     partialReset: () => set((state:IMainForm) => {
         state.nombre='';
-        state.precio=0;
-        state.cantidad=0;
+        state.precio=1;
+        state.cantidad=1;
         state.sum_desc=0;
         return {
             id:'',
             nombre:'',
-            precio:0,
-            cantidad:0,
+            precio:1,
+            cantidad:1,
             sum_desc:0,
             categoria:'cualquiera',
             total:0,
@@ -54,8 +54,8 @@ export const ZMainForm = create<IMainForm>((set) => ({
     cleanProd: ()=>set((state:IMainForm)=>{
         state.id='';
         state.nombre='';
-        state.precio=0;
-        state.cantidad=0;
+        state.precio=1;
+        state.cantidad=1;
         state.sum_desc=0;
         state.categoria='cualquiera';
         state.total=0;
