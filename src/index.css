@@ -275,11 +275,27 @@ html{
   -webkit-box-shadow: 2px 0px 0px 0px var(--c-seorange) inset;
   -moz-box-shadow: 2px 0px 0px 0px var(--c-seorange) inset;
 }
-.total-status{
-  background-color:var(--c-main);
+
+.total-box{
   border-radius:0.3em;
   padding:0.5em;
   margin-top: 0; margin-bottom: 1rem;
+}
+.total-status{
+  animation: mymove 0.8s;
+  animation-fill-mode: forwards;
+}
+.total-status-a{
+  animation: mymovea 0.8s;
+  animation-fill-mode: forwards;
+}
+@keyframes mymovea {
+  from {background-color:var(--c-green);}
+  to {background-color:var(--c-main);}
+}
+@keyframes mymove {
+  from {background-color:var(--c-green);}
+  to {background-color:var(--c-main);}
 }
 .top-toast{top:0; left:0;height:5rem;}
 table{

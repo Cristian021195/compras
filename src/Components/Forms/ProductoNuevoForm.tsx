@@ -64,7 +64,7 @@ export const ProductoNuevoForm = () => {
         setAlertaDetalle({title:"¡Error!",text:"Su dispositivo no soportar Share API", status:true, cssClass:"c-ored text-w text-center"});
         setTimeout(() => {
             setAlerta(false);
-        }, 2500);
+        }, 1750);
     }
     const buscar = async()=>{
         if(nombre.current?.value.length! > 0){
@@ -113,12 +113,15 @@ export const ProductoNuevoForm = () => {
                     },0),
                     cantidad: listado!.productos?.filter((sup)=>sup.super === data?.super).length
                 })
-                setAlerta(true);
-                setAlertaDetalle({title:"Producto Editado",text:"", status:true, cssClass:'c-green text-w text-center'});
-                setTimeout(() => {
-                    setAlerta(false);
-                }, 2500);
-                if(sound == 'true'){ beep(); }
+                if(sound == 'true'){
+                    beep();
+                }else{
+                    setAlerta(true);
+                    setAlertaDetalle({title:"Producto Editado",text:"", status:true, cssClass:'c-green text-w text-center'});
+                    setTimeout(() => {
+                        setAlerta(false);
+                    }, 1750);
+                }
             }
             setLocked(true);
             cleanProd();
@@ -136,12 +139,15 @@ export const ProductoNuevoForm = () => {
                 chekar:true
             })
             .then(res=>{
-                setAlerta(true);
-                setAlertaDetalle({title:"Nuevo Producto",text:"¡Agregado!", status:true, cssClass:'c-green text-w text-center'});
-                setTimeout(() => {
-                    setAlerta(false);
-                }, 2500);
-                if(sound == 'true'){ beep();}
+                if(sound == 'true'){
+                    beep();
+                }else{
+                    setAlerta(true);
+                    setAlertaDetalle({title:"Nuevo Producto",text:"¡Agregado!", status:true, cssClass:'c-green text-w text-center'});
+                    setTimeout(() => {
+                        setAlerta(false);
+                    }, 1750);
+                }
 
                 db.compra.update(data?.super+"",{
                     total:  parseFloat(data?.precio+"") + listado!.productos?.filter((sup)=>sup.super === data?.super)!.reduce((a,o)=>a+o.precio,0),
@@ -155,7 +161,7 @@ export const ProductoNuevoForm = () => {
                 setAlertaDetalle({title:"¡Advertencia!",text:"producto ya cargado en este supermercado "+data?.super, status:true, cssClass:'c-gold text-center'});
                 setTimeout(() => {
                     setAlerta(false);
-                }, 2500);
+                }, 1750);
             })
         }
     }
@@ -176,7 +182,7 @@ export const ProductoNuevoForm = () => {
                     setAlertaDetalle({title:"¡Error!",text:"No hay datos para exportar", status:true, cssClass:"c-ored text-w text-center"});
                     setTimeout(() => {
                         setAlerta(false);
-                    }, 2500);
+                    }, 1750);
                 }
             }}
             onAlternative={()=>{
@@ -187,7 +193,7 @@ export const ProductoNuevoForm = () => {
                     setAlertaDetalle({title:"¡Error!",text:"No hay datos para exportar", status:true, cssClass:"c-ored text-w text-center"});
                     setTimeout(() => {
                         setAlerta(false);
-                    }, 2500);
+                    }, 1750);
                 }                
             }}
             onCancel={ ()=>{setPromptDb(false)} }/>}

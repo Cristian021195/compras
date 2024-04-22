@@ -1,5 +1,5 @@
 
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import { TablaProductosCrud } from '../Components/UI';
 import { ProductoNuevoForm } from '../Components/Forms';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -10,13 +10,20 @@ import { ZMainForm } from '../Store';
 export const Nuevo = () => {
   const [alerta, setAlerta] = useState<string>('');
   const {selected_super} = ZMainForm((state)=>state);
+  const [stat, setStat] = useState(false);
   const productos = useLiveQuery(
-    () => db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selected_super))
+    () => {
+      return db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selected_super))
+    }
   ,[selected_super]);
+  useEffect(()=>{
+    setStat(!stat);
+    console.log('a')
+  },[productos])
   return (
     <div>
       <section className='pop-up' id='detector'>
-        <h2 className='total-status text-center text-w'>Total: ${totalProducto(productos!).toFixed(2)}</h2>        
+        <h2 className={stat ? 'total-box total-status text-center text-w' : 'total-box total-status-a text-center text-w '}>Total: ${totalProducto(productos!).toFixed(2)}</h2>
         <div>
           <div className='info-counter d-flex flex-wrap justify-content-between'>
             <p>
