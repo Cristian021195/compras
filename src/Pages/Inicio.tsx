@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import QRCode from 'react-qr-code';
+import { Link } from 'react-router-dom';
 
 export const Inicio = () => {
   const [shareError, setShareError] = useState(false);
@@ -11,6 +12,7 @@ export const Inicio = () => {
             <p><b>ListaCompras (Beta v3)</b>, es una aplicación simple, creada para mis prácticas en el Desarrollo Web.</p>
             <p>La app es surge al momento de tener que hacer compras en el supermercado, e ir cargando lo que necesitemos, asi tener mayor control de que compramos.</p>
             <p><small><i>*Para tener siempre la ultima versión, puede ser necesario <a id='recarga' href="/" className='btn c-main p-05'>recargar</a> la web app</i></small></p>
+            <p><small><i><b>IMPORTANTE</b> si tu celular es <b>IPhone</b>, para instalar o tener el accesso directo debes seguir las siguientes instrucciones: <Link to='/iphone' className='btn c-lblue p-05'>Instructivo</Link></i></small></p>
             <br />
             <h3>RECURSOS USADOS</h3>
             <p>La aplicación usa las siguientes librerias y tecnologías:</p>

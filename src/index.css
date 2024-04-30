@@ -52,6 +52,7 @@
 .c-dtheme{background-color: var(--c-dtheme)!important;}
 .c-lforange{background-color: var(--c-lforange)!important;}
 .c-trans{background-color: transparent!important;}
+.t-sblue{color: var(--c-sblue);}
 
 body, div, ul{
   margin: 0;
@@ -79,6 +80,9 @@ h1{
 }
 .fs-08{
   font-size: 0.8rem;
+}
+.fs-1{
+  font-size: 1.2rem;
 }
 .fwb{font-weight: bold;}
 label{
@@ -274,6 +278,10 @@ html{
   box-shadow: 2px 0px 0px 0px var(--c-seorange) inset;
   -webkit-box-shadow: 2px 0px 0px 0px var(--c-seorange) inset;
   -moz-box-shadow: 2px 0px 0px 0px var(--c-seorange) inset;
+}
+.gallery img{
+  width: 100%;
+  border-radius: 1rem;
 }
 
 .total-box{
