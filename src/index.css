@@ -558,6 +558,7 @@ header ul{
   .costado{display: flex; justify-content: center;}
   .costado div{display: block; margin-top: 1rem;}
   .costado input[type="number"], .costado input[type="text"]{width: 60px!important;}
+  .costado-f input[type="number"], .costado-f input[type="text"]{width: 98%;}
 }
 @media only screen and (max-width: 768px) {
   [class*="col-"] {
@@ -569,7 +570,7 @@ header ul{
   .costado{display: flex; justify-content: center;}
   .costado div{display: block; margin-top: 1rem;}
   .costado input[type="number"], .costado input[type="text"]{width: 120px;}
-  .costado-f input[type="number"], .costado-f input[type="text"]{width: 100%;}
+  .costado-f input[type="number"], .costado-f input[type="text"]{width: 98%;}
   .costado-esp input[type="text"]{width: 100px;}
   .mobile-field{
     display:'flex'; gap:1rem; padding:1rem;
