@@ -2,10 +2,10 @@ import { NavLink } from 'react-router-dom';
 import { Calculator, Gear, Info, Share, ShoppingCart, Stats } from '../Icons';
 
 
-export const Header = () => {
+export const Header = () => {//<div className={ /iPad|iPhone|iPod/.test(navigator.userAgent) ? "cvxc-bar pb-1" : "cvxc-bar"}>
   return (
     <footer className="cvxc-bar-div">
-      <div className={ /iPad|iPhone|iPod/.test(navigator.userAgent) ? "cvxc-bar pb-1" : "cvxc-bar"}>
+      <div className="cvxc-bar">
         <NavLink to='/'>
           <ShoppingCart/>
         </NavLink>

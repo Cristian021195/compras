@@ -239,16 +239,18 @@ export const ProductoNuevoForm = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='d-flex justify-content-between align-items-center mb-2'>
+                        <div className='mb-2'>
                             <div>
                                 <label htmlFor="nombre">Producto 
                                     <span><ShoppingCart /><Search style={{ verticalAlign: 'bottom', paddingBottom: 2 }} /></span>:{findError ? '❌' : ''}<span></span>
                                 </label>
-                                <div className="costado">
+                                <div className="costado-f">
                                     <input type="text" name='nombre' id='nombre' ref={nombre} placeholder='Galletas x250' minLength={3} maxLength={30} required value={selected_prod?.nombre || ''}
                                     onChange={(e)=>{setSelectedProd({...selected_prod!, nombre:e.target.value,id:''})}}/>
                                 </div>
                             </div>
+                        </div>
+                        <div className='d-flex justify-content-between align-items-center mb-2'>
                             <div>
                                 <label htmlFor="precio">Precio <b>($)</b>:</label>                        
                                 <div className="costado">
@@ -257,8 +259,6 @@ export const ProductoNuevoForm = () => {
                                         }} value={selected_prod?.precio} defaultValue={1}/>
                                 </div>
                             </div>
-                        </div>
-                        <div className='d-flex justify-content-between align-items-center mb-2'>                    
                             <div>
                                 <label htmlFor="cantidad">Cantidad <b>(¾)</b>:</label>
                                 <div className="costado">
@@ -267,14 +267,7 @@ export const ProductoNuevoForm = () => {
                                     }} defaultValue={1} value={selected_prod?.cantidad}/>
                                 </div>
                             </div>
-                            <div>
-                                <label htmlFor="sum_desc">suma/desc <b>(±) </b>: </label>
-                                <div className="costado">
-                                    <input type="number" name="sum_desc" min={-999999} max={1000000} step='0.01' onChange={(e)=>{
-                                        setSelectedProd({...selected_prod!, sum_desc:parseFloat(e.target.value)})
-                                    }} defaultValue={0} value={selected_prod?.sum_desc}/>
-                                </div>
-                            </div>
+                            <input type="hidden" name="sum_desc" defaultValue={0} value={0}/>
                         </div>
                         <label htmlFor="descuento" className='d-none align-items-center justify-content-between flex-wrap p-1'>Descuento (%): 
                         <input type="number" name="descuento" min={0} onChange={(e)=>{}}/>

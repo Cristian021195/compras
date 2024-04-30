@@ -65,7 +65,6 @@ export const TablaProductosCrud = () => {
                             <th className='headcol'>NOMBRE</th>
                             <th>PRECIO</th>
                             <th>CANTIDAD</th>
-                            <th>SUM/DESC</th>
                             <th>TOTAL</th>
                             <th>&nbsp;&nbsp;ACCIONES&nbsp;&nbsp;</th>
                         </tr>
@@ -83,7 +82,6 @@ export const TablaProductosCrud = () => {
                                     <td className={ p.chekar ? 'check-hc headcol' : 'headcol nocheck-hc'}><b>{p.nombre}</b></td>
                                     <td>{p.precio}</td>
                                     <td>{p.cantidad}</td>
-                                    <td>{p.sum_desc}</td>
                                     <td>{p.total}</td>
                                     <td>
                                         <button className='btn acciones-btn c-bred text-d' onClick={()=>{
