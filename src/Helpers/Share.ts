@@ -22,6 +22,9 @@ import { ICompra, IProducto } from '../Interfaces'; //exch
 export const ShareText = async ( selectedSuper:string, exch:number, curr:string, cbs:()=>void, cbsErr:()=>void ) => {
     let sSuper = (await db.compra.where("super").equals(selectedSuper).toArray()).find(e=>e) as ICompra;
     let prods = await db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selectedSuper))
+    sSuper.total = parseFloat(sSuper.total+"") / exch;
+    sSuper.total = parseFloat(sSuper.total.toFixed(2));
+
     let parsed;
     if(exch === 1){
         parsed = prods.map((e:IProducto)=> `${e.nombre}=${e.precio}`);
@@ -40,7 +43,7 @@ export const ShareText = async ( selectedSuper:string, exch:number, curr:string,
             cbs();
         }else{
             throw new Error("No soporta share API");
-        }   
+        }
     } catch (error:any) {
         cbsErr();
     }
@@ -49,6 +52,8 @@ export const ShareText = async ( selectedSuper:string, exch:number, curr:string,
 export const ShareFile = async (selectedSuper:string, exch:number, curr:string, cbs:()=>void, cbsErr:()=>void ) => {
     let sSuper = (await db.compra.where("super").equals(selectedSuper).toArray()).find(e=>e) as ICompra;
     let prods = await db.productos.toArray().then((pds)=>pds.filter((sup)=>sup.super === selectedSuper));
+    sSuper.total = parseFloat(sSuper.total+"") / exch;
+    sSuper.total = parseFloat(sSuper.total.toFixed(2));
     let fileName = 'Compras '+selectedSuper+' '+sSuper.fecha;    
     let parsed;
     if(exch === 1){

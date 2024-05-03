@@ -198,7 +198,7 @@ export const Configuracion = () => {
             <fieldset>
               <legend className='px-05'><label htmlFor="datos"><b>TIPO DE CAMBIO: </b></label></legend>
               <div className='mb-2'>
-                <small><i>Una unidad de tipo de cambio "A" vale X de cambio "B", por ejemplo: 1 USD (destino) en ARS (origen) es: $1020</i></small>
+                <small><i>La moneda "A" vale X de "B", por ejemplo: 1 USD (destino) es $1020 ARS (origen) </i></small>
               </div>
               <label>Tipos de cambio guardados: </label>
               <div className='d-flex align-items-center'>
