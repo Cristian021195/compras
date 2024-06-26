@@ -6,3 +6,4 @@ export * from "./Configuracion"
 export * from "./Compartir"
 export * from "./Pruebas"//a remover
 export * from "./Iphone"
+export * from "./Android"

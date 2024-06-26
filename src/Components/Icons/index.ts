@@ -17,6 +17,7 @@ export * from "./Padlocks";
 export * from "./Check";
 export * from "./Apple";
 export * from "./Back";
-export * from "./PlusSquare"
-export * from "./BoxArrowUp"
+export * from "./PlusSquare";
+export * from "./BoxArrowUp";
+export * from "./AndroidIcon";
 

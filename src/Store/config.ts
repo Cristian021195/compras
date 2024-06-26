@@ -45,19 +45,19 @@ export const ZConfig = create<IConfig>((set) => ({
         }
     }),
     resetConfig: ()=> set((state:IConfig) => {
-        localStorage.removeItem('theme');
-        localStorage.removeItem('font');
-        localStorage.removeItem('sound');
-        localStorage.removeItem('exchanges');
-        state.font='md';
-        state.sound='false';
-        state.theme='light';
-        state.exchanges=[];
+        //localStorage.removeItem('theme');
+        //localStorage.removeItem('font');
+        //localStorage.removeItem('sound');
+        //localStorage.removeItem('exchanges');
+        //state.font='md';
+        //state.sound='false';
+        //state.theme='light';
+        //state.exchanges=[];
         return {
-            font:'md',
-            sound:'false',
-            theme:'light',
-            exchanges:[]
+            //font:'md',
+            //sound:'false',
+            //theme:'light',
+            //exchanges:[]
         }        
     })
 }))

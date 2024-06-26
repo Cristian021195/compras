@@ -20,14 +20,11 @@ export const Configuracion = () => {
   const form = useRef<FormEvent<HTMLFormElement>>();
   const formF = useRef<any>();
 
-
   const handleSubmit = (e:FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
     procesarTexto(text);
     e.currentTarget.reset();
   }
-
-  
 
   const changeFile = (e:ChangeEvent<HTMLInputElement>) =>{//as HTMLInputElement
     try {
