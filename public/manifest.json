@@ -1,7 +1,5 @@
 {
-    "lang": "es",
-    "display_override": ["window-controls-overlay"], 
-    "protocol_handlers": [{"protocol":"mailto","url":"/newEmail?to=%s"}], 
+    "lang": "es", 
     "theme_color": "#FF7F50",
     "orientation": "portrait",
     "background_color": "#FF7F50",
@@ -15,26 +13,6 @@
     "short_name": "listaCompras",
     "description": "App para hacer compras, llevar control y compartir precios",
     "categories": ["productivity", "finance"],
-    "iarc_rating_id": "e58c174a-81d2-5c3c-32cc-34b8de4a52e9",
-    "launch_handler": {
-        "client_mode": ["navigate-existing", "auto"]
-    },
-    "prefer_related_applications": true,
-    "related_applications": [
-        {
-          "platform": "windows",
-          "url": "https://apps.microsoft.com/detail/9nk11q60rksq?hl=es-es&gl=AD",
-          "id": "9nk11q60rksq"
-        },
-        {
-          "platform": "play",
-          "url": "https://play.google.com/store/apps/details?id=co.kr.ezapp.shoppinglist&hl=es"
-        }
-    ],
-    "scope_extensions": [
-        {"origin": "*listacompras-omega.vercel.app"},
-        {"origin": "*github.com/Cristian021195/compras"}
-    ],
     "icons": [
         {
             "src": "/icon-192x192.png",
