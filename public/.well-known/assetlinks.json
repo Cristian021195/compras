@@ -1,0 +1,11 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.listacompras_omega.twa",
+        "sha256_cert_fingerprints":
+          ["FE:6B:C0:3F:B5:C2:CB:47:E3:A1:96:95:82:F7:B8:B2:4F:63:75:06:7E:B5:20:6F:59:47:7E:A0:F9:D8:59:31"]
+      }
+    }
+  ]
